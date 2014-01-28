@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Avinet.Adaptive.Statistics.ExcelAddIn.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="configJson" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="adaptiveUri" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://projects.europetech.eu/adaptive</Value>
+    </Setting>
+    <Setting Name="adaptiveNodeUuid" Type="System.String" Scope="User">
+      <Value Profile="(Default)">na</Value>
+    </Setting>
+    <Setting Name="adaptiveUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">runarbe</Value>
+    </Setting>
+    <Setting Name="adaptivePwd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">runarbe</Value>
+    </Setting>
+    <Setting Name="testMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">true</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
