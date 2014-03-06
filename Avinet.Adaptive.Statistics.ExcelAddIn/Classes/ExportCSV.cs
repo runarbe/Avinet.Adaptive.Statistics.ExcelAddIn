@@ -125,7 +125,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 {
 
                     // First, parse the values of the row and the form
-                    int mFieldPropertyIndex, mStatUnitFieldIndex, mStatUnitNameFieldIndex, mStatUnitGroupFieldIndex;
+                    int mFieldPropertyIndex;
 
                     if (!int.TryParse(Export.GetDGVVal(mFieldProperties, "FieldIndex"), out mFieldPropertyIndex))
                     {
@@ -133,23 +133,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         return null;
                     }
 
-                    if (!int.TryParse(Export.GetSelVal(pForm.cbStatUnitField), out mStatUnitFieldIndex))
-                    {
-                        pForm.Log("Feil: du må velje ein type statistisk krins");
-                        return null;
-                    }
-
-                    if (!int.TryParse(Export.GetSelVal(pForm.cbStatUnitNameField), out mStatUnitNameFieldIndex))
-                    {
-                        pForm.Log("Informasjon: det er ikkje valt noko namnefelt");
-                        mStatUnitNameFieldIndex = -1;
-                    }
-
-                    if (!int.TryParse(Export.GetSelVal(pForm.cbStatUnitGroupField), out mStatUnitGroupFieldIndex))
-                    {
-                        pForm.Log("Informasjon: det er ikkje valt noko grupperingsfelt");
-                        mStatUnitGroupFieldIndex = -1;
-                    }
 
                     string mStatUnitType = Export.GetSelVal(pForm.cbStatUnitType);
 
@@ -165,84 +148,61 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     // Then, loop through all the data values and write them to the CSV
                     foreach (KeyValuePair<int, AdaptiveRow> mRow2 in pValues3D)
                     {
-                        // Check that none of the field values that are used for statistical units
-                        // is null or empty
-                        if (mRow2.Value[mStatUnitFieldIndex] != null && mRow2.Value[mStatUnitFieldIndex] != "")
-                        {  
-                            // If the 
-                            double mValue;
-                            if (double.TryParse(mRow2.Value[mFieldPropertyIndex], out mValue))
+                        // If the 
+                        double mValue;
+                        if (double.TryParse(mRow2.Value[mFieldPropertyIndex].Value, out mValue))
+                        {
+                            // Create a new line for the CSV file
+                            var mLine = new CsvLine();
+
+                            mLine.krets_name = "";
+
+                            mLine.region = "";
+
+                            // Set the StatUnitType
+                            mLine.kretstype_id = mStatUnitType;
+
+                            // Set the StatUnitId
+                            mLine.krets_id = "1";
+
+                            // Set the measurement unit used
+                            mLine.unit = mMeasurementUnit;
+
+                            // Set time metadata
+                            mLine.year = mYear;
+                            mLine.quarter = mYearPart;
+                            mLine.month = mMonth;
+                            mLine.day = mDay;
+
+                            // Set the actual statistical value
+                            mLine.value = mValue;
+
+                            // Set the statistical variable type
+                            var numVariableLevels = mSplitVariableType.Count();
+
+                            if (numVariableLevels >= 5)
                             {
-                                // Create a new line for the CSV file
-                                var mLine = new CsvLine();
-
-                                // Set all values for the CSV line
-
-                                // Set the StatUnitNameField value
-                                if (mStatUnitNameFieldIndex != -1)
-                                {
-                                    mLine.krets_name = mRow2.Value[mStatUnitNameFieldIndex];
-                                }
-                                else
-                                {
-                                    mLine.krets_name = "";
-                                }
-
-                                // Set the StatUnitGroupField value
-                                if (mStatUnitGroupFieldIndex != -1)
-                                {
-                                    mLine.region = mRow2.Value[mStatUnitGroupFieldIndex];
-                                }
-                                else
-                                {
-                                    mLine.region = "";
-                                }
-
-                                // Set the StatUnitType
-                                mLine.kretstype_id = mStatUnitType;
-
-                                // Set the StatUnitId
-                                mLine.krets_id = mRow2.Value[mStatUnitFieldIndex];
-
-                                // Set the measurement unit used
-                                mLine.unit = mMeasurementUnit;
-
-                                // Set time metadata
-                                mLine.year = mYear;
-                                mLine.quarter = mYearPart;
-                                mLine.month = mMonth;
-                                mLine.day = mDay;
-
-                                // Set the actual statistical value
-                                mLine.value = mValue;
-
-                                // Set the statistical variable type
-                                var numVariableLevels = mSplitVariableType.Count();
-
-                                if (numVariableLevels >= 5)
-                                {
-                                    mLine.variable5 = mSplitVariableType[4];
-                                }
-                                if (numVariableLevels >= 4)
-                                {
-                                    mLine.variable4 = mSplitVariableType[3];
-                                }
-                                if (numVariableLevels >= 3)
-                                {
-                                    mLine.variable3 = mSplitVariableType[2];
-                                }
-                                if (numVariableLevels >= 2)
-                                {
-                                    mLine.variable2 = mSplitVariableType[1];
-                                }
-                                if (numVariableLevels >= 1)
-                                {
-                                    mLine.variable1 = mSplitVariableType[0];
-                                }
-
-                                // Add the line to the CSV file
-                                mCsv.Add(mLine);
+                                mLine.variable5 = mSplitVariableType[4];
                             }
+                            if (numVariableLevels >= 4)
+                            {
+                                mLine.variable4 = mSplitVariableType[3];
+                            }
+                            if (numVariableLevels >= 3)
+                            {
+                                mLine.variable3 = mSplitVariableType[2];
+                            }
+                            if (numVariableLevels >= 2)
+                            {
+                                mLine.variable2 = mSplitVariableType[1];
+                            }
+                            if (numVariableLevels >= 1)
+                            {
+                                mLine.variable1 = mSplitVariableType[0];
+                            }
+
+                            // Add the line to the CSV file
+                            mCsv.Add(mLine);
                         }
                     }
 

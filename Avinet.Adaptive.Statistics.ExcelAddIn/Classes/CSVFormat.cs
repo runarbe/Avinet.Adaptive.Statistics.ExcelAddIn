@@ -38,28 +38,30 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public double value;
         public string unit;
 
+        public string GetHeaderRow()
+        {
+            return "\"krets_id\";\"krets_navn\";\"region\";\"år\";\"kvartal\"; \"mnd\";\"variable1\";\"variable2\";\"variable3\";\"variable4\";\"variable5\";\"verdi\";\"enhet\"";
+        }
+
         public string Serialize()
         {
-            var mStringFormat = "\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\";\"{9}\";\"{10}\";\"{11}\";\"{12}\";\"{13}\";{14}";
+            var mStringFormat = "\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\";\"{9}\";\"{10}\";{11};\"{12}\"";
 
             return String.Format(mStringFormat,
+                this.krets_id,
+                this.krets_name,
+                this.region,
+                this.year,
+                this.quarter,
+                this.month,
                 this.variable1,
                 this.variable2,
                 this.variable3,
                 this.variable4,
                 this.variable5,
-                this.krets_id,
-                this.krets_name,
-                this.kretstype_id,
-                this.region,
-                this.day,
-                this.month,
-                this.quarter,
-                this.year,
-                this.unit,
-                this.value
+                this.value,
+                this.unit
                 );
         }
-
     }
 }

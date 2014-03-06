@@ -178,12 +178,21 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Classes\CBEntry.cs" />
+    <Compile Include="Classes\CTEntry.cs" />
+    <Compile Include="Classes\CType.cs" />
+    <Compile Include="Classes\DataOrientation.cs" />
+    <Compile Include="Classes\DateFormats.cs" />
+    <Compile Include="Classes\StatProperties.cs" />
     <Compile Include="Classes\AdaptiveRow.cs" />
     <Compile Include="Classes\AdaptiveMatrix.cs" />
+    <Compile Include="Classes\AdaptiveValue.cs" />
+    <Compile Include="Classes\CTList.cs" />
     <Compile Include="Classes\CSVFormat.cs" />
     <Compile Include="Classes\ExportCSV.cs" />
     <Compile Include="Classes\Key.cs" />
     <Compile Include="Classes\SelectionType.cs" />
+    <Compile Include="Classes\StatVarProps.cs" />
     <Compile Include="Classes\Table.cs" />
     <Compile Include="Classes\Util.cs" />
     <Compile Include="Classes\Values3D.cs" />
@@ -261,6 +270,7 @@
     <None Include="Resources\help.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DefaultConfig.json" />
     <Content Include="Resources\config.png" />
   </ItemGroup>
   <ItemGroup>

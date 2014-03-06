@@ -13,8 +13,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
     public enum SelectionType
     {
-        DataInRows = 1,
-        DataInCols = 2
+        StatisticalVariabesInFirstCol = 1,
+        StatisticalVariablesInFirstRow = 2
     }
 
 }

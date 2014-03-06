@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-    public class AdaptiveRow : Dictionary<int, string>
+    public class AdaptiveRow : Dictionary<int, AdaptiveValue>
     {
     }
 }

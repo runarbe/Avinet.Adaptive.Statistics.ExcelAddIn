@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
+using Microsoft.Office.Interop.Excel;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -31,36 +34,42 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             webClient.Encoding = Encoding.UTF8;
             webClient.Headers.Add("Content-Type", "application/json");
             var jsonSerializer = new JavaScriptSerializer();
-            string mUrl;
+            string mUrl, mJson;
 
             if (Properties.Settings.Default.testMode == "true")
             {
-                mUrl = String.Format("http://projects.europetech.eu/adaptive/getAdaptiveConfiguration.php", Properties.Settings.Default.adaptiveUri);
+                mJson = string.Empty;
+                var assembly = Assembly.GetExecutingAssembly();
+                var resourceName = "Avinet.Adaptive.Statistics.ExcelAddIn.DefaultConfig.json";
+
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    mJson = reader.ReadToEnd();
+                }
             }
             else
             {
                 mUrl = String.Format("{0}/WebServices/administrator/modules/statistics/GetStatConfig.asmx/Read", Properties.Settings.Default.adaptiveUri);
+                try
+                {
+
+                    mJson = webClient.DownloadString(mUrl);
+                    mJson = mJson.Replace("\"__type\"", "\"type\"");
+
+                    Properties.Settings.Default.configJson = mJson;
+                    Properties.Settings.Default.Save();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Something went horribly wrong...");
+                    throw new Exception(String.Format("Kunne ikkje laste ned konfigurasjon frå URL: {0}", mUrl));
+                }
+
             }
 
-            try
-            {
-
-                Debug.WriteLine("Loading from" + mUrl);
-                var mJson = webClient.DownloadString(mUrl);
-                mJson = mJson.Replace("\"__type\"", "\"type\"");
-                Debug.WriteLine(mJson);
-
-                Properties.Settings.Default.configJson = mJson;
-                Properties.Settings.Default.Save();
-                AsmxConfigListResponse mRes = jsonSerializer.Deserialize<AsmxConfigListResponse>(mJson);
-                return mRes.d;
-            }
-            catch (Exception ex)
-            
-            {
-                Debug.WriteLine("Something went horribly wrong...");
-                throw new Exception(String.Format("Kunne ikkje laste ned konfigurasjon frå URL: {0}", mUrl));
-            }
+            AsmxConfigListResponse mRes = jsonSerializer.Deserialize<AsmxConfigListResponse>(mJson);
+            return mRes.d;
         }
 
     }

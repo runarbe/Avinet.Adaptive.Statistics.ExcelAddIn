@@ -8,6 +8,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public static class Util
     {
+        
+        public static CType GetSelCType(ComboBox pComboBox)
+        {
+            CType mStatus = CType.None;
+            if (pComboBox.SelectedValue != null)
+            {
+                Enum.TryParse<CType>(pComboBox.SelectedValue.ToString(), out mStatus);
+            }
+            return mStatus;
+        }
+
 
         public static string CheckNullOrEmpty(string pString)
         {
@@ -55,9 +66,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             pDataGridViewComboBoxCol.DataSource = pDataSource;
             pDataGridViewComboBoxCol.DisplayMember = pDisplayMember;
             pDataGridViewComboBoxCol.ValueMember = pValueMember;
-            /*var mTemplate = new DataGridViewComboBoxCell();
-            mTemplate.Value = "";
-            pDataGridViewComboBoxCol.CellTemplate = mTemplate;*/
         }
 
         public static string Dump(object obj, int recursion = 2)

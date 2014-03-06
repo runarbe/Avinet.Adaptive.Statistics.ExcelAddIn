@@ -6,11 +6,36 @@ using sd = System.Data;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Data;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public static class Table
     {
+
+        public static System.Data.DataTable RangeToDataTable(Range pSelection)
+        {
+            Object[,] mSelection = pSelection.Cells.Value;
+
+            var mDataTable = new System.Data.DataTable();
+            for (int i = 1, j = pSelection.Columns.Count; i < j; i++)
+            {
+                mDataTable.Columns.Add(new DataColumn("Kolonne " + i, typeof(string)));
+            }
+
+            for (int mRowNum = 1, mNumRows = pSelection.Rows.Count; mRowNum < mNumRows; mRowNum++)
+            {
+                var mRow = mDataTable.NewRow();
+
+                for (int mColNum = 1, mNumCols = pSelection.Columns.Count; mColNum < mNumCols; mColNum++)
+                {
+                    mRow[mColNum - 1] = Table.CheckNullDouble(mSelection[mRowNum, mColNum]);
+                }
+                mDataTable.Rows.Add(mRow);
+            }
+
+            return mDataTable;
+        }
 
         public static List<String> Obj2List(object[,] pObj)
         {
@@ -127,52 +152,83 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
         }
 
-        public static List<string> GetFirstCol(Object[,] mSelection)
+        /// <summary>
+        /// Get a row or a column from the selection
+        /// </summary>
+        /// <param name="mSelection">An Excel range object</param>
+        /// <param name="pIndexNum">The 1-based index of the row or column to retrieve</param>
+        /// <param name="pDataOrientation">Whether to get a row or a column</param>
+        /// <returns></returns>
+        public static StatProps GetIndex(Object[,] mSelection, int pIndexNum, DataOrientation pDataOrientation)
         {
-            var mList = new List<string>();
-
-            int mColNum = 1;
-            for (int mRowNum = 1, mNumCols = mSelection.GetLength(0); mRowNum <= mNumCols; mRowNum++)
+            if (pDataOrientation == DataOrientation.InColumns)
             {
-                mList.Add(Table.CheckNullFieldName(mSelection[mRowNum, mColNum], mRowNum));
+                return GetColNum(mSelection, pIndexNum, pDataOrientation);
             }
-            return mList;
+            else
+            {
+                return GetRowNum(mSelection, pIndexNum, pDataOrientation);
+            }
+        }
+
+        public static StatProps GetColNum(Object[,] mSelection, int pColNum = 1, DataOrientation pDataOrientation = DataOrientation.InColumns)
+        {
+            var mStatProps = new StatProps(pDataOrientation);
+
+            for (int mRowNum = 1, mNumRows = mSelection.GetLength(0); mRowNum < mNumRows; mRowNum++)
+            {
+                mStatProps.AddValue(mRowNum, Table.CheckNullDouble(mSelection[mRowNum, pColNum]));
+            }
+            return mStatProps;
 
         }
 
-        public static List<string> GetFirstRow(Object[,] mSelection)
+        public static StatProps GetRowNum(Object[,] mSelection, int pRowNum = 1, DataOrientation pDataOrientation = DataOrientation.InRows)
         {
-            var mList = new List<string>();
-            int mRowNum = 1;
-            for (int mColNum = 1, mNumCols = mSelection.GetLength(1); mColNum <= mNumCols; mColNum++)
+            var mStatProps = new StatProps(pDataOrientation);
+            for (int mColNum = 1, mNumCols = mSelection.GetLength(1); mColNum < mNumCols; mColNum++)
             {
-                mList.Add(Table.CheckNullFieldName(mSelection[mRowNum, mColNum], mColNum));
+                mStatProps.Add(mColNum, Table.CheckNullDouble(mSelection[pRowNum, mColNum]));
             }
-            return mList;
+            return mStatProps;
         }
 
-        public static Values3D GetData(Object[,] pSelection, List<String> pFieldNames, SelectionType pSelectionType)
+        public static Values3D GetData(Object[,] pSelection, List<String> pFieldNames, List<string> pStatDates, List<string> pStatAreaIds, SelectionType pSelectionType, CType p1stDim)
         {
+            int m2ndDimStart = (p1stDim == CType.None) ? 1 : 2;
+
             var mList = new Values3D();
 
-            if (pSelectionType == SelectionType.DataInRows)
+            if (pSelectionType == SelectionType.StatisticalVariabesInFirstCol)
             {
                 for (int mRowNum = 2, mNumRows = pSelection.GetLength(0); mRowNum <= mNumRows; mRowNum++)
                 {
-                    for (int mColNum = 1, mNumCols = pSelection.GetLength(1); mColNum <= mNumCols; mColNum++)
+                    for (int mColNum = m2ndDimStart, mNumCols = pSelection.GetLength(1); mColNum <= mNumCols; mColNum++)
                     {
-                        mList.AddByKey(Table.CheckNullDouble(pSelection[mRowNum, mColNum]), mColNum - 1, mRowNum);
+                        var mAdaptiveValue = new AdaptiveValue(
+                            Table.CheckNullDouble(
+                            pSelection[mRowNum, mColNum]));
+                        mList.AddByKey(mAdaptiveValue, mColNum, mRowNum);
                     }
                 }
 
             }
-            else if (pSelectionType == SelectionType.DataInCols)
+            else if (pSelectionType == SelectionType.StatisticalVariablesInFirstRow)
             {
-                for (int mColNum = 2, mNumCols = pSelection.GetLength(1); mColNum <= mNumCols; mColNum++)
+                for (int mColNum = 2, mNumCols = pSelection.GetLength(1);
+                    mColNum <= mNumCols;
+                    mColNum++)
                 {
-                    for (int mRowNum = 1, mNumRows = pSelection.GetLength(0); mRowNum <= mNumRows; mRowNum++)
+                    for (int mRowNum = m2ndDimStart, mNumRows = pSelection.GetLength(0);
+                        mRowNum <= mNumRows;
+                        mRowNum++)
                     {
-                        mList.AddByKey(Table.CheckNullDouble(pSelection[mRowNum, mColNum]), mRowNum - 1, mColNum);
+                        var mAdaptiveValue = new AdaptiveValue(
+                            Table.CheckNullDouble(
+                            pSelection[mRowNum, mColNum]));
+                        mList.AddByKey(
+                            mAdaptiveValue, mRowNum - 1,
+                            mColNum);
                     }
                 }
 
@@ -181,46 +237,111 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        public static Values3D ParseSelection(Range pSelection, SelectionType pSelectionType, UploadForm mFrm)
+        public static Values3D ParseSelection2(Range pSelection, UploadForm pFrm)
         {
-            var mFieldNames = new List<string>();
+
+            int mFirstDataRow = 1, mFirstDataCol = 1;
+
+            var mSelection = pSelection.Cells.Value;
+
+            // Increment if col value is set
+            if (Util.GetSelCType(pFrm.cbRowCType1) != CType.None) mFirstDataRow = 2;
+            if (Util.GetSelCType(pFrm.cbRowCType2) != CType.None) mFirstDataRow = 3;
+            if (Util.GetSelCType(pFrm.cbRowCType3) != CType.None) mFirstDataRow = 4;
+            if (Util.GetSelCType(pFrm.cbRowCType4) != CType.None) mFirstDataRow = 5;
+
+            // Increment if column is set
+            if (Util.GetSelCType(pFrm.cbColCType1) != CType.None) mFirstDataCol = 2;
+            if (Util.GetSelCType(pFrm.cbColCType2) != CType.None) mFirstDataCol = 3;
+            if (Util.GetSelCType(pFrm.cbColCType3) != CType.None) mFirstDataCol = 4;
+            if (Util.GetSelCType(pFrm.cbColCType4) != CType.None) mFirstDataCol = 5;
+
             var mData = new Values3D();
-            if (pSelection.Cells.Value.GetType() == typeof(String)) {
+
+            for (int mR = mFirstDataRow; mR < pSelection.Rows.Count; mR++)
+            {
+                for (int mC = mFirstDataCol; mC < pSelection.Columns.Count; mC++)
+                {
+                    var mAdaptiveValue = new AdaptiveValue(Table.CheckNullDouble(mSelection[mR, mC]));
+                    mAdaptiveValue.StatVar = (string)pFrm.StatVarProps.GetValue(mR, mC);
+
+                    if (pFrm.StatDatumProps != null)
+                    {
+                        // Add logic to parse the date value into its individual parts here
+                        mAdaptiveValue.StatYear = (string)pFrm.StatDatumProps.GetValue(mR, mC);
+                    }
+
+                    if (pFrm.StatAreaIDsProps != null)
+                    {
+                        mAdaptiveValue.StatAreaID = (string)pFrm.StatAreaIDsProps.GetValue(mR, mC);
+                    }
+
+                    if (pFrm.StatAreaNameProps != null)
+                    {
+                        mAdaptiveValue.StatAreaName = (string)pFrm.StatAreaNameProps.GetValue(mR, mC);
+                    }
+
+                    if (pFrm.StatAreaGroupProps != null)
+                    {
+                        mAdaptiveValue.StatAreaGroup = (string)pFrm.StatAreaGroupProps.GetValue(mR, mC);
+                    }
+
+                    mData.AddByKey(mAdaptiveValue, mR, mC);
+                    pFrm.Log(mAdaptiveValue.ToString());
+                }
+            }
+            return mData;
+        }
+
+        public static Values3D ParseSelection(Range pSelection, SelectionType pSelectionType, CType pSecondDimension, UploadForm mFrm)
+        {
+            StatProps mStatVariableNames = new StatProps();
+            StatProps mStatDates = null;
+            StatProps mStatAreaIds = null;
+
+            var mData = new Values3D();
+            if (pSelection.Cells.Value.GetType() == typeof(String))
+            {
                 mFrm.Log("Feil: utvalget er for lite, prøv igjen");
                 return null;
             }
 
             Object[,] mSelection = pSelection.Cells.Value;
 
-            if (pSelectionType == SelectionType.DataInRows)
+            // Get statistical variables
+            if (pSelectionType == SelectionType.StatisticalVariabesInFirstCol)
             {
-                mFieldNames = Table.GetFirstRow(mSelection);
+                mStatVariableNames = Table.GetRowNum(mSelection);
             }
-            else if (pSelectionType == SelectionType.DataInCols)
+            else if (pSelectionType == SelectionType.StatisticalVariablesInFirstRow)
             {
-                mFieldNames = Table.GetFirstCol(mSelection);
+                mStatVariableNames = Table.GetColNum(mSelection);
             }
             else
             {
                 return null;
             }
 
-            mData = Table.GetData(mSelection, mFieldNames, pSelectionType);
+            // Get statistics dates, if available
+            if (pSecondDimension == CType.StatDatum)
+            {
+                mStatDates = (pSelectionType == SelectionType.StatisticalVariabesInFirstCol) ? Table.GetRowNum(mSelection) : Table.GetColNum(mSelection);
+
+            }
+
+            // Get statistical areas, if available
+            if (pSecondDimension == CType.StatAreaIDs)
+            {
+                mStatAreaIds = (pSelectionType == SelectionType.StatisticalVariabesInFirstCol) ? Table.GetRowNum(mSelection) : Table.GetColNum(mSelection);
+            }
+
+            /*mData = Table.GetData(mSelection, mStatVariableNames, mStatDates, mStatAreaIds, pSelectionType, pSecondDimension);
 
             // Set data source for data series properties
-            mFrm.dgvFieldProperties.DataSource = Table.FieldNamesToDataTable(mFieldNames);
+            mFrm.dgvFieldProperties.DataSource = Table.FieldNamesToDataTable(mStatVariableNames);
             mFrm.dgvFieldProperties.Refresh();
 
             Export.CheckAllDataGridView(mFrm.dgvFieldProperties, "Include");
-
-            // Set data source for statunitfieldnr combo
-            Util.SetComboBoxDS(mFrm.cbStatUnitField, Table.FieldNamesToConfigListOffline(mFieldNames).list);
-
-            // Set data source for statunitnamefield combo
-            Util.SetComboBoxDS(mFrm.cbStatUnitNameField, Table.FieldNamesToConfigListOffline(mFieldNames).list);
-
-            // Set data source for statunitgroup field combo
-            Util.SetComboBoxDS(mFrm.cbStatUnitGroupField, Table.FieldNamesToConfigListOffline(mFieldNames).list);
 
             // Set data source for year parts in the datagridview
             DataGridViewComboBoxColumn mYearPart = mFrm.dgvFieldProperties.Columns["YearPart"] as DataGridViewComboBoxColumn;
@@ -234,6 +355,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             mFrm.cbYearPart.ValueMember = "value";
 
             mFrm.Show();
+            */
             return mData;
 
         }

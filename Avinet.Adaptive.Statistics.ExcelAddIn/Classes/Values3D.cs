@@ -10,14 +10,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     public class Values3D : AdaptiveMatrix
     {
 
-        public void AddByKey(string pValue, int pFieldIndex, int pRowIndex)
+        public void AddByKey(AdaptiveValue pValue, int pFieldIndex, int pRowIndex)
         {
-            if (!this.ContainsKey(pRowIndex)) {
+            if (!this.ContainsKey(pRowIndex))
+            {
                 this.Add(pRowIndex, new AdaptiveRow());
             }
 
-            if (!this[pRowIndex].ContainsKey(pFieldIndex)) {
-                this[pRowIndex].Add(pFieldIndex, "");
+            if (!this[pRowIndex].ContainsKey(pFieldIndex))
+            {
+                this[pRowIndex].Add(pFieldIndex, new AdaptiveValue(""));
             }
 
             this[pRowIndex][pFieldIndex] = pValue;
@@ -27,7 +29,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
             if (!this.ContainsKey(pRowIndex))
             {
-                //Row doesn't exist
+                //InRows doesn't exist
                 return "";
             }
 
@@ -37,48 +39,40 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 return "";
             }
 
-            return this[pRowIndex][pFieldIndex];
+            return this[pRowIndex][pFieldIndex].Value;
         }
 
-        public Dictionary<int, string> GetRow(int pRowIndex)
+        public Dictionary<int, AdaptiveValue> GetRow(int pRowIndex)
         {
             return this[pRowIndex];
         }
 
-    }
-
-    public class Values3DOld : Dictionary<Key, string>
-    {
-        public void AddByKey(string pValue, int pFieldIndex, int pRowIndex)
+        public Dictionary<int, AdaptiveValue> GetCol(int pColIndex)
         {
-            var mKey = new Key(pFieldIndex, pRowIndex);
-            this.Add(mKey, pValue);
+            var mRetVal = new Dictionary<int, AdaptiveValue>();
+            foreach (int mRow in this.Keys)
+            {
+                mRetVal.Add(mRow, this[mRow][pColIndex]);
+            }
+            return mRetVal;
         }
 
-        public string GetValueByFieldRow(int pFieldIndex, int pRowIndex)
+        public Dictionary<int, string> GetRowsCols()
         {
-            foreach (KeyValuePair<Key, string> mEntry in this)
+            var mRetVal = new Dictionary<int, string>();
+            foreach (int mRowIndex in this.Keys) {
+                mRetVal.Add(mRowIndex, String.Format("Row #{0}", mRowIndex));
+            }
+            if (this.Count() > 0)
             {
-                if (mEntry.Key.RowIndex == pRowIndex && mEntry.Key.FieldIndex == pFieldIndex)
+                foreach (int mColIndex in this.Keys)
                 {
-                    return mEntry.Value;
+                    mRetVal.Add(mColIndex, String.Format("Col #{0}", mColIndex));
                 }
             }
-            return "";
-        }
-
-        public Values3DOld GetRow(int pRowIndex)
-        {
-            var m = new Values3DOld();
-            foreach (KeyValuePair<Key, string> mval in this)
-            {
-                if (mval.Key.RowIndex == pRowIndex)
-                {
-                    m.Add(mval.Key, mval.Value);
-                }
-            }
-            return m;
+            return mRetVal;
         }
 
     }
+
 }

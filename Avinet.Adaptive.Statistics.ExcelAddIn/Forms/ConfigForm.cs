@@ -27,7 +27,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             Properties.Settings.Default.adaptiveUri = this.tbAdaptiveURI.Text;
             Properties.Settings.Default.adaptiveUser = this.tbAdaptiveUser.Text;
             Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
-            Properties.Settings.Default.adaptiveNodeUuid = this.tbAdaptiveNodeUuid.Text;
 
             if (this.chbTest.Checked == true)
             {
@@ -42,7 +41,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             ConfigList mConfig;
             if (null != (mConfig = WsDataSources.GetAdaptiveConfig(true)))
             {
-                Debug.WriteLine("Informasjon: kunne laste ny konfigurasjon");
+                Debug.WriteLine("Informasjon: Lasta ny konfigurasjon");
                 this.Close();
             }
             else
@@ -56,7 +55,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this.tbAdaptiveURI.Text = Properties.Settings.Default.adaptiveUri;
             this.tbAdaptiveUser.Text = Properties.Settings.Default.adaptiveUser;
             this.tbAdaptivePwd.Text = Properties.Settings.Default.adaptivePwd;
-            this.tbAdaptiveNodeUuid.Text = Properties.Settings.Default.adaptiveNodeUuid;
 
             if (Properties.Settings.Default.testMode == "true")
             {
@@ -68,6 +66,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 this.chbTest.Checked = false;
                 Debug.WriteLine("isn't test mode");
             }
+        }
+
+        private void tbAdaptivePwd_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
     }
