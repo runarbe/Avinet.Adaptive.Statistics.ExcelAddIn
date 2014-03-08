@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelAddIn", "ExcelAddIn.csproj", "{A8DFC9B4-2522-4E96-A15E-255BF8744C87}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DFC9B4-2522-4E96-A15E-255BF8744C87}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

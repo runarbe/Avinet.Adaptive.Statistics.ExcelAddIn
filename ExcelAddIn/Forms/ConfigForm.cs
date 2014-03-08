@@ -41,12 +41,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             ConfigList mConfig;
             if (null != (mConfig = WsDataSources.GetAdaptiveConfig(true)))
             {
-                Debug.WriteLine("Informasjon: Lasta ny konfigurasjon");
                 this.Close();
             }
             else
             {
-                Debug.WriteLine("Feil: kunne ikkje laste ny konfigurasjon");
             }
         }
 
@@ -59,12 +57,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             if (Properties.Settings.Default.testMode == "true")
             {
                 this.chbTest.Checked = true;
-                Debug.WriteLine("is testmode");
             }
             else
             {
                 this.chbTest.Checked = false;
-                Debug.WriteLine("isn't test mode");
             }
         }
 

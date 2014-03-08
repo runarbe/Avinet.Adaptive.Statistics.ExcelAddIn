@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-
     static class CTList
     {
         public static List<CTEntry> List = new List<CTEntry>();
@@ -17,11 +16,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             CTList.List.Add(new CTEntry("Datering", CType.StatDatum));
             CTList.List.Add(new CTEntry("Krins IDar", CType.StatAreaIDs));
             CTList.List.Add(new CTEntry("Krinsnamn", CType.StatAreaNames));
-            CTList.List.Add(new CTEntry("Krinsgruppe", CType.StatAreaGroups));
+            CTList.List.Add(new CTEntry("Grupper/regionar", CType.StatAreaGroups));
             CTList.List.Add(new CTEntry("Statistikkvariablar", CType.StatVars));
             CTList.List.Sort();
         }
-
     }
-
 }

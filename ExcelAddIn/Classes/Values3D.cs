@@ -73,6 +73,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             return mRetVal;
         }
 
+        public string GetCSVHeader()
+        {
+            return "\"krets_id\";\"krets_navn\";\"region\";\"år\";\"kvartal\"; \"mnd\";\"variable1\";\"variable2\";\"variable3\";\"variable4\";\"variable5\";\"verdi\";\"enhet\"";
+        }
+
     }
 
 }

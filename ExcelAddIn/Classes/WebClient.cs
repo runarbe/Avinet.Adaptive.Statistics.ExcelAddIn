@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -62,8 +63,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Something went horribly wrong...");
-                    throw new Exception(String.Format("Kunne ikkje laste ned konfigurasjon frå URL: {0}", mUrl));
+                    throw new Exception(String.Format("Kunne ikkje laste ned konfigurasjon frå URL: {0}. Error: {1}", mUrl, ex.Message));
                 }
 
             }
@@ -91,7 +91,22 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public string type { get; set; }
         public ConfigList()
         {
-        }        
+        }
+
+        public static System.Data.DataTable AsDataTable(List<configListEntry> mList) 
+        {
+            System.Data.DataTable mDataTable = new System.Data.DataTable();
+            mDataTable.Columns.Add(new DataColumn("key", typeof(string)));
+            mDataTable.Columns.Add(new DataColumn("value", typeof(string)));
+            foreach (var mConfigListEntry in mList)
+            {
+                var mRow = mDataTable.NewRow();
+                mRow["key"] = mConfigListEntry.key;
+                mRow["value"] = mConfigListEntry.value;
+                mDataTable.Rows.Add(mRow);
+            }
+            return mDataTable;
+        }
 
     }
 

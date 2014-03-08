@@ -37,11 +37,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdaptiveRibbon));
             this.TabAdaptiveStatistics = this.Factory.CreateRibbonTab();
             this.GroupUploadTools = this.Factory.CreateRibbonGroup();
-            this.GroupInformation = this.Factory.CreateRibbonGroup();
+            this.btnConfig = this.Factory.CreateRibbonButton();
             this.BtnUploadSelection = this.Factory.CreateRibbonButton();
+            this.GroupInformation = this.Factory.CreateRibbonGroup();
             this.ButtonHelp = this.Factory.CreateRibbonButton();
             this.ButtonAbout = this.Factory.CreateRibbonButton();
-            this.btnConfig = this.Factory.CreateRibbonButton();
             this.TabAdaptiveStatistics.SuspendLayout();
             this.GroupUploadTools.SuspendLayout();
             this.GroupInformation.SuspendLayout();
@@ -51,31 +51,40 @@
             this.TabAdaptiveStatistics.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.TabAdaptiveStatistics.Groups.Add(this.GroupUploadTools);
             this.TabAdaptiveStatistics.Groups.Add(this.GroupInformation);
-            this.TabAdaptiveStatistics.Label = "Adaptive 3.0 Statistikkmodul";
+            this.TabAdaptiveStatistics.Label = "Adaptive 3.0";
             this.TabAdaptiveStatistics.Name = "TabAdaptiveStatistics";
             // 
             // GroupUploadTools
             // 
             this.GroupUploadTools.Items.Add(this.btnConfig);
             this.GroupUploadTools.Items.Add(this.BtnUploadSelection);
-            this.GroupUploadTools.Label = "Opplastingsverktøy";
+            this.GroupUploadTools.Label = "Opplastingsverkty";
             this.GroupUploadTools.Name = "GroupUploadTools";
             // 
-            // GroupInformation
+            // btnConfig
             // 
-            this.GroupInformation.Items.Add(this.ButtonHelp);
-            this.GroupInformation.Items.Add(this.ButtonAbout);
-            this.GroupInformation.Label = "Information";
-            this.GroupInformation.Name = "GroupInformation";
+            this.btnConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
+            this.btnConfig.Label = "Konfigurer Adaptive";
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.ShowImage = true;
+            this.btnConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnConfig_Click);
             // 
             // BtnUploadSelection
             // 
             this.BtnUploadSelection.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.BtnUploadSelection.Image = ((System.Drawing.Image)(resources.GetObject("BtnUploadSelection.Image")));
-            this.BtnUploadSelection.Label = "Last opp utvalg";
+            this.BtnUploadSelection.Label = "Last opp utval";
             this.BtnUploadSelection.Name = "BtnUploadSelection";
             this.BtnUploadSelection.ShowImage = true;
             this.BtnUploadSelection.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.BtnUploadSelection_Click);
+            // 
+            // GroupInformation
+            // 
+            this.GroupInformation.Items.Add(this.ButtonHelp);
+            this.GroupInformation.Items.Add(this.ButtonAbout);
+            this.GroupInformation.Label = "Informasjon";
+            this.GroupInformation.Name = "GroupInformation";
             // 
             // ButtonHelp
             // 
@@ -94,15 +103,6 @@
             this.ButtonAbout.Name = "ButtonAbout";
             this.ButtonAbout.ShowImage = true;
             this.ButtonAbout.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ButtonAbout_Click);
-            // 
-            // btnConfig
-            // 
-            this.btnConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
-            this.btnConfig.Label = "Konfigurer";
-            this.btnConfig.Name = "btnConfig";
-            this.btnConfig.ShowImage = true;
-            this.btnConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnConfig_Click);
             // 
             // AdaptiveRibbon
             // 

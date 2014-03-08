@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-    public class StatVarProps
+    public class ManualStatVarProps
     {
-        public string StatisticalVariable;
-        public string MeasurementUnit;
+        public string StatVar;
+        public string MUnit;
         public string Year;
         public string YearPart;
         public string Month;

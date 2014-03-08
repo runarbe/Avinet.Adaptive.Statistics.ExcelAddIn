@@ -15,7 +15,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Determine whether the data shall be accessed by row or by column
         /// </summary>
-        public DataOrientation Type = DataOrientation.InRows;
+        public DataOrientation DataOrientation = DataOrientation.InRows;
 
         /// <summary>
         /// Basic constructor
@@ -23,7 +23,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <param name="pType">Set whether data are in rows or in columns</param>
         public StatProps(DataOrientation pType = DataOrientation.InRows)
         {
-            this.Type = pType;
+            this.DataOrientation = pType;
         }
 
         /// <summary>
@@ -36,14 +36,28 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this[pIndex] = pValue;
         }
 
-        public System.Data.DataTable AsDataTable()
+        public System.Data.DataTable AsDataTable(int pFirstDataRow = 1, int pFirstDataCol = 1, DataOrientation pDataOrientation = DataOrientation.InRows)
         {
+            int mStartIndex;
+            if (pDataOrientation == DataOrientation.InRows)
+            {
+                mStartIndex = pFirstDataCol;
+            }
+            else
+            {
+                mStartIndex = pFirstDataRow;
+            }
+
             var mDataTable = new System.Data.DataTable();
-            mDataTable.Columns.Add(new System.Data.DataColumn("Title",typeof(string)));
-            foreach (var mVar in this.Values)
+
+            mDataTable.Columns.Add(new System.Data.DataColumn("Index", typeof(int)));
+            mDataTable.Columns.Add(new System.Data.DataColumn("Title", typeof(string)));
+
+            for (int i = mStartIndex, j = this.Values.Count; i <= j; i++)
             {
                 var mRow = mDataTable.NewRow();
-                mRow[0] = mVar;
+                mRow["Index"] = i;
+                mRow["Title"] = this[i];
                 mDataTable.Rows.Add(mRow);
             }
 
@@ -59,7 +73,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <returns>A value as a string</returns>
         public object GetValue(int pRow, int pCol)
         {
-            if (this.Type == DataOrientation.InColumns)
+            if (this.DataOrientation == DataOrientation.InColumns)
             {
                 if (this.Keys.Contains(pRow))
                 {

@@ -24,7 +24,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
             var mSelection = this.GetSelectedRange();
             
-            if (mSelection == null || (mSelection.Width < 2 && mSelection.Height < 2)) {
+            if (mSelection.Cells.Value is string || mSelection.Cells.Value == null || (mSelection.Cells.Width < 2 && mSelection.Cells.Height < 2)) {
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void ButtonHelp_Click(object sender, RibbonControlEventArgs e)
         {
-
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\docs\\brukarrettleiing-nynorsk.pdf");
         }
 
         private void ButtonAbout_Click(object sender, RibbonControlEventArgs e)

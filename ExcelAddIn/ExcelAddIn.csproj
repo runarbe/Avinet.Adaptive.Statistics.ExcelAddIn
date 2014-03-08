@@ -26,7 +26,7 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>Avinet.Adaptive.Statistics.ExcelAddIn</RootNamespace>
-    <AssemblyName>Avinet.Adaptive.Statistics.ExcelAddIn</AssemblyName>
+    <AssemblyName>ExcelAddIn</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
@@ -34,7 +34,7 @@
     <PublishUrl>publish/</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.6</ApplicationVersion>
+    <ApplicationVersion>1.0.0.10</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -181,9 +181,13 @@
     <Compile Include="Classes\CBEntry.cs" />
     <Compile Include="Classes\CTEntry.cs" />
     <Compile Include="Classes\CType.cs" />
+    <Compile Include="Classes\MessageObject.cs" />
+    <Compile Include="Classes\MessagesErrors.cs" />
+    <Compile Include="Classes\MessagesNotices.cs" />
+    <Compile Include="Classes\StatDatumParser.cs" />
     <Compile Include="Classes\DataOrientation.cs" />
     <Compile Include="Classes\DateFormats.cs" />
-    <Compile Include="Classes\StatProperties.cs" />
+    <Compile Include="Classes\StatProps.cs" />
     <Compile Include="Classes\AdaptiveRow.cs" />
     <Compile Include="Classes\AdaptiveMatrix.cs" />
     <Compile Include="Classes\AdaptiveValue.cs" />
@@ -192,7 +196,7 @@
     <Compile Include="Classes\ExportCSV.cs" />
     <Compile Include="Classes\Key.cs" />
     <Compile Include="Classes\SelectionType.cs" />
-    <Compile Include="Classes\StatVarProps.cs" />
+    <Compile Include="Classes\ManualStatVarProps.cs" />
     <Compile Include="Classes\Table.cs" />
     <Compile Include="Classes\Util.cs" />
     <Compile Include="Classes\Values3D.cs" />
@@ -203,6 +207,12 @@
     </Compile>
     <Compile Include="Forms\ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StatVarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StatVarForm.Designer.cs">
+      <DependentUpon>StatVarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -215,6 +225,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatVarForm.resx">
+      <DependentUpon>StatVarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -229,6 +242,9 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Avinet.Adaptive.Statistics.ExcelAddIn_TemporaryKey.pfx" />
+    <Content Include="docs\brukarrettleiing-nynorsk.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
