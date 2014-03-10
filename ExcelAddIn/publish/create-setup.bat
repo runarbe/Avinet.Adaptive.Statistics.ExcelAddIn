@@ -1,0 +1,1 @@
+"c:\Program Files\7-Zip\7z.exe" a -tzip -mmt -mx5 Avinet.Adaptive.Statistics.ExcelAddIn.zip ExcelAddIn.vsto setup.exe -r "Application Files"

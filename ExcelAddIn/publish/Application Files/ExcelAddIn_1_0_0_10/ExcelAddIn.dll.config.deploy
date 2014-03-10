@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <system.serviceModel>
+        <bindings />
+        <client />
+    </system.serviceModel>
+    <userSettings>
+        <Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Settings>
+            <setting name="configJson" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="adaptiveUri" serializeAs="String">
+                <value>http://projects.europetech.eu/adaptive</value>
+            </setting>
+            <setting name="adaptiveNodeUuid" serializeAs="String">
+                <value>na</value>
+            </setting>
+            <setting name="adaptiveUser" serializeAs="String">
+                <value>runarbe</value>
+            </setting>
+            <setting name="adaptivePwd" serializeAs="String">
+                <value>runarbe</value>
+            </setting>
+            <setting name="testMode" serializeAs="String">
+                <value>true</value>
+            </setting>
+        </Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Settings>
+    </userSettings>
+</configuration>
