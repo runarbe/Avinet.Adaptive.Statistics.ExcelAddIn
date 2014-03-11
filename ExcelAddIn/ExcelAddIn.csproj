@@ -241,7 +241,6 @@
       <DependentUpon>UploadForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Avinet.Adaptive.Statistics.ExcelAddIn_TemporaryKey.pfx" />
     <Content Include="docs\brukarrettleiing-nynorsk.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
