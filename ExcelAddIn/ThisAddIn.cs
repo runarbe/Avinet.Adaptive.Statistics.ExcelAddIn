@@ -18,7 +18,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }
-
         #region VSTO generated code
 
         /// <summary>
