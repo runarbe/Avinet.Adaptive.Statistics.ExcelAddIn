@@ -371,12 +371,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             {
                 this.Log("Skriv til fil: " + dlgSaveCsvFile.FileName);
                 var mStreamWriter = new StreamWriter(dlgSaveCsvFile.FileName);
-                mStreamWriter.WriteLine(this.ParsedData.GetCSVHeader());
+
+                var mSrcEnc = Encoding.UTF8;
+                var mTgtEnc = Encoding.GetEncoding("ISO-8859-1");
+                var mCSVHeader = mTgtEnc.GetString(mSrcEnc.GetBytes(this.ParsedData.GetCSVHeader()));
+
+                //mStreamWriter.WriteLine(this.ParsedData.GetCSVHeader());
+                mStreamWriter.WriteLine(mCSVHeader);
                 foreach (var mRow in this.ParsedData.Keys)
                 {
                     foreach (var mCol in this.ParsedData[mRow].Keys)
                     {
-                        mStreamWriter.WriteLine(this.ParsedData[mRow][mCol].ToCSV());
+                        var mLine = mTgtEnc.GetString(mSrcEnc.GetBytes(this.ParsedData[mRow][mCol].ToCSV()));
+                        //mStreamWriter.WriteLine(this.ParsedData[mRow][mCol].ToCSV());
+                        mStreamWriter.WriteLine(mLine);
                     }
                 }
                 mStreamWriter.Flush();
@@ -679,7 +687,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                                 mMSVPs.MUnit = Util.CheckNullOrEmpty(dgvManualStatVarProps[f, i].Value);
                                 break;
                             case 4:
-                                mMSVPs.Year= Table.GetNullOrDoubleString(dgvManualStatVarProps[f, i].Value);
+                                mMSVPs.Year = Table.GetNullOrDoubleString(dgvManualStatVarProps[f, i].Value);
                                 break;
                             case 5:
                                 mMSVPs.YearPart = Table.GetNullOrDoubleString(dgvManualStatVarProps[f, i].Value);
