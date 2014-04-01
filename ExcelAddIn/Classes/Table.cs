@@ -232,11 +232,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         }
 
                     }
-
-                    // Add statareaID if available
-                    if (pFrm.StatAreaIDsProps != null)
+                    if (pFrm.StatAreaIDsProps != null || pFrm.StatAreaNameProps != null || pFrm.StatAreaGroupProps != null)
                     {
-                        mAdaptiveValue.StatAreaID = (string)pFrm.StatAreaIDsProps.GetValue(mR, mC);
+                        // Add statareaID if available
+                        if (pFrm.StatAreaIDsProps != null)
+                        {
+                            mAdaptiveValue.StatAreaID = (string)pFrm.StatAreaIDsProps.GetValue(mR, mC);
+                        }
 
                         // Statareaname is only relevant if id is present
                         if (pFrm.StatAreaNameProps != null)
