@@ -10,43 +10,42 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public partial class AdaptiveRibbon
     {
-        private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
-        {
-
-        }
 
         private Range GetSelectedRange()
         {
             return (Range)Globals.ThisAddIn.Application.ActiveWindow.Selection;
         }
 
-        private void BtnUploadSelection_Click(object sender, RibbonControlEventArgs e)
+        private void btnConfig_Click(object sender, RibbonControlEventArgs e)
+        {
+            var mFrm = new ConfigForm();
+            mFrm.ShowDialog();
+        }
+
+        private void btnUpload_Click(object sender, RibbonControlEventArgs e)
         {
             var mSelection = this.GetSelectedRange();
-            
-            if (mSelection.Cells.Value is string || mSelection.Cells.Value == null || (mSelection.Cells.Width < 2 && mSelection.Cells.Height < 2)) {
+
+            if (mSelection.Cells.Value is string || mSelection.Cells.Value == null || (mSelection.Cells.Width < 2 && mSelection.Cells.Height < 2))
+            {
                 return;
             }
 
             var mFrm = new UploadForm();
             mFrm.SelectedRange = this.GetSelectedRange();
             mFrm.ShowDialog();
+
         }
 
-        private void ButtonHelp_Click(object sender, RibbonControlEventArgs e)
+        private void btnHelp_Click(object sender, RibbonControlEventArgs e)
         {
             System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\docs\\brukarrettleiing-nynorsk.pdf");
         }
 
-        private void ButtonAbout_Click(object sender, RibbonControlEventArgs e)
+        private void btnAbout_Click(object sender, RibbonControlEventArgs e)
         {
-
-        }
-
-        private void btnConfig_Click(object sender, RibbonControlEventArgs e)
-        {
-            var mFrm = new ConfigForm();
-            mFrm.ShowDialog();
+            var frm = new AboutAddInForm();
+            frm.ShowDialog();
         }
     }
 }
