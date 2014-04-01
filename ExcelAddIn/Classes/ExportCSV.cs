@@ -116,7 +116,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 // Check if the row is to be included in the export
                 if (!int.TryParse(Export.GetDGVVal(mFieldProperties, "Include"), out mIncludeRow))
                 {
-                    pForm.Log(String.Format("Could not determine if row #{0} should be included", mIncludeRow));
+                    pForm.Log(String.Format("Kunne ikkje avgjere om rad #{0} skal vere med i eksporten", mIncludeRow));
                     return null;
                 }
 
