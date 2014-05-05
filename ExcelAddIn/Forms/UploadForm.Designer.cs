@@ -76,7 +76,7 @@
             this.btnSaveAsCSV = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.cbSelectDataset = new System.Windows.Forms.ToolStripComboBox();
+            this.cbSelectSettings = new System.Windows.Forms.ToolStripComboBox();
             this.btnUploadToAdaptive = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCreateNewStatVar = new System.Windows.Forms.ToolStripButton();
@@ -99,8 +99,9 @@
             this.Month = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Day = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvFieldPropertiesToolStrip = new System.Windows.Forms.ToolStrip();
-            this.btnCopyFirstRowAll = new System.Windows.Forms.ToolStripButton();
+            this.btnCopyStatVarAll = new System.Windows.Forms.ToolStripButton();
             this.btnCopyMUnitAll = new System.Windows.Forms.ToolStripButton();
+            this.btnCopyFirstRowAll = new System.Windows.Forms.ToolStripButton();
             this.tabPageLogOutput = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
@@ -108,7 +109,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pgBar = new System.Windows.Forms.ToolStripProgressBar();
             this.dlgSaveCsvFile = new System.Windows.Forms.SaveFileDialog();
-            this.btnCopyStatVarAll = new System.Windows.Forms.ToolStripButton();
             this.grpManualDateSettings.SuspendLayout();
             this.grpAutoDateSettings.SuspendLayout();
             this.panelTop.SuspendLayout();
@@ -572,7 +572,7 @@
             this.btnSaveAsCSV,
             this.toolStripSeparator1,
             this.toolStripLabel1,
-            this.cbSelectDataset,
+            this.cbSelectSettings,
             this.btnUploadToAdaptive,
             this.toolStripSeparator2,
             this.btnCreateNewStatVar});
@@ -588,7 +588,7 @@
             this.btnTestParsing.Image = ((System.Drawing.Image)(resources.GetObject("btnTestParsing.Image")));
             this.btnTestParsing.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTestParsing.Name = "btnTestParsing";
-            this.btnTestParsing.Size = new System.Drawing.Size(105, 20);
+            this.btnTestParsing.Size = new System.Drawing.Size(116, 20);
             this.btnTestParsing.Text = "Prøv innstillingar";
             this.btnTestParsing.Click += new System.EventHandler(this.btnTestParsing_Click);
             // 
@@ -597,8 +597,8 @@
             this.btnSaveAsCSV.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveAsCSV.Image")));
             this.btnSaveAsCSV.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveAsCSV.Name = "btnSaveAsCSV";
-            this.btnSaveAsCSV.Size = new System.Drawing.Size(98, 20);
-            this.btnSaveAsCSV.Text = "Lagre som CSV";
+            this.btnSaveAsCSV.Size = new System.Drawing.Size(80, 20);
+            this.btnSaveAsCSV.Text = "Lagre CSV";
             this.btnSaveAsCSV.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripSeparator1
@@ -609,20 +609,20 @@
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(129, 20);
-            this.toolStripLabel1.Text = "Vel eksisterande datasett";
+            this.toolStripLabel1.Size = new System.Drawing.Size(134, 20);
+            this.toolStripLabel1.Text = "Vel eksisterande oppsett";
             // 
-            // cbSelectDataset
+            // cbSelectSettings
             // 
-            this.cbSelectDataset.Name = "cbSelectDataset";
-            this.cbSelectDataset.Size = new System.Drawing.Size(121, 23);
+            this.cbSelectSettings.Name = "cbSelectSettings";
+            this.cbSelectSettings.Size = new System.Drawing.Size(121, 23);
             // 
             // btnUploadToAdaptive
             // 
             this.btnUploadToAdaptive.Image = ((System.Drawing.Image)(resources.GetObject("btnUploadToAdaptive.Image")));
             this.btnUploadToAdaptive.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnUploadToAdaptive.Name = "btnUploadToAdaptive";
-            this.btnUploadToAdaptive.Size = new System.Drawing.Size(125, 20);
+            this.btnUploadToAdaptive.Size = new System.Drawing.Size(135, 20);
             this.btnUploadToAdaptive.Text = "Last opp til Adaptive";
             // 
             // toolStripSeparator2
@@ -635,7 +635,7 @@
             this.btnCreateNewStatVar.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateNewStatVar.Image")));
             this.btnCreateNewStatVar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCreateNewStatVar.Name = "btnCreateNewStatVar";
-            this.btnCreateNewStatVar.Size = new System.Drawing.Size(123, 20);
+            this.btnCreateNewStatVar.Size = new System.Drawing.Size(132, 20);
             this.btnCreateNewStatVar.Text = "Ny statistikkvariabel";
             this.btnCreateNewStatVar.Click += new System.EventHandler(this.btnCreateNewStatVar_Click);
             // 
@@ -655,20 +655,20 @@
             this.oppdaterKonfigurasjonFråServerToolStripMenuItem,
             this.stengToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(29, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(31, 20);
             this.toolStripMenuItem1.Text = "Fil";
             // 
             // oppdaterKonfigurasjonFråServerToolStripMenuItem
             // 
             this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Name = "oppdaterKonfigurasjonFråServerToolStripMenuItem";
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
             this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Text = "Oppdater konfigurasjon frå server";
             this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Click += new System.EventHandler(this.updateConfigFromServer);
             // 
             // stengToolStripMenuItem
             // 
             this.stengToolStripMenuItem.Name = "stengToolStripMenuItem";
-            this.stengToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.stengToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
             this.stengToolStripMenuItem.Text = "Steng opplastingsvindauge";
             this.stengToolStripMenuItem.Click += new System.EventHandler(this.stengToolStripMenuItem_Click);
             // 
@@ -850,23 +850,32 @@
             this.dgvFieldPropertiesToolStrip.TabIndex = 1;
             this.dgvFieldPropertiesToolStrip.Text = "Tools";
             // 
-            // btnCopyFirstRowAll
+            // btnCopyStatVarAll
             // 
-            this.btnCopyFirstRowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyFirstRowAll.Image")));
-            this.btnCopyFirstRowAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCopyFirstRowAll.Name = "btnCopyFirstRowAll";
-            this.btnCopyFirstRowAll.Size = new System.Drawing.Size(138, 22);
-            this.btnCopyFirstRowAll.Text = "Kopier fyrste rad til alle";
-            this.btnCopyFirstRowAll.Click += new System.EventHandler(this.btnCopyFirstRowAll_Click);
+            this.btnCopyStatVarAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyStatVarAll.Image")));
+            this.btnCopyStatVarAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopyStatVarAll.Name = "btnCopyStatVarAll";
+            this.btnCopyStatVarAll.Size = new System.Drawing.Size(194, 22);
+            this.btnCopyStatVarAll.Text = "Kopier fyrste variabeltype til alle";
+            this.btnCopyStatVarAll.Click += new System.EventHandler(this.btnCopyStatVarAll_Click);
             // 
             // btnCopyMUnitAll
             // 
             this.btnCopyMUnitAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyMUnitAll.Image")));
             this.btnCopyMUnitAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyMUnitAll.Name = "btnCopyMUnitAll";
-            this.btnCopyMUnitAll.Size = new System.Drawing.Size(172, 22);
+            this.btnCopyMUnitAll.Size = new System.Drawing.Size(189, 22);
             this.btnCopyMUnitAll.Text = "Kopier fyrste måleeining til alle";
             this.btnCopyMUnitAll.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            // 
+            // btnCopyFirstRowAll
+            // 
+            this.btnCopyFirstRowAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyFirstRowAll.Image")));
+            this.btnCopyFirstRowAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopyFirstRowAll.Name = "btnCopyFirstRowAll";
+            this.btnCopyFirstRowAll.Size = new System.Drawing.Size(147, 22);
+            this.btnCopyFirstRowAll.Text = "Kopier fyrste rad til alle";
+            this.btnCopyFirstRowAll.Click += new System.EventHandler(this.btnCopyFirstRowAll_Click);
             // 
             // tabPageLogOutput
             // 
@@ -915,7 +924,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(20, 18);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(22, 18);
             this.toolStripStatusLabel1.Text = "Ok";
             // 
             // pgBar
@@ -927,15 +936,6 @@
             // 
             this.dlgSaveCsvFile.FileName = "*.csv";
             this.dlgSaveCsvFile.Filter = "CSV-files|*.csv";
-            // 
-            // btnCopyStatVarAll
-            // 
-            this.btnCopyStatVarAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyStatVarAll.Image")));
-            this.btnCopyStatVarAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCopyStatVarAll.Name = "btnCopyStatVarAll";
-            this.btnCopyStatVarAll.Size = new System.Drawing.Size(182, 22);
-            this.btnCopyStatVarAll.Text = "Kopier fyrste variabeltype til alle";
-            this.btnCopyStatVarAll.Click += new System.EventHandler(this.btnCopyStatVarAll_Click);
             // 
             // UploadForm
             // 
@@ -1048,7 +1048,7 @@
         public System.Windows.Forms.TextBox tbManualStatAreaName;
         public System.Windows.Forms.TextBox tbManualStatAreaID;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox cbSelectDataset;
+        private System.Windows.Forms.ToolStripComboBox cbSelectSettings;
         private System.Windows.Forms.ToolStripButton btnCreateNewStatVar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
