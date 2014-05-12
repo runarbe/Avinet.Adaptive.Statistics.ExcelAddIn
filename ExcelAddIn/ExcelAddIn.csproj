@@ -150,6 +150,8 @@
     <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -186,30 +188,41 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Classes\CBEntry.cs" />
-    <Compile Include="Classes\CTEntry.cs" />
-    <Compile Include="Classes\CType.cs" />
-    <Compile Include="Classes\MessageObject.cs" />
-    <Compile Include="Classes\MessagesErrors.cs" />
-    <Compile Include="Classes\MessagesNotices.cs" />
-    <Compile Include="Classes\StatDatumParser.cs" />
-    <Compile Include="Classes\DataOrientation.cs" />
-    <Compile Include="Classes\DateFormats.cs" />
-    <Compile Include="Classes\StatProps.cs" />
-    <Compile Include="Classes\AdaptiveRow.cs" />
-    <Compile Include="Classes\AdaptiveMatrix.cs" />
-    <Compile Include="Classes\AdaptiveValue.cs" />
-    <Compile Include="Classes\CTList.cs" />
-    <Compile Include="Classes\CSVFormat.cs" />
-    <Compile Include="Classes\ExportCSV.cs" />
-    <Compile Include="Classes\Key.cs" />
-    <Compile Include="Classes\SelectionType.cs" />
+    <Compile Include="Classes\DataSetWS\AASDataset.cs" />
+    <Compile Include="Classes\DataSetWS\AASDatasets.cs" />
+    <Compile Include="Classes\StatVarsWS\AASStatVar.cs" />
+    <Compile Include="Classes\StatVarsWS\AASStatVars.cs" />
+    <Compile Include="Classes\Config\AsmxConfigListResponse.cs" />
+    <Compile Include="Classes\Shared\ComboBoxItem.cs" />
+    <Compile Include="Classes\Config\ConfigList.cs" />
+    <Compile Include="Classes\Config\ConfigListEntry.cs" />
+    <Compile Include="Classes\Config\ConfigListOffline.cs" />
+    <Compile Include="Classes\ColumnTypes\CellContentType.cs" />
+    <Compile Include="Classes\UploadWS\FormFile.cs" />
+    <Compile Include="Classes\Shared\MessageObject.cs" />
+    <Compile Include="Classes\Shared\MessagesErrors.cs" />
+    <Compile Include="Classes\Shared\MessagesNotices.cs" />
+    <Compile Include="Classes\Shared\RequestHelper.cs" />
+    <Compile Include="Classes\Parsing\StatDatumParser.cs" />
+    <Compile Include="Classes\Parsing\DataOrientation.cs" />
+    <Compile Include="Classes\Parsing\DateFormats.cs" />
+    <Compile Include="Classes\Parsing\StatProps.cs" />
+    <Compile Include="Classes\Parsing\AdaptiveRow.cs" />
+    <Compile Include="Classes\Parsing\AdaptiveMatrix.cs" />
+    <Compile Include="Classes\Parsing\AdaptiveValue.cs" />
+    <Compile Include="Classes\Export\CSVFormat.cs" />
+    <Compile Include="Classes\Export\Export.cs" />
+    <Compile Include="Classes\Parsing\Key.cs" />
+    <Compile Include="Classes\Parsing\SelectionType.cs" />
     <Compile Include="Classes\ManualStatVarProps.cs" />
-    <Compile Include="Classes\Table.cs" />
-    <Compile Include="Classes\Util.cs" />
-    <Compile Include="Classes\Values3D.cs" />
-    <Compile Include="Classes\WebClient.cs" />
-    <Compile Include="Classes\WsDataSources.cs" />
+    <Compile Include="Classes\Parsing\Table.cs" />
+    <Compile Include="Classes\StatePersistence\UploadFormFieldState.cs" />
+    <Compile Include="Classes\StatePersistence\UploadFormState.cs" />
+    <Compile Include="Classes\StatePersistence\UploadFormStates.cs" />
+    <Compile Include="Classes\Shared\Util.cs" />
+    <Compile Include="Classes\Parsing\Values3D.cs" />
+    <Compile Include="Classes\Config\JsonLoader.cs" />
+    <Compile Include="Classes\Config\WsDataSources.cs" />
     <Compile Include="Forms\AboutAddInForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +298,10 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="Resources\eksempel.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="SavedImportSettings.json" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -294,17 +311,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\upload.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\about.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DefaultConfig.json" />
-    <Content Include="Resources\config.png" />
+    <Content Include="DefaultConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -79,7 +79,7 @@
             this.textBox2.Size = new System.Drawing.Size(208, 20);
             this.textBox2.TabIndex = 1;
             // 
-            // label2
+            // lblYear
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 35);
