@@ -58,7 +58,7 @@
             // 
             this.TabAdaptive3.Groups.Add(this.grpUpload);
             this.TabAdaptive3.Groups.Add(this.grpInfo);
-            this.TabAdaptive3.Label = "Adaptive 3.0";
+            this.TabAdaptive3.Label = "ADAPTIVE 3.0";
             this.TabAdaptive3.Name = "TabAdaptive3";
             // 
             // grpUpload
