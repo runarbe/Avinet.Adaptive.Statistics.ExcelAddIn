@@ -29,162 +29,171 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UploadForm));
-            this.tbDay = new System.Windows.Forms.TextBox();
-            this.tbMonth = new System.Windows.Forms.TextBox();
-            this.tbYear = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.tbStatDatumDay = new System.Windows.Forms.TextBox();
+            this.tbStatDatumMonth = new System.Windows.Forms.TextBox();
+            this.tbStatDatumYear = new System.Windows.Forms.TextBox();
+            this.lblYear = new System.Windows.Forms.Label();
+            this.lblQuarter = new System.Windows.Forms.Label();
+            this.lblMonth = new System.Windows.Forms.Label();
+            this.lblDay = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cbYearPart = new System.Windows.Forms.ComboBox();
-            this.grpManualDateSettings = new System.Windows.Forms.GroupBox();
+            this.cbStatDatumQuarter = new System.Windows.Forms.ComboBox();
+            this.grpStatDatumSettings = new System.Windows.Forms.GroupBox();
             this.btnCopyDateToAll = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
+            this.lblStatAreaType = new System.Windows.Forms.Label();
             this.cbStatUnitType = new System.Windows.Forms.ComboBox();
             this.grpAutoDateSettings = new System.Windows.Forms.GroupBox();
-            this.cbDateFormats = new System.Windows.Forms.ComboBox();
+            this.cbStatDatumFormat = new System.Windows.Forms.ComboBox();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelTopFill = new System.Windows.Forms.Panel();
-            this.grpManualStatAreaSettings = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tbManualStatAreaGroup = new System.Windows.Forms.TextBox();
-            this.tbManualStatAreaName = new System.Windows.Forms.TextBox();
-            this.tbManualStatAreaID = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.groupLayoutOfData = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.grpStatAreaSettings = new System.Windows.Forms.GroupBox();
+            this.btnSetStatAreaInfo = new System.Windows.Forms.Button();
+            this.tbStatUnitGroup = new System.Windows.Forms.TextBox();
+            this.tbStatUnitName = new System.Windows.Forms.TextBox();
+            this.tbStatUnitID = new System.Windows.Forms.TextBox();
+            this.lblStatAreaGroup = new System.Windows.Forms.Label();
+            this.lblStatAreaName = new System.Windows.Forms.Label();
+            this.lblStatAreaId = new System.Windows.Forms.Label();
+            this.grpCellContentTypeSettings = new System.Windows.Forms.GroupBox();
+            this.lblStatVarRow4 = new System.Windows.Forms.Label();
+            this.lblStatVarCol4 = new System.Windows.Forms.Label();
             this.cbRowCType4 = new System.Windows.Forms.ComboBox();
             this.cbColCType4 = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblStatVarCol3 = new System.Windows.Forms.Label();
             this.cbColCType3 = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblStatVarCol2 = new System.Windows.Forms.Label();
             this.cbColCType2 = new System.Windows.Forms.ComboBox();
             this.cbRowCType3 = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblStatVarRow3 = new System.Windows.Forms.Label();
             this.cbRowCType2 = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblStatVarRow2 = new System.Windows.Forms.Label();
             this.cbRowCType1 = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblStatVarRow1 = new System.Windows.Forms.Label();
+            this.lblStatVarCol1 = new System.Windows.Forms.Label();
             this.cbColCType1 = new System.Windows.Forms.ComboBox();
             this.topToolBar = new System.Windows.Forms.ToolStrip();
-            this.btnTestParsing = new System.Windows.Forms.ToolStripButton();
+            this.btnValidate = new System.Windows.Forms.ToolStripButton();
+            this.tss2 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblDataset = new System.Windows.Forms.ToolStripLabel();
+            this.cbDataset = new System.Windows.Forms.ToolStripComboBox();
+            this.btnUpload = new System.Windows.Forms.ToolStripButton();
             this.btnSaveAsCSV = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.cbSelectSettings = new System.Windows.Forms.ToolStripComboBox();
-            this.btnUploadToAdaptive = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnCreateNewStatVar = new System.Windows.Forms.ToolStripButton();
+            this.tss1 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblSettings = new System.Windows.Forms.ToolStripLabel();
+            this.cbSettings = new System.Windows.Forms.ToolStripComboBox();
+            this.btnUseSettings = new System.Windows.Forms.ToolStripButton();
+            this.btnSaveSettings = new System.Windows.Forms.ToolStripButton();
+            this.btnDeleteSettings = new System.Windows.Forms.ToolStripButton();
             this.panelTopTopMenu = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stengToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReloadAdaptiveConfiguration = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCloseWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.panelFill = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPagePreviewSelection = new System.Windows.Forms.TabPage();
+            this.tpPreviewSelection = new System.Windows.Forms.TabPage();
             this.dgvPreviewSelection = new System.Windows.Forms.DataGridView();
-            this.tabPageStatisticsVariables = new System.Windows.Forms.TabPage();
-            this.dgvManualStatVarProps = new System.Windows.Forms.DataGridView();
+            this.tpStatisticsVariables = new System.Windows.Forms.TabPage();
+            this.dgvStatVarProperties = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VariableType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.StatVarCol1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.StatVarCol2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.StatVarCol3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.StatVarCol4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.StatVarCol5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.MeasurementUnit = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.YearPart = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Quarter = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Month = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Day = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFieldPropertiesToolStrip = new System.Windows.Forms.ToolStrip();
+            this.tsStatVarPropertiesDGV = new System.Windows.Forms.ToolStrip();
             this.btnCopyStatVarAll = new System.Windows.Forms.ToolStripButton();
-            this.btnCopyMUnitAll = new System.Windows.Forms.ToolStripButton();
+            this.btnCopyMeasurementUnitToAll = new System.Windows.Forms.ToolStripButton();
             this.btnCopyFirstRowAll = new System.Windows.Forms.ToolStripButton();
             this.tabPageLogOutput = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pgBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.ssStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tspbProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.dlgSaveCsvFile = new System.Windows.Forms.SaveFileDialog();
-            this.grpManualDateSettings.SuspendLayout();
+            this.dlgSaveFile = new System.Windows.Forms.SaveFileDialog();
+            this.grpStatDatumSettings.SuspendLayout();
             this.grpAutoDateSettings.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelTopFill.SuspendLayout();
-            this.grpManualStatAreaSettings.SuspendLayout();
-            this.groupLayoutOfData.SuspendLayout();
+            this.grpStatAreaSettings.SuspendLayout();
+            this.grpCellContentTypeSettings.SuspendLayout();
             this.topToolBar.SuspendLayout();
             this.panelTopTopMenu.SuspendLayout();
             this.panelFill.SuspendLayout();
             this.tabControl.SuspendLayout();
-            this.tabPagePreviewSelection.SuspendLayout();
+            this.tpPreviewSelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPreviewSelection)).BeginInit();
-            this.tabPageStatisticsVariables.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvManualStatVarProps)).BeginInit();
-            this.dgvFieldPropertiesToolStrip.SuspendLayout();
+            this.tpStatisticsVariables.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStatVarProperties)).BeginInit();
+            this.tsStatVarPropertiesDGV.SuspendLayout();
             this.tabPageLogOutput.SuspendLayout();
             this.panelBottom.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.ssStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tbDay
+            // tbStatDatumDay
             // 
-            this.tbDay.Location = new System.Drawing.Point(63, 101);
-            this.tbDay.Name = "tbDay";
-            this.tbDay.Size = new System.Drawing.Size(120, 20);
-            this.tbDay.TabIndex = 9;
+            this.tbStatDatumDay.Location = new System.Drawing.Point(63, 101);
+            this.tbStatDatumDay.Name = "tbStatDatumDay";
+            this.tbStatDatumDay.Size = new System.Drawing.Size(195, 20);
+            this.tbStatDatumDay.TabIndex = 9;
             // 
-            // tbMonth
+            // tbStatDatumMonth
             // 
-            this.tbMonth.Location = new System.Drawing.Point(63, 75);
-            this.tbMonth.Name = "tbMonth";
-            this.tbMonth.Size = new System.Drawing.Size(120, 20);
-            this.tbMonth.TabIndex = 8;
+            this.tbStatDatumMonth.Location = new System.Drawing.Point(63, 75);
+            this.tbStatDatumMonth.Name = "tbStatDatumMonth";
+            this.tbStatDatumMonth.Size = new System.Drawing.Size(195, 20);
+            this.tbStatDatumMonth.TabIndex = 8;
             // 
-            // tbYear
+            // tbStatDatumYear
             // 
-            this.tbYear.Location = new System.Drawing.Point(63, 23);
-            this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(120, 20);
-            this.tbYear.TabIndex = 6;
+            this.tbStatDatumYear.Location = new System.Drawing.Point(63, 23);
+            this.tbStatDatumYear.Name = "tbStatDatumYear";
+            this.tbStatDatumYear.Size = new System.Drawing.Size(195, 20);
+            this.tbStatDatumYear.TabIndex = 6;
             // 
-            // label2
+            // lblYear
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "År";
+            this.lblYear.AutoSize = true;
+            this.lblYear.Location = new System.Drawing.Point(11, 26);
+            this.lblYear.Name = "lblYear";
+            this.lblYear.Size = new System.Drawing.Size(17, 13);
+            this.lblYear.TabIndex = 13;
+            this.lblYear.Text = "År";
             // 
-            // label3
+            // lblQuarter
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Kvartal";
+            this.lblQuarter.AutoSize = true;
+            this.lblQuarter.Location = new System.Drawing.Point(11, 52);
+            this.lblQuarter.Name = "lblQuarter";
+            this.lblQuarter.Size = new System.Drawing.Size(40, 13);
+            this.lblQuarter.TabIndex = 14;
+            this.lblQuarter.Text = "Kvartal";
             // 
-            // label4
+            // lblMonth
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 78);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Månad";
+            this.lblMonth.AutoSize = true;
+            this.lblMonth.Location = new System.Drawing.Point(11, 78);
+            this.lblMonth.Name = "lblMonth";
+            this.lblMonth.Size = new System.Drawing.Size(40, 13);
+            this.lblMonth.TabIndex = 14;
+            this.lblMonth.Text = "Månad";
             // 
-            // label8
+            // lblDay
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 104);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(27, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Dag";
+            this.lblDay.AutoSize = true;
+            this.lblDay.Location = new System.Drawing.Point(11, 104);
+            this.lblDay.Name = "lblDay";
+            this.lblDay.Size = new System.Drawing.Size(27, 13);
+            this.lblDay.TabIndex = 14;
+            this.lblDay.Text = "Dag";
             // 
             // label5
             // 
@@ -194,107 +203,85 @@
             this.label5.Size = new System.Drawing.Size(0, 13);
             this.label5.TabIndex = 14;
             // 
-            // cbYearPart
+            // cbStatDatumQuarter
             // 
-            this.cbYearPart.FormattingEnabled = true;
-            this.cbYearPart.Items.AddRange(new object[] {
+            this.cbStatDatumQuarter.FormattingEnabled = true;
+            this.cbStatDatumQuarter.Items.AddRange(new object[] {
             "",
             "1",
             "2",
             "3",
             "4"});
-            this.cbYearPart.Location = new System.Drawing.Point(63, 49);
-            this.cbYearPart.Name = "cbYearPart";
-            this.cbYearPart.Size = new System.Drawing.Size(120, 21);
-            this.cbYearPart.TabIndex = 15;
+            this.cbStatDatumQuarter.Location = new System.Drawing.Point(63, 49);
+            this.cbStatDatumQuarter.Name = "cbStatDatumQuarter";
+            this.cbStatDatumQuarter.Size = new System.Drawing.Size(195, 21);
+            this.cbStatDatumQuarter.TabIndex = 15;
             // 
-            // grpManualDateSettings
+            // grpStatDatumSettings
             // 
-            this.grpManualDateSettings.Controls.Add(this.cbYearPart);
-            this.grpManualDateSettings.Controls.Add(this.tbYear);
-            this.grpManualDateSettings.Controls.Add(this.tbMonth);
-            this.grpManualDateSettings.Controls.Add(this.tbDay);
-            this.grpManualDateSettings.Controls.Add(this.label5);
-            this.grpManualDateSettings.Controls.Add(this.label8);
-            this.grpManualDateSettings.Controls.Add(this.btnCopyDateToAll);
-            this.grpManualDateSettings.Controls.Add(this.label4);
-            this.grpManualDateSettings.Controls.Add(this.label3);
-            this.grpManualDateSettings.Controls.Add(this.label2);
-            this.grpManualDateSettings.Enabled = false;
-            this.grpManualDateSettings.Location = new System.Drawing.Point(338, 84);
-            this.grpManualDateSettings.Name = "grpManualDateSettings";
-            this.grpManualDateSettings.Size = new System.Drawing.Size(196, 161);
-            this.grpManualDateSettings.TabIndex = 12;
-            this.grpManualDateSettings.TabStop = false;
-            this.grpManualDateSettings.Text = "Manuell datering";
+            this.grpStatDatumSettings.Controls.Add(this.cbStatDatumQuarter);
+            this.grpStatDatumSettings.Controls.Add(this.tbStatDatumYear);
+            this.grpStatDatumSettings.Controls.Add(this.tbStatDatumMonth);
+            this.grpStatDatumSettings.Controls.Add(this.tbStatDatumDay);
+            this.grpStatDatumSettings.Controls.Add(this.label5);
+            this.grpStatDatumSettings.Controls.Add(this.lblDay);
+            this.grpStatDatumSettings.Controls.Add(this.btnCopyDateToAll);
+            this.grpStatDatumSettings.Controls.Add(this.lblMonth);
+            this.grpStatDatumSettings.Controls.Add(this.lblQuarter);
+            this.grpStatDatumSettings.Controls.Add(this.lblYear);
+            this.grpStatDatumSettings.Enabled = false;
+            this.grpStatDatumSettings.Location = new System.Drawing.Point(338, 84);
+            this.grpStatDatumSettings.Name = "grpStatDatumSettings";
+            this.grpStatDatumSettings.Size = new System.Drawing.Size(264, 161);
+            this.grpStatDatumSettings.TabIndex = 12;
+            this.grpStatDatumSettings.TabStop = false;
+            this.grpStatDatumSettings.Text = "Manuell datering";
             // 
             // btnCopyDateToAll
             // 
             this.btnCopyDateToAll.Location = new System.Drawing.Point(14, 127);
             this.btnCopyDateToAll.Name = "btnCopyDateToAll";
-            this.btnCopyDateToAll.Size = new System.Drawing.Size(169, 23);
+            this.btnCopyDateToAll.Size = new System.Drawing.Size(244, 23);
             this.btnCopyDateToAll.TabIndex = 16;
             this.btnCopyDateToAll.Text = "Kopier til alle statistikkvariablar";
             this.btnCopyDateToAll.UseVisualStyleBackColor = true;
             this.btnCopyDateToAll.Click += new System.EventHandler(this.btnCopyDateToAll_Click);
             // 
-            // label12
+            // lblStatAreaType
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 23);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(56, 13);
-            this.label12.TabIndex = 17;
-            this.label12.Text = "Type krins";
+            this.lblStatAreaType.AutoSize = true;
+            this.lblStatAreaType.Location = new System.Drawing.Point(13, 23);
+            this.lblStatAreaType.Name = "lblStatAreaType";
+            this.lblStatAreaType.Size = new System.Drawing.Size(56, 13);
+            this.lblStatAreaType.TabIndex = 17;
+            this.lblStatAreaType.Text = "Type krins";
             // 
             // cbStatUnitType
             // 
             this.cbStatUnitType.FormattingEnabled = true;
-            this.cbStatUnitType.Items.AddRange(new object[] {
-            "1. kvartal",
-            "2. kvartal",
-            "3. kvartal",
-            "4. kvartal",
-            "1. tertial",
-            "2. tertial",
-            "3. tertial",
-            "1. halvår",
-            "2. halvår"});
             this.cbStatUnitType.Location = new System.Drawing.Point(92, 20);
             this.cbStatUnitType.Name = "cbStatUnitType";
-            this.cbStatUnitType.Size = new System.Drawing.Size(130, 21);
+            this.cbStatUnitType.Size = new System.Drawing.Size(168, 21);
             this.cbStatUnitType.TabIndex = 15;
-            this.cbStatUnitType.SelectedIndexChanged += new System.EventHandler(this.cbStatUnitType_SelectedIndexChanged);
             // 
             // grpAutoDateSettings
             // 
-            this.grpAutoDateSettings.Controls.Add(this.cbDateFormats);
+            this.grpAutoDateSettings.Controls.Add(this.cbStatDatumFormat);
             this.grpAutoDateSettings.Enabled = false;
             this.grpAutoDateSettings.Location = new System.Drawing.Point(338, 9);
             this.grpAutoDateSettings.Name = "grpAutoDateSettings";
-            this.grpAutoDateSettings.Size = new System.Drawing.Size(196, 69);
+            this.grpAutoDateSettings.Size = new System.Drawing.Size(264, 62);
             this.grpAutoDateSettings.TabIndex = 20;
             this.grpAutoDateSettings.TabStop = false;
             this.grpAutoDateSettings.Text = "Datoformat for autodatering";
             // 
-            // cbDateFormats
+            // cbStatDatumFormat
             // 
-            this.cbDateFormats.FormattingEnabled = true;
-            this.cbDateFormats.Items.AddRange(new object[] {
-            "1. kvartal",
-            "2. kvartal",
-            "3. kvartal",
-            "4. kvartal",
-            "1. tertial",
-            "2. tertial",
-            "3. tertial",
-            "1. halvår",
-            "2. halvår"});
-            this.cbDateFormats.Location = new System.Drawing.Point(14, 20);
-            this.cbDateFormats.Name = "cbDateFormats";
-            this.cbDateFormats.Size = new System.Drawing.Size(169, 21);
-            this.cbDateFormats.TabIndex = 18;
-            this.cbDateFormats.SelectedIndexChanged += new System.EventHandler(this.cbDateFormats_SelectedIndexChanged);
+            this.cbStatDatumFormat.FormattingEnabled = true;
+            this.cbStatDatumFormat.Location = new System.Drawing.Point(14, 20);
+            this.cbStatDatumFormat.Name = "cbStatDatumFormat";
+            this.cbStatDatumFormat.Size = new System.Drawing.Size(244, 21);
+            this.cbStatDatumFormat.TabIndex = 18;
             // 
             // panelTop
             // 
@@ -304,140 +291,140 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(792, 313);
+            this.panelTop.Size = new System.Drawing.Size(886, 313);
             this.panelTop.TabIndex = 22;
             // 
             // panelTopFill
             // 
-            this.panelTopFill.Controls.Add(this.grpManualStatAreaSettings);
-            this.panelTopFill.Controls.Add(this.grpManualDateSettings);
+            this.panelTopFill.Controls.Add(this.grpStatAreaSettings);
+            this.panelTopFill.Controls.Add(this.grpStatDatumSettings);
             this.panelTopFill.Controls.Add(this.grpAutoDateSettings);
-            this.panelTopFill.Controls.Add(this.groupLayoutOfData);
+            this.panelTopFill.Controls.Add(this.grpCellContentTypeSettings);
             this.panelTopFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTopFill.Location = new System.Drawing.Point(0, 57);
             this.panelTopFill.Name = "panelTopFill";
-            this.panelTopFill.Size = new System.Drawing.Size(792, 256);
+            this.panelTopFill.Size = new System.Drawing.Size(886, 256);
             this.panelTopFill.TabIndex = 23;
             // 
-            // grpManualStatAreaSettings
+            // grpStatAreaSettings
             // 
-            this.grpManualStatAreaSettings.Controls.Add(this.button1);
-            this.grpManualStatAreaSettings.Controls.Add(this.tbManualStatAreaGroup);
-            this.grpManualStatAreaSettings.Controls.Add(this.tbManualStatAreaName);
-            this.grpManualStatAreaSettings.Controls.Add(this.tbManualStatAreaID);
-            this.grpManualStatAreaSettings.Controls.Add(this.label18);
-            this.grpManualStatAreaSettings.Controls.Add(this.label17);
-            this.grpManualStatAreaSettings.Controls.Add(this.label16);
-            this.grpManualStatAreaSettings.Controls.Add(this.label12);
-            this.grpManualStatAreaSettings.Controls.Add(this.cbStatUnitType);
-            this.grpManualStatAreaSettings.Enabled = false;
-            this.grpManualStatAreaSettings.Location = new System.Drawing.Point(543, 9);
-            this.grpManualStatAreaSettings.Name = "grpManualStatAreaSettings";
-            this.grpManualStatAreaSettings.Size = new System.Drawing.Size(237, 236);
-            this.grpManualStatAreaSettings.TabIndex = 25;
-            this.grpManualStatAreaSettings.TabStop = false;
-            this.grpManualStatAreaSettings.Text = "Manuell stadfesting";
+            this.grpStatAreaSettings.Controls.Add(this.btnSetStatAreaInfo);
+            this.grpStatAreaSettings.Controls.Add(this.tbStatUnitGroup);
+            this.grpStatAreaSettings.Controls.Add(this.tbStatUnitName);
+            this.grpStatAreaSettings.Controls.Add(this.tbStatUnitID);
+            this.grpStatAreaSettings.Controls.Add(this.lblStatAreaGroup);
+            this.grpStatAreaSettings.Controls.Add(this.lblStatAreaName);
+            this.grpStatAreaSettings.Controls.Add(this.lblStatAreaId);
+            this.grpStatAreaSettings.Controls.Add(this.lblStatAreaType);
+            this.grpStatAreaSettings.Controls.Add(this.cbStatUnitType);
+            this.grpStatAreaSettings.Enabled = false;
+            this.grpStatAreaSettings.Location = new System.Drawing.Point(608, 9);
+            this.grpStatAreaSettings.Name = "grpStatAreaSettings";
+            this.grpStatAreaSettings.Size = new System.Drawing.Size(266, 236);
+            this.grpStatAreaSettings.TabIndex = 25;
+            this.grpStatAreaSettings.TabStop = false;
+            this.grpStatAreaSettings.Text = "Manuell stadfesting";
             // 
-            // button1
+            // btnSetStatAreaInfo
             // 
-            this.button1.Location = new System.Drawing.Point(16, 127);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(206, 23);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Bestem stadfesting";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSetStatAreaInfo.Location = new System.Drawing.Point(16, 127);
+            this.btnSetStatAreaInfo.Name = "btnSetStatAreaInfo";
+            this.btnSetStatAreaInfo.Size = new System.Drawing.Size(244, 23);
+            this.btnSetStatAreaInfo.TabIndex = 21;
+            this.btnSetStatAreaInfo.Text = "Bestem stadfesting";
+            this.btnSetStatAreaInfo.UseVisualStyleBackColor = true;
+            this.btnSetStatAreaInfo.Click += new System.EventHandler(this.btnSetStatAreaInfo_Click);
             // 
-            // tbManualStatAreaGroup
+            // tbStatUnitGroup
             // 
-            this.tbManualStatAreaGroup.Location = new System.Drawing.Point(92, 99);
-            this.tbManualStatAreaGroup.Name = "tbManualStatAreaGroup";
-            this.tbManualStatAreaGroup.Size = new System.Drawing.Size(130, 20);
-            this.tbManualStatAreaGroup.TabIndex = 20;
+            this.tbStatUnitGroup.Location = new System.Drawing.Point(92, 99);
+            this.tbStatUnitGroup.Name = "tbStatUnitGroup";
+            this.tbStatUnitGroup.Size = new System.Drawing.Size(168, 20);
+            this.tbStatUnitGroup.TabIndex = 20;
             // 
-            // tbManualStatAreaName
+            // tbStatUnitName
             // 
-            this.tbManualStatAreaName.Location = new System.Drawing.Point(92, 72);
-            this.tbManualStatAreaName.Name = "tbManualStatAreaName";
-            this.tbManualStatAreaName.Size = new System.Drawing.Size(130, 20);
-            this.tbManualStatAreaName.TabIndex = 19;
+            this.tbStatUnitName.Location = new System.Drawing.Point(92, 72);
+            this.tbStatUnitName.Name = "tbStatUnitName";
+            this.tbStatUnitName.Size = new System.Drawing.Size(168, 20);
+            this.tbStatUnitName.TabIndex = 19;
             // 
-            // tbManualStatAreaID
+            // tbStatUnitID
             // 
-            this.tbManualStatAreaID.Location = new System.Drawing.Point(92, 46);
-            this.tbManualStatAreaID.Name = "tbManualStatAreaID";
-            this.tbManualStatAreaID.Size = new System.Drawing.Size(130, 20);
-            this.tbManualStatAreaID.TabIndex = 18;
+            this.tbStatUnitID.Location = new System.Drawing.Point(92, 46);
+            this.tbStatUnitID.Name = "tbStatUnitID";
+            this.tbStatUnitID.Size = new System.Drawing.Size(168, 20);
+            this.tbStatUnitID.TabIndex = 18;
             // 
-            // label18
+            // lblStatAreaGroup
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(13, 102);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(76, 13);
-            this.label18.TabIndex = 17;
-            this.label18.Text = "Gruppe/region";
+            this.lblStatAreaGroup.AutoSize = true;
+            this.lblStatAreaGroup.Location = new System.Drawing.Point(13, 102);
+            this.lblStatAreaGroup.Name = "lblStatAreaGroup";
+            this.lblStatAreaGroup.Size = new System.Drawing.Size(76, 13);
+            this.lblStatAreaGroup.TabIndex = 17;
+            this.lblStatAreaGroup.Text = "Gruppe/region";
             // 
-            // label17
+            // lblStatAreaName
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(13, 75);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(56, 13);
-            this.label17.TabIndex = 17;
-            this.label17.Text = "Krinsnamn";
+            this.lblStatAreaName.AutoSize = true;
+            this.lblStatAreaName.Location = new System.Drawing.Point(13, 75);
+            this.lblStatAreaName.Name = "lblStatAreaName";
+            this.lblStatAreaName.Size = new System.Drawing.Size(56, 13);
+            this.lblStatAreaName.TabIndex = 17;
+            this.lblStatAreaName.Text = "Krinsnamn";
             // 
-            // label16
+            // lblStatAreaId
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(13, 49);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(44, 13);
-            this.label16.TabIndex = 17;
-            this.label16.Text = "Krins ID";
+            this.lblStatAreaId.AutoSize = true;
+            this.lblStatAreaId.Location = new System.Drawing.Point(13, 49);
+            this.lblStatAreaId.Name = "lblStatAreaId";
+            this.lblStatAreaId.Size = new System.Drawing.Size(44, 13);
+            this.lblStatAreaId.TabIndex = 17;
+            this.lblStatAreaId.Text = "Krins ID";
             // 
-            // groupLayoutOfData
+            // grpCellContentTypeSettings
             // 
-            this.groupLayoutOfData.Controls.Add(this.label7);
-            this.groupLayoutOfData.Controls.Add(this.label6);
-            this.groupLayoutOfData.Controls.Add(this.cbRowCType4);
-            this.groupLayoutOfData.Controls.Add(this.cbColCType4);
-            this.groupLayoutOfData.Controls.Add(this.label13);
-            this.groupLayoutOfData.Controls.Add(this.cbColCType3);
-            this.groupLayoutOfData.Controls.Add(this.label11);
-            this.groupLayoutOfData.Controls.Add(this.cbColCType2);
-            this.groupLayoutOfData.Controls.Add(this.cbRowCType3);
-            this.groupLayoutOfData.Controls.Add(this.label15);
-            this.groupLayoutOfData.Controls.Add(this.cbRowCType2);
-            this.groupLayoutOfData.Controls.Add(this.label14);
-            this.groupLayoutOfData.Controls.Add(this.cbRowCType1);
-            this.groupLayoutOfData.Controls.Add(this.label10);
-            this.groupLayoutOfData.Controls.Add(this.label9);
-            this.groupLayoutOfData.Controls.Add(this.cbColCType1);
-            this.groupLayoutOfData.Location = new System.Drawing.Point(12, 9);
-            this.groupLayoutOfData.Name = "groupLayoutOfData";
-            this.groupLayoutOfData.Size = new System.Drawing.Size(320, 236);
-            this.groupLayoutOfData.TabIndex = 24;
-            this.groupLayoutOfData.TabStop = false;
-            this.groupLayoutOfData.Text = "Korleis data er organiserte";
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarRow4);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarCol4);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbRowCType4);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbColCType4);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarCol3);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbColCType3);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarCol2);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbColCType2);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbRowCType3);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarRow3);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbRowCType2);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarRow2);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbRowCType1);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarRow1);
+            this.grpCellContentTypeSettings.Controls.Add(this.lblStatVarCol1);
+            this.grpCellContentTypeSettings.Controls.Add(this.cbColCType1);
+            this.grpCellContentTypeSettings.Location = new System.Drawing.Point(12, 9);
+            this.grpCellContentTypeSettings.Name = "grpCellContentTypeSettings";
+            this.grpCellContentTypeSettings.Size = new System.Drawing.Size(320, 236);
+            this.grpCellContentTypeSettings.TabIndex = 24;
+            this.grpCellContentTypeSettings.TabStop = false;
+            this.grpCellContentTypeSettings.Text = "Korleis data er organiserte";
             // 
-            // label7
+            // lblStatVarRow4
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 205);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 13);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Innhald i fjerde rad";
+            this.lblStatVarRow4.AutoSize = true;
+            this.lblStatVarRow4.Location = new System.Drawing.Point(10, 205);
+            this.lblStatVarRow4.Name = "lblStatVarRow4";
+            this.lblStatVarRow4.Size = new System.Drawing.Size(94, 13);
+            this.lblStatVarRow4.TabIndex = 10;
+            this.lblStatVarRow4.Text = "Innhald i fjerde rad";
             // 
-            // label6
+            // lblStatVarCol4
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 101);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Innhald i fjerde kolonne";
+            this.lblStatVarCol4.AutoSize = true;
+            this.lblStatVarCol4.Location = new System.Drawing.Point(10, 101);
+            this.lblStatVarCol4.Name = "lblStatVarCol4";
+            this.lblStatVarCol4.Size = new System.Drawing.Size(117, 13);
+            this.lblStatVarCol4.TabIndex = 9;
+            this.lblStatVarCol4.Text = "Innhald i fjerde kolonne";
             // 
             // cbRowCType4
             // 
@@ -446,7 +433,7 @@
             this.cbRowCType4.Name = "cbRowCType4";
             this.cbRowCType4.Size = new System.Drawing.Size(172, 21);
             this.cbRowCType4.TabIndex = 8;
-            this.cbRowCType4.SelectedIndexChanged += new System.EventHandler(this.cbRowCType4_SelectedIndexChanged);
+            this.cbRowCType4.SelectionChangeCommitted += new System.EventHandler(this.cbRowCType4_SelectedIndexChanged);
             // 
             // cbColCType4
             // 
@@ -455,16 +442,16 @@
             this.cbColCType4.Name = "cbColCType4";
             this.cbColCType4.Size = new System.Drawing.Size(172, 21);
             this.cbColCType4.TabIndex = 7;
-            this.cbColCType4.SelectedIndexChanged += new System.EventHandler(this.cbColCType4_SelectedIndexChanged);
+            this.cbColCType4.SelectionChangeCommitted += new System.EventHandler(this.cbColCType4_SelectedIndexChanged);
             // 
-            // label13
+            // lblStatVarCol3
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 75);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(117, 13);
-            this.label13.TabIndex = 5;
-            this.label13.Text = "Innhald i tredje kolonne";
+            this.lblStatVarCol3.AutoSize = true;
+            this.lblStatVarCol3.Location = new System.Drawing.Point(9, 75);
+            this.lblStatVarCol3.Name = "lblStatVarCol3";
+            this.lblStatVarCol3.Size = new System.Drawing.Size(117, 13);
+            this.lblStatVarCol3.TabIndex = 5;
+            this.lblStatVarCol3.Text = "Innhald i tredje kolonne";
             // 
             // cbColCType3
             // 
@@ -473,16 +460,16 @@
             this.cbColCType3.Name = "cbColCType3";
             this.cbColCType3.Size = new System.Drawing.Size(172, 21);
             this.cbColCType3.TabIndex = 6;
-            this.cbColCType3.SelectedIndexChanged += new System.EventHandler(this.cbThirdColCType_SelectedIndexChanged);
+            this.cbColCType3.SelectionChangeCommitted += new System.EventHandler(this.cbThirdColCType_SelectedIndexChanged);
             // 
-            // label11
+            // lblStatVarCol2
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 49);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(118, 13);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "Innhald i andre kolonne";
+            this.lblStatVarCol2.AutoSize = true;
+            this.lblStatVarCol2.Location = new System.Drawing.Point(9, 49);
+            this.lblStatVarCol2.Name = "lblStatVarCol2";
+            this.lblStatVarCol2.Size = new System.Drawing.Size(118, 13);
+            this.lblStatVarCol2.TabIndex = 3;
+            this.lblStatVarCol2.Text = "Innhald i andre kolonne";
             // 
             // cbColCType2
             // 
@@ -491,7 +478,7 @@
             this.cbColCType2.Name = "cbColCType2";
             this.cbColCType2.Size = new System.Drawing.Size(172, 21);
             this.cbColCType2.TabIndex = 4;
-            this.cbColCType2.SelectedIndexChanged += new System.EventHandler(this.cbSecondColCType_SelectedIndexChanged);
+            this.cbColCType2.SelectionChangeCommitted += new System.EventHandler(this.cbSecondColCType_SelectedIndexChanged);
             // 
             // cbRowCType3
             // 
@@ -500,16 +487,16 @@
             this.cbRowCType3.Name = "cbRowCType3";
             this.cbRowCType3.Size = new System.Drawing.Size(172, 21);
             this.cbRowCType3.TabIndex = 0;
-            this.cbRowCType3.SelectedIndexChanged += new System.EventHandler(this.cbRowCType3_SelectedIndexChanged);
+            this.cbRowCType3.SelectionChangeCommitted += new System.EventHandler(this.cbRowCType3_SelectedIndexChanged);
             // 
-            // label15
+            // lblStatVarRow3
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(9, 179);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(94, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Innhald i tredje rad";
+            this.lblStatVarRow3.AutoSize = true;
+            this.lblStatVarRow3.Location = new System.Drawing.Point(9, 179);
+            this.lblStatVarRow3.Name = "lblStatVarRow3";
+            this.lblStatVarRow3.Size = new System.Drawing.Size(94, 13);
+            this.lblStatVarRow3.TabIndex = 0;
+            this.lblStatVarRow3.Text = "Innhald i tredje rad";
             // 
             // cbRowCType2
             // 
@@ -518,16 +505,16 @@
             this.cbRowCType2.Name = "cbRowCType2";
             this.cbRowCType2.Size = new System.Drawing.Size(172, 21);
             this.cbRowCType2.TabIndex = 0;
-            this.cbRowCType2.SelectedIndexChanged += new System.EventHandler(this.cbSecondRowCType_SelectedIndexChanged);
+            this.cbRowCType2.SelectionChangeCommitted += new System.EventHandler(this.cbSecondRowCType_SelectedIndexChanged);
             // 
-            // label14
+            // lblStatVarRow2
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 153);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(95, 13);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "Innhald i andre rad";
+            this.lblStatVarRow2.AutoSize = true;
+            this.lblStatVarRow2.Location = new System.Drawing.Point(9, 153);
+            this.lblStatVarRow2.Name = "lblStatVarRow2";
+            this.lblStatVarRow2.Size = new System.Drawing.Size(95, 13);
+            this.lblStatVarRow2.TabIndex = 0;
+            this.lblStatVarRow2.Text = "Innhald i andre rad";
             // 
             // cbRowCType1
             // 
@@ -536,25 +523,25 @@
             this.cbRowCType1.Name = "cbRowCType1";
             this.cbRowCType1.Size = new System.Drawing.Size(172, 21);
             this.cbRowCType1.TabIndex = 0;
-            this.cbRowCType1.SelectedIndexChanged += new System.EventHandler(this.cbFirstRowCType_SelectedIndexChanged);
+            this.cbRowCType1.SelectionChangeCommitted += new System.EventHandler(this.cbFirstRowCType_SelectedIndexChanged);
             // 
-            // label10
+            // lblStatVarRow1
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 127);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(93, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Innhald i fyrste rad";
+            this.lblStatVarRow1.AutoSize = true;
+            this.lblStatVarRow1.Location = new System.Drawing.Point(9, 127);
+            this.lblStatVarRow1.Name = "lblStatVarRow1";
+            this.lblStatVarRow1.Size = new System.Drawing.Size(93, 13);
+            this.lblStatVarRow1.TabIndex = 0;
+            this.lblStatVarRow1.Text = "Innhald i fyrste rad";
             // 
-            // label9
+            // lblStatVarCol1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 23);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Innhald i fyrste kolonne";
+            this.lblStatVarCol1.AutoSize = true;
+            this.lblStatVarCol1.Location = new System.Drawing.Point(9, 23);
+            this.lblStatVarCol1.Name = "lblStatVarCol1";
+            this.lblStatVarCol1.Size = new System.Drawing.Size(116, 13);
+            this.lblStatVarCol1.TabIndex = 0;
+            this.lblStatVarCol1.Text = "Innhald i fyrste kolonne";
             // 
             // cbColCType1
             // 
@@ -563,34 +550,67 @@
             this.cbColCType1.Name = "cbColCType1";
             this.cbColCType1.Size = new System.Drawing.Size(172, 21);
             this.cbColCType1.TabIndex = 2;
-            this.cbColCType1.SelectedIndexChanged += new System.EventHandler(this.cbFirstColumn_SelectedIndexChanged);
+            this.cbColCType1.SelectionChangeCommitted += new System.EventHandler(this.cbFirstColumn_SelectedIndexChanged);
             // 
             // topToolBar
             // 
             this.topToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnTestParsing,
+            this.btnValidate,
+            this.tss2,
+            this.lblDataset,
+            this.cbDataset,
+            this.btnUpload,
             this.btnSaveAsCSV,
-            this.toolStripSeparator1,
-            this.toolStripLabel1,
-            this.cbSelectSettings,
-            this.btnUploadToAdaptive,
-            this.toolStripSeparator2,
-            this.btnCreateNewStatVar});
+            this.tss1,
+            this.lblSettings,
+            this.cbSettings,
+            this.btnUseSettings,
+            this.btnSaveSettings,
+            this.btnDeleteSettings});
             this.topToolBar.Location = new System.Drawing.Point(0, 24);
             this.topToolBar.Name = "topToolBar";
             this.topToolBar.Padding = new System.Windows.Forms.Padding(5);
-            this.topToolBar.Size = new System.Drawing.Size(792, 33);
+            this.topToolBar.Size = new System.Drawing.Size(886, 33);
             this.topToolBar.TabIndex = 2;
             this.topToolBar.Text = "toolStripTop";
             // 
-            // btnTestParsing
+            // btnValidate
             // 
-            this.btnTestParsing.Image = ((System.Drawing.Image)(resources.GetObject("btnTestParsing.Image")));
-            this.btnTestParsing.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTestParsing.Name = "btnTestParsing";
-            this.btnTestParsing.Size = new System.Drawing.Size(116, 20);
-            this.btnTestParsing.Text = "Prøv innstillingar";
-            this.btnTestParsing.Click += new System.EventHandler(this.btnTestParsing_Click);
+            this.btnValidate.Image = ((System.Drawing.Image)(resources.GetObject("btnValidate.Image")));
+            this.btnValidate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnValidate.Name = "btnValidate";
+            this.btnValidate.Size = new System.Drawing.Size(87, 20);
+            this.btnValidate.Text = "Valider/test";
+            this.btnValidate.Click += new System.EventHandler(this.btnTestParsing_Click);
+            // 
+            // tss2
+            // 
+            this.tss2.Name = "tss2";
+            this.tss2.Size = new System.Drawing.Size(6, 23);
+            // 
+            // lblDataset
+            // 
+            this.lblDataset.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDataset.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblDataset.Name = "lblDataset";
+            this.lblDataset.Size = new System.Drawing.Size(51, 20);
+            this.lblDataset.Text = "Datasett";
+            // 
+            // cbDataset
+            // 
+            this.cbDataset.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+            this.cbDataset.Name = "cbDataset";
+            this.cbDataset.Size = new System.Drawing.Size(150, 23);
+            this.cbDataset.ToolTipText = "Vel eitt eksisterande datasett å laste opp til";
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Image = ((System.Drawing.Image)(resources.GetObject("btnUpload.Image")));
+            this.btnUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(72, 20);
+            this.btnUpload.Text = "Last opp";
+            this.btnUpload.Click += new System.EventHandler(this.btnUploadToAdaptive_Click);
             // 
             // btnSaveAsCSV
             // 
@@ -599,78 +619,89 @@
             this.btnSaveAsCSV.Name = "btnSaveAsCSV";
             this.btnSaveAsCSV.Size = new System.Drawing.Size(80, 20);
             this.btnSaveAsCSV.Text = "Lagre CSV";
-            this.btnSaveAsCSV.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btnSaveAsCSV.Click += new System.EventHandler(this.btnExportCSV_Click);
             // 
-            // toolStripSeparator1
+            // tss1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 23);
+            this.tss1.Name = "tss1";
+            this.tss1.Size = new System.Drawing.Size(6, 23);
             // 
-            // toolStripLabel1
+            // lblSettings
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(134, 20);
-            this.toolStripLabel1.Text = "Vel eksisterande oppsett";
+            this.lblSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSettings.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblSettings.Name = "lblSettings";
+            this.lblSettings.Size = new System.Drawing.Size(84, 20);
+            this.lblSettings.Text = "Importoppsett";
             // 
-            // cbSelectSettings
+            // cbSettings
             // 
-            this.cbSelectSettings.Name = "cbSelectSettings";
-            this.cbSelectSettings.Size = new System.Drawing.Size(121, 23);
+            this.cbSettings.BackColor = System.Drawing.Color.LightCyan;
+            this.cbSettings.DropDownWidth = 150;
+            this.cbSettings.Name = "cbSettings";
+            this.cbSettings.Size = new System.Drawing.Size(150, 23);
             // 
-            // btnUploadToAdaptive
+            // btnUseSettings
             // 
-            this.btnUploadToAdaptive.Image = ((System.Drawing.Image)(resources.GetObject("btnUploadToAdaptive.Image")));
-            this.btnUploadToAdaptive.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnUploadToAdaptive.Name = "btnUploadToAdaptive";
-            this.btnUploadToAdaptive.Size = new System.Drawing.Size(135, 20);
-            this.btnUploadToAdaptive.Text = "Last opp til Adaptive";
+            this.btnUseSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnUseSettings.Image")));
+            this.btnUseSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnUseSettings.Name = "btnUseSettings";
+            this.btnUseSettings.Size = new System.Drawing.Size(51, 20);
+            this.btnUseSettings.Text = "Bruk";
+            this.btnUseSettings.Click += new System.EventHandler(this.btnRestoreSettings_Click);
             // 
-            // toolStripSeparator2
+            // btnSaveSettings
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
+            this.btnSaveSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveSettings.Image")));
+            this.btnSaveSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSaveSettings.Name = "btnSaveSettings";
+            this.btnSaveSettings.Size = new System.Drawing.Size(56, 20);
+            this.btnSaveSettings.Text = "Lagre";
+            this.btnSaveSettings.ToolTipText = "Lagre/oppdater oppsett";
+            this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
             // 
-            // btnCreateNewStatVar
+            // btnDeleteSettings
             // 
-            this.btnCreateNewStatVar.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateNewStatVar.Image")));
-            this.btnCreateNewStatVar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCreateNewStatVar.Name = "btnCreateNewStatVar";
-            this.btnCreateNewStatVar.Size = new System.Drawing.Size(132, 20);
-            this.btnCreateNewStatVar.Text = "Ny statistikkvariabel";
-            this.btnCreateNewStatVar.Click += new System.EventHandler(this.btnCreateNewStatVar_Click);
+            this.btnDeleteSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteSettings.Image")));
+            this.btnDeleteSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDeleteSettings.Name = "btnDeleteSettings";
+            this.btnDeleteSettings.Size = new System.Drawing.Size(50, 20);
+            this.btnDeleteSettings.Text = "Slett";
+            this.btnDeleteSettings.ToolTipText = "Slett oppsett";
+            this.btnDeleteSettings.Click += new System.EventHandler(this.btnDeleteSettings_Click);
             // 
             // panelTopTopMenu
             // 
             this.panelTopTopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.tsmiFileMenu});
             this.panelTopTopMenu.Location = new System.Drawing.Point(0, 0);
             this.panelTopTopMenu.Name = "panelTopTopMenu";
-            this.panelTopTopMenu.Size = new System.Drawing.Size(792, 24);
+            this.panelTopTopMenu.Size = new System.Drawing.Size(886, 24);
             this.panelTopTopMenu.TabIndex = 22;
             this.panelTopTopMenu.Text = "menuStrip1";
             // 
-            // toolStripMenuItem1
+            // tsmiFileMenu
             // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem,
-            this.stengToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(31, 20);
-            this.toolStripMenuItem1.Text = "Fil";
+            this.tsmiFileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiReloadAdaptiveConfiguration,
+            this.tsmiCloseWindow});
+            this.tsmiFileMenu.Name = "tsmiFileMenu";
+            this.tsmiFileMenu.Size = new System.Drawing.Size(31, 20);
+            this.tsmiFileMenu.Text = "Fil";
             // 
-            // oppdaterKonfigurasjonFråServerToolStripMenuItem
+            // tsmiReloadAdaptiveConfiguration
             // 
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Name = "oppdaterKonfigurasjonFråServerToolStripMenuItem";
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Text = "Oppdater konfigurasjon frå server";
-            this.oppdaterKonfigurasjonFråServerToolStripMenuItem.Click += new System.EventHandler(this.updateConfigFromServer);
+            this.tsmiReloadAdaptiveConfiguration.Name = "tsmiReloadAdaptiveConfiguration";
+            this.tsmiReloadAdaptiveConfiguration.Size = new System.Drawing.Size(251, 22);
+            this.tsmiReloadAdaptiveConfiguration.Text = "Oppdater konfigurasjon frå server";
+            this.tsmiReloadAdaptiveConfiguration.Click += new System.EventHandler(this.updateConfigFromServer);
             // 
-            // stengToolStripMenuItem
+            // tsmiCloseWindow
             // 
-            this.stengToolStripMenuItem.Name = "stengToolStripMenuItem";
-            this.stengToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.stengToolStripMenuItem.Text = "Steng opplastingsvindauge";
-            this.stengToolStripMenuItem.Click += new System.EventHandler(this.stengToolStripMenuItem_Click);
+            this.tsmiCloseWindow.Name = "tsmiCloseWindow";
+            this.tsmiCloseWindow.Size = new System.Drawing.Size(251, 22);
+            this.tsmiCloseWindow.Text = "Steng opplastingsvindauge";
+            this.tsmiCloseWindow.Click += new System.EventHandler(this.stengToolStripMenuItem_Click);
             // 
             // panelFill
             // 
@@ -678,31 +709,31 @@
             this.panelFill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFill.Location = new System.Drawing.Point(0, 313);
             this.panelFill.Name = "panelFill";
-            this.panelFill.Size = new System.Drawing.Size(792, 237);
+            this.panelFill.Size = new System.Drawing.Size(886, 237);
             this.panelFill.TabIndex = 24;
             // 
             // tabControl
             // 
-            this.tabControl.Controls.Add(this.tabPagePreviewSelection);
-            this.tabControl.Controls.Add(this.tabPageStatisticsVariables);
+            this.tabControl.Controls.Add(this.tpPreviewSelection);
+            this.tabControl.Controls.Add(this.tpStatisticsVariables);
             this.tabControl.Controls.Add(this.tabPageLogOutput);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(792, 237);
+            this.tabControl.Size = new System.Drawing.Size(886, 237);
             this.tabControl.TabIndex = 25;
             // 
-            // tabPagePreviewSelection
+            // tpPreviewSelection
             // 
-            this.tabPagePreviewSelection.Controls.Add(this.dgvPreviewSelection);
-            this.tabPagePreviewSelection.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePreviewSelection.Name = "tabPagePreviewSelection";
-            this.tabPagePreviewSelection.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePreviewSelection.Size = new System.Drawing.Size(784, 211);
-            this.tabPagePreviewSelection.TabIndex = 1;
-            this.tabPagePreviewSelection.Text = "Førehandsvisning av utval";
-            this.tabPagePreviewSelection.UseVisualStyleBackColor = true;
+            this.tpPreviewSelection.Controls.Add(this.dgvPreviewSelection);
+            this.tpPreviewSelection.Location = new System.Drawing.Point(4, 22);
+            this.tpPreviewSelection.Name = "tpPreviewSelection";
+            this.tpPreviewSelection.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPreviewSelection.Size = new System.Drawing.Size(878, 211);
+            this.tpPreviewSelection.TabIndex = 1;
+            this.tpPreviewSelection.Text = "Førehandsvisning av utval";
+            this.tpPreviewSelection.UseVisualStyleBackColor = true;
             // 
             // dgvPreviewSelection
             // 
@@ -710,51 +741,58 @@
             this.dgvPreviewSelection.AllowUserToDeleteRows = false;
             this.dgvPreviewSelection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPreviewSelection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvPreviewSelection.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvPreviewSelection.Location = new System.Drawing.Point(3, 3);
             this.dgvPreviewSelection.MultiSelect = false;
             this.dgvPreviewSelection.Name = "dgvPreviewSelection";
             this.dgvPreviewSelection.ReadOnly = true;
             this.dgvPreviewSelection.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgvPreviewSelection.Size = new System.Drawing.Size(778, 205);
+            this.dgvPreviewSelection.Size = new System.Drawing.Size(872, 205);
             this.dgvPreviewSelection.TabIndex = 0;
             this.dgvPreviewSelection.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvPreviewSelection_DataBindingComplete);
             // 
-            // tabPageStatisticsVariables
+            // tpStatisticsVariables
             // 
-            this.tabPageStatisticsVariables.Controls.Add(this.dgvManualStatVarProps);
-            this.tabPageStatisticsVariables.Controls.Add(this.dgvFieldPropertiesToolStrip);
-            this.tabPageStatisticsVariables.Location = new System.Drawing.Point(4, 22);
-            this.tabPageStatisticsVariables.Name = "tabPageStatisticsVariables";
-            this.tabPageStatisticsVariables.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatisticsVariables.Size = new System.Drawing.Size(784, 211);
-            this.tabPageStatisticsVariables.TabIndex = 0;
-            this.tabPageStatisticsVariables.Text = "Innstillingar for statistikkvariablar";
-            this.tabPageStatisticsVariables.UseVisualStyleBackColor = true;
+            this.tpStatisticsVariables.Controls.Add(this.dgvStatVarProperties);
+            this.tpStatisticsVariables.Controls.Add(this.tsStatVarPropertiesDGV);
+            this.tpStatisticsVariables.Location = new System.Drawing.Point(4, 22);
+            this.tpStatisticsVariables.Name = "tpStatisticsVariables";
+            this.tpStatisticsVariables.Padding = new System.Windows.Forms.Padding(3);
+            this.tpStatisticsVariables.Size = new System.Drawing.Size(784, 211);
+            this.tpStatisticsVariables.TabIndex = 0;
+            this.tpStatisticsVariables.Text = "Innstillingar for statistikkvariablar";
+            this.tpStatisticsVariables.UseVisualStyleBackColor = true;
             // 
-            // dgvManualStatVarProps
+            // dgvStatVarProperties
             // 
-            this.dgvManualStatVarProps.AllowUserToAddRows = false;
-            this.dgvManualStatVarProps.AllowUserToDeleteRows = false;
-            this.dgvManualStatVarProps.AllowUserToResizeRows = false;
-            this.dgvManualStatVarProps.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvManualStatVarProps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvManualStatVarProps.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvStatVarProperties.AllowUserToAddRows = false;
+            this.dgvStatVarProperties.AllowUserToDeleteRows = false;
+            this.dgvStatVarProperties.AllowUserToResizeRows = false;
+            this.dgvStatVarProperties.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvStatVarProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStatVarProperties.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
             this.Title,
-            this.VariableType,
+            this.StatVarCol1,
+            this.StatVarCol2,
+            this.StatVarCol3,
+            this.StatVarCol4,
+            this.StatVarCol5,
             this.MeasurementUnit,
             this.Year,
-            this.YearPart,
+            this.Quarter,
             this.Month,
             this.Day});
-            this.dgvManualStatVarProps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvManualStatVarProps.Location = new System.Drawing.Point(3, 28);
-            this.dgvManualStatVarProps.Name = "dgvManualStatVarProps";
-            this.dgvManualStatVarProps.Size = new System.Drawing.Size(778, 180);
-            this.dgvManualStatVarProps.TabIndex = 0;
+            this.dgvStatVarProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStatVarProperties.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvStatVarProperties.Location = new System.Drawing.Point(3, 28);
+            this.dgvStatVarProperties.Name = "dgvStatVarProperties";
+            this.dgvStatVarProperties.Size = new System.Drawing.Size(778, 180);
+            this.dgvStatVarProperties.TabIndex = 0;
             // 
             // Index
             // 
+            this.Index.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Index.DataPropertyName = "Index";
             this.Index.FillWeight = 25F;
             this.Index.Frozen = true;
@@ -772,83 +810,125 @@
             this.Title.HeaderText = "Tittel";
             this.Title.Name = "Title";
             this.Title.ReadOnly = true;
+            this.Title.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Title.Width = 36;
             // 
-            // VariableType
+            // StatVarCol1
             // 
-            this.VariableType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.VariableType.DataPropertyName = "VariableType";
-            this.VariableType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.VariableType.HeaderText = "Statistikkvariabeltype";
-            this.VariableType.MaxDropDownItems = 32;
-            this.VariableType.Name = "VariableType";
-            this.VariableType.Width = 113;
+            this.StatVarCol1.AutoComplete = false;
+            this.StatVarCol1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.StatVarCol1.DataPropertyName = "StatVarCol1";
+            this.StatVarCol1.HeaderText = "Stat.var. nivå 1";
+            this.StatVarCol1.Items.AddRange(new object[] {
+            "",
+            "Folketal",
+            "Miljø",
+            "Trafikk",
+            "Næring"});
+            this.StatVarCol1.MinimumWidth = 100;
+            this.StatVarCol1.Name = "StatVarCol1";
+            // 
+            // StatVarCol2
+            // 
+            this.StatVarCol2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.StatVarCol2.DataPropertyName = "StatVarCol2";
+            this.StatVarCol2.HeaderText = "Nivå 2";
+            this.StatVarCol2.MinimumWidth = 100;
+            this.StatVarCol2.Name = "StatVarCol2";
+            // 
+            // StatVarCol3
+            // 
+            this.StatVarCol3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.StatVarCol3.DataPropertyName = "StatVarCol3";
+            this.StatVarCol3.HeaderText = "Nivå 3";
+            this.StatVarCol3.MinimumWidth = 100;
+            this.StatVarCol3.Name = "StatVarCol3";
+            // 
+            // StatVarCol4
+            // 
+            this.StatVarCol4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.StatVarCol4.DataPropertyName = "StatVarCol4";
+            this.StatVarCol4.HeaderText = "Nivå 4";
+            this.StatVarCol4.MinimumWidth = 75;
+            this.StatVarCol4.Name = "StatVarCol4";
+            this.StatVarCol4.Width = 75;
+            // 
+            // StatVarCol5
+            // 
+            this.StatVarCol5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.StatVarCol5.DataPropertyName = "StatVarCol5";
+            this.StatVarCol5.HeaderText = "Nivå 5";
+            this.StatVarCol5.MinimumWidth = 75;
+            this.StatVarCol5.Name = "StatVarCol5";
+            this.StatVarCol5.Width = 75;
             // 
             // MeasurementUnit
             // 
-            this.MeasurementUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.MeasurementUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.MeasurementUnit.DataPropertyName = "MeasurementUnit";
-            this.MeasurementUnit.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.MeasurementUnit.HeaderText = "Måleeining";
+            this.MeasurementUnit.MinimumWidth = 75;
             this.MeasurementUnit.Name = "MeasurementUnit";
             this.MeasurementUnit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MeasurementUnit.Width = 64;
             // 
             // Year
             // 
-            this.Year.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Year.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Year.DataPropertyName = "Year";
             this.Year.HeaderText = "År";
+            this.Year.MinimumWidth = 50;
             this.Year.Name = "Year";
             this.Year.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Year.Width = 23;
+            this.Year.Width = 50;
             // 
-            // YearPart
+            // Quarter
             // 
-            this.YearPart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.YearPart.DataPropertyName = "YearPart";
-            this.YearPart.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.YearPart.HeaderText = "Kvartal";
-            this.YearPart.Items.AddRange(new object[] {
+            this.Quarter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Quarter.DataPropertyName = "Quarter";
+            this.Quarter.HeaderText = "Kvartal";
+            this.Quarter.Items.AddRange(new object[] {
             "",
             "1",
             "2",
             "3",
             "4"});
-            this.YearPart.Name = "YearPart";
-            this.YearPart.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.YearPart.Width = 46;
+            this.Quarter.MinimumWidth = 45;
+            this.Quarter.Name = "Quarter";
+            this.Quarter.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Quarter.Width = 45;
             // 
             // Month
             // 
-            this.Month.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Month.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Month.DataPropertyName = "Month";
             this.Month.HeaderText = "Månad";
+            this.Month.MinimumWidth = 45;
             this.Month.Name = "Month";
             this.Month.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Month.Width = 46;
+            this.Month.Width = 45;
             // 
             // Day
             // 
-            this.Day.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Day.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Day.DataPropertyName = "Day";
             this.Day.HeaderText = "Dag";
+            this.Day.MinimumWidth = 30;
             this.Day.Name = "Day";
             this.Day.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Day.Width = 33;
+            this.Day.Width = 30;
             // 
-            // dgvFieldPropertiesToolStrip
+            // tsStatVarPropertiesDGV
             // 
-            this.dgvFieldPropertiesToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsStatVarPropertiesDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCopyStatVarAll,
-            this.btnCopyMUnitAll,
+            this.btnCopyMeasurementUnitToAll,
             this.btnCopyFirstRowAll});
-            this.dgvFieldPropertiesToolStrip.Location = new System.Drawing.Point(3, 3);
-            this.dgvFieldPropertiesToolStrip.Name = "dgvFieldPropertiesToolStrip";
-            this.dgvFieldPropertiesToolStrip.Size = new System.Drawing.Size(778, 25);
-            this.dgvFieldPropertiesToolStrip.TabIndex = 1;
-            this.dgvFieldPropertiesToolStrip.Text = "Tools";
+            this.tsStatVarPropertiesDGV.Location = new System.Drawing.Point(3, 3);
+            this.tsStatVarPropertiesDGV.Name = "tsStatVarPropertiesDGV";
+            this.tsStatVarPropertiesDGV.Size = new System.Drawing.Size(778, 25);
+            this.tsStatVarPropertiesDGV.TabIndex = 1;
+            this.tsStatVarPropertiesDGV.Text = "Tools";
             // 
             // btnCopyStatVarAll
             // 
@@ -859,14 +939,14 @@
             this.btnCopyStatVarAll.Text = "Kopier fyrste variabeltype til alle";
             this.btnCopyStatVarAll.Click += new System.EventHandler(this.btnCopyStatVarAll_Click);
             // 
-            // btnCopyMUnitAll
+            // btnCopyMeasurementUnitToAll
             // 
-            this.btnCopyMUnitAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyMUnitAll.Image")));
-            this.btnCopyMUnitAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnCopyMUnitAll.Name = "btnCopyMUnitAll";
-            this.btnCopyMUnitAll.Size = new System.Drawing.Size(189, 22);
-            this.btnCopyMUnitAll.Text = "Kopier fyrste måleeining til alle";
-            this.btnCopyMUnitAll.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            this.btnCopyMeasurementUnitToAll.Image = ((System.Drawing.Image)(resources.GetObject("btnCopyMeasurementUnitToAll.Image")));
+            this.btnCopyMeasurementUnitToAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopyMeasurementUnitToAll.Name = "btnCopyMeasurementUnitToAll";
+            this.btnCopyMeasurementUnitToAll.Size = new System.Drawing.Size(189, 22);
+            this.btnCopyMeasurementUnitToAll.Text = "Kopier fyrste måleeining til alle";
+            this.btnCopyMeasurementUnitToAll.Click += new System.EventHandler(this.btnCopyFirstMeasurementUnitToAll_Click);
             // 
             // btnCopyFirstRowAll
             // 
@@ -901,36 +981,39 @@
             // 
             // panelBottom
             // 
-            this.panelBottom.Controls.Add(this.statusStrip1);
+            this.panelBottom.Controls.Add(this.ssStatusStrip);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBottom.Location = new System.Drawing.Point(0, 550);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(792, 23);
+            this.panelBottom.Size = new System.Drawing.Size(886, 23);
             this.panelBottom.TabIndex = 25;
             // 
-            // statusStrip1
+            // ssStatusStrip
             // 
-            this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.pgBar});
-            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(792, 23);
-            this.statusStrip1.TabIndex = 13;
-            this.statusStrip1.Text = "statusStrip1";
+            this.ssStatusStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ssStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus,
+            this.tspbProgressBar});
+            this.ssStatusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.ssStatusStrip.Location = new System.Drawing.Point(0, 0);
+            this.ssStatusStrip.Name = "ssStatusStrip";
+            this.ssStatusStrip.Size = new System.Drawing.Size(886, 23);
+            this.ssStatusStrip.TabIndex = 13;
+            this.ssStatusStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // lblStatus
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(22, 18);
-            this.toolStripStatusLabel1.Text = "Ok";
+            this.lblStatus.AutoSize = false;
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(500, 18);
+            this.lblStatus.Text = "Ok";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // pgBar
+            // tspbProgressBar
             // 
-            this.pgBar.Name = "pgBar";
-            this.pgBar.Size = new System.Drawing.Size(100, 17);
+            this.tspbProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tspbProgressBar.Name = "tspbProgressBar";
+            this.tspbProgressBar.Size = new System.Drawing.Size(200, 17);
             // 
             // dlgSaveCsvFile
             // 
@@ -941,7 +1024,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 573);
+            this.ClientSize = new System.Drawing.Size(886, 573);
             this.Controls.Add(this.panelFill);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
@@ -949,81 +1032,81 @@
             this.Name = "UploadForm";
             this.Text = "Last opp tabell";
             this.Load += new System.EventHandler(this.UploadForm_Load);
-            this.grpManualDateSettings.ResumeLayout(false);
-            this.grpManualDateSettings.PerformLayout();
+            this.grpStatDatumSettings.ResumeLayout(false);
+            this.grpStatDatumSettings.PerformLayout();
             this.grpAutoDateSettings.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelTopFill.ResumeLayout(false);
-            this.grpManualStatAreaSettings.ResumeLayout(false);
-            this.grpManualStatAreaSettings.PerformLayout();
-            this.groupLayoutOfData.ResumeLayout(false);
-            this.groupLayoutOfData.PerformLayout();
+            this.grpStatAreaSettings.ResumeLayout(false);
+            this.grpStatAreaSettings.PerformLayout();
+            this.grpCellContentTypeSettings.ResumeLayout(false);
+            this.grpCellContentTypeSettings.PerformLayout();
             this.topToolBar.ResumeLayout(false);
             this.topToolBar.PerformLayout();
             this.panelTopTopMenu.ResumeLayout(false);
             this.panelTopTopMenu.PerformLayout();
             this.panelFill.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
-            this.tabPagePreviewSelection.ResumeLayout(false);
+            this.tpPreviewSelection.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPreviewSelection)).EndInit();
-            this.tabPageStatisticsVariables.ResumeLayout(false);
-            this.tabPageStatisticsVariables.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvManualStatVarProps)).EndInit();
-            this.dgvFieldPropertiesToolStrip.ResumeLayout(false);
-            this.dgvFieldPropertiesToolStrip.PerformLayout();
+            this.tpStatisticsVariables.ResumeLayout(false);
+            this.tpStatisticsVariables.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStatVarProperties)).EndInit();
+            this.tsStatVarPropertiesDGV.ResumeLayout(false);
+            this.tsStatVarPropertiesDGV.PerformLayout();
             this.tabPageLogOutput.ResumeLayout(false);
             this.tabPageLogOutput.PerformLayout();
             this.panelBottom.ResumeLayout(false);
             this.panelBottom.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.ssStatusStrip.ResumeLayout(false);
+            this.ssStatusStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblYear;
+        private System.Windows.Forms.Label lblQuarter;
+        private System.Windows.Forms.Label lblMonth;
+        private System.Windows.Forms.Label lblDay;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox grpManualDateSettings;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox grpStatDatumSettings;
+        private System.Windows.Forms.Label lblStatAreaType;
         public System.Windows.Forms.ComboBox cbStatUnitType;
-        public System.Windows.Forms.TextBox tbDay;
-        public System.Windows.Forms.TextBox tbMonth;
-        public System.Windows.Forms.TextBox tbYear;
-        public System.Windows.Forms.ComboBox cbYearPart;
+        public System.Windows.Forms.TextBox tbStatDatumDay;
+        public System.Windows.Forms.TextBox tbStatDatumMonth;
+        public System.Windows.Forms.TextBox tbStatDatumYear;
+        public System.Windows.Forms.ComboBox cbStatDatumQuarter;
         private System.Windows.Forms.GroupBox grpAutoDateSettings;
         private System.Windows.Forms.Button btnCopyDateToAll;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Panel panelFill;
-        public System.Windows.Forms.DataGridView dgvManualStatVarProps;
+        public System.Windows.Forms.DataGridView dgvStatVarProperties;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.TextBox tbLog;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripProgressBar pgBar;
+        private System.Windows.Forms.StatusStrip ssStatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.ToolStripProgressBar tspbProgressBar;
         private System.Windows.Forms.SaveFileDialog dlgSaveCsvFile;
         private System.Windows.Forms.Panel panelTopFill;
         private System.Windows.Forms.MenuStrip panelTopTopMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem stengToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem oppdaterKonfigurasjonFråServerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFileMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCloseWindow;
+        private System.Windows.Forms.ToolStripMenuItem tsmiReloadAdaptiveConfiguration;
         private System.Windows.Forms.ToolStrip topToolBar;
         private System.Windows.Forms.ToolStripButton btnSaveAsCSV;
-        private System.Windows.Forms.ToolStripButton btnUploadToAdaptive;
-        private System.Windows.Forms.ToolStripButton btnTestParsing;
-        private System.Windows.Forms.GroupBox groupLayoutOfData;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        public System.Windows.Forms.ComboBox cbDateFormats;
+        private System.Windows.Forms.ToolStripButton btnUpload;
+        private System.Windows.Forms.ToolStripButton btnValidate;
+        private System.Windows.Forms.GroupBox grpCellContentTypeSettings;
+        private System.Windows.Forms.Label lblStatVarRow1;
+        private System.Windows.Forms.Label lblStatVarCol1;
+        private System.Windows.Forms.Label lblStatVarCol3;
+        private System.Windows.Forms.Label lblStatVarCol2;
+        private System.Windows.Forms.Label lblStatVarRow3;
+        private System.Windows.Forms.Label lblStatVarRow2;
+        public System.Windows.Forms.ComboBox cbStatDatumFormat;
         public System.Windows.Forms.ComboBox cbRowCType1;
         public System.Windows.Forms.ComboBox cbColCType1;
         public System.Windows.Forms.ComboBox cbColCType3;
@@ -1031,38 +1114,47 @@
         public System.Windows.Forms.ComboBox cbRowCType3;
         public System.Windows.Forms.ComboBox cbRowCType2;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPagePreviewSelection;
-        private System.Windows.Forms.TabPage tabPageStatisticsVariables;
+        private System.Windows.Forms.TabPage tpPreviewSelection;
+        private System.Windows.Forms.TabPage tpStatisticsVariables;
         private System.Windows.Forms.DataGridView dgvPreviewSelection;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblStatVarRow4;
+        private System.Windows.Forms.Label lblStatVarCol4;
         public System.Windows.Forms.ComboBox cbRowCType4;
         public System.Windows.Forms.ComboBox cbColCType4;
-        private System.Windows.Forms.GroupBox grpManualStatAreaSettings;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ToolStrip dgvFieldPropertiesToolStrip;
+        private System.Windows.Forms.GroupBox grpStatAreaSettings;
+        private System.Windows.Forms.Label lblStatAreaId;
+        private System.Windows.Forms.Label lblStatAreaGroup;
+        private System.Windows.Forms.Label lblStatAreaName;
+        private System.Windows.Forms.ToolStrip tsStatVarPropertiesDGV;
         private System.Windows.Forms.ToolStripButton btnCopyFirstRowAll;
-        public System.Windows.Forms.TextBox tbManualStatAreaGroup;
-        public System.Windows.Forms.TextBox tbManualStatAreaName;
-        public System.Windows.Forms.TextBox tbManualStatAreaID;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox cbSelectSettings;
-        private System.Windows.Forms.ToolStripButton btnCreateNewStatVar;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        public System.Windows.Forms.TextBox tbStatUnitGroup;
+        public System.Windows.Forms.TextBox tbStatUnitName;
+        public System.Windows.Forms.TextBox tbStatUnitID;
+        private System.Windows.Forms.ToolStripLabel lblSettings;
+        private System.Windows.Forms.ToolStripComboBox cbSettings;
+        private System.Windows.Forms.ToolStripSeparator tss1;
+        private System.Windows.Forms.ToolStripSeparator tss2;
         private System.Windows.Forms.TabPage tabPageLogOutput;
+        private System.Windows.Forms.ToolStripButton btnCopyMeasurementUnitToAll;
+        private System.Windows.Forms.Button btnSetStatAreaInfo;
+        private System.Windows.Forms.ToolStripButton btnCopyStatVarAll;
+        private System.Windows.Forms.ToolStripButton btnSaveSettings;
+        private System.Windows.Forms.SaveFileDialog dlgSaveFile;
+        private System.Windows.Forms.ToolStripComboBox cbDataset;
+        private System.Windows.Forms.ToolStripLabel lblDataset;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
-        private System.Windows.Forms.DataGridViewComboBoxColumn VariableType;
+        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol3;
+        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol4;
+        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol5;
         private System.Windows.Forms.DataGridViewComboBoxColumn MeasurementUnit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
-        private System.Windows.Forms.DataGridViewComboBoxColumn YearPart;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Quarter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Month;
         private System.Windows.Forms.DataGridViewTextBoxColumn Day;
-        private System.Windows.Forms.ToolStripButton btnCopyMUnitAll;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ToolStripButton btnCopyStatVarAll;
+        private System.Windows.Forms.ToolStripButton btnDeleteSettings;
+        private System.Windows.Forms.ToolStripButton btnUseSettings;
     }
 }
