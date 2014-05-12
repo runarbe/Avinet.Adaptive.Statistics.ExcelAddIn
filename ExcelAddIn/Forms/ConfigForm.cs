@@ -39,7 +39,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             Properties.Settings.Default.Save();
 
             ConfigList mConfig;
-            if (null != (mConfig = WsDataSources.GetAdaptiveConfig(true)))
+            if (null != (mConfig = WsDataSources.DownloadAdaptiveConfig(true)))
             {
                 this.Close();
             }
@@ -64,10 +64,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
         }
 
-        private void tbAdaptivePwd_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
     }
 }

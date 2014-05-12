@@ -90,7 +90,6 @@
             this.tbAdaptivePwd.Size = new System.Drawing.Size(186, 20);
             this.tbAdaptivePwd.TabIndex = 5;
             this.tbAdaptivePwd.UseSystemPasswordChar = true;
-            this.tbAdaptivePwd.TextChanged += new System.EventHandler(this.tbAdaptivePwd_TextChanged);
             // 
             // lblAdaptiveUri
             // 
