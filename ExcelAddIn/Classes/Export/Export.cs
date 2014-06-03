@@ -25,7 +25,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 if (mSourceEncoding != mTargetEncoding)
                 {
                     mTranscode = true;
-                    Debug.WriteLine("Use transcoding");
                 }
 
                 // Create a new streamwriter with the required output encoding
@@ -67,7 +66,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 return false;
             }
 
@@ -207,8 +205,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 foreach (KeyValuePair<int, AdaptiveRow> mRow2 in pValues3D)
                 {
                     // If the 
-                    double mValue;
-                    if (double.TryParse(mRow2.Value[mFieldPropertyIndex].Value, out mValue))
+                    double mUserEnteredValue;
+                    if (double.TryParse(mRow2.Value[mFieldPropertyIndex].Value, out mUserEnteredValue))
                     {
                         // Create a new line for the CSV file
                         var mLine = new CsvLine();
@@ -233,7 +231,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         mLine.day = mDay;
 
                         // Set the actual statistical value
-                        mLine.value = mValue;
+                        mLine.value = mUserEnteredValue;
 
                         mLine.variable5 = mStatVar5;
                         mLine.variable4 = mStatVar4;
