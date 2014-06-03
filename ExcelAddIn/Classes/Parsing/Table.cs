@@ -143,7 +143,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         public static Values3D ParseSelectionWithCurrentSettings(Range pSelection, UploadForm pFrm, int mFirstDataRow, int mFirstDataCol)
         {
-            Debug.WriteLine("Executing ParseSelectionWithCurrentSettings");
 
             var mMessages = new MessageObject();
 
@@ -168,8 +167,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
                     // Get manual settings for statistical variable
                     var mManualStatVarProps = pFrm.GetStatVarProperties(mR, mC, pFrm.StatVarProperties.DataOrientation);
-
-
 
                     // Get/set the corresponding statvar
                     mAdaptiveValue.StatVar1 = mManualStatVarProps.StatVar1;
