@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Web.Script.Serialization;
+using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -14,7 +15,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public static JavaScriptSerializer Json = new JavaScriptSerializer(new SimpleTypeResolver());
         public static string StateFile = "SavedImportSettings.json";
         public List<UploadFormState> States { get; set; }
-        
+
         public UploadFormStates()
         {
             this.States = new List<UploadFormState>();
@@ -42,7 +43,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        public static UploadFormState GetState(string pStateId) {
+        public static UploadFormState GetState(string pStateId)
+        {
             var mSavedSettings = UploadFormStates.Load();
             foreach (var mState in mSavedSettings.States)
             {
@@ -78,6 +80,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 {
                     mToBeRemoved.Add(mState);
                 }
+            }
+
+            // If existing, show confirmation dialog
+            if (mToBeRemoved.Count() > 0)
+            {
+                var mConfirm = MessageBox.Show("Det finst allereie eitt importoppsett ned namnet " + pName +". Vil du overskrive dette?", "Åtvaring", MessageBoxButtons.YesNo);
+                if (mConfirm == DialogResult.No) return null;
             }
 
             // Remove elements
