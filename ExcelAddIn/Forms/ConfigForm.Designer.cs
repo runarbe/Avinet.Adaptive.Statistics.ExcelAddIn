@@ -53,7 +53,7 @@
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(98, 23);
             this.btnConnect.TabIndex = 1;
-            this.btnConnect.Text = "Test og koble til";
+            this.btnConnect.Text = "Lagre";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnectToAdaptive_Click);
             // 
@@ -144,7 +144,7 @@
             this.Controls.Add(this.lblAdaptiveUri);
             this.Controls.Add(this.lblFormCaption);
             this.Name = "ConfigForm";
-            this.Text = "Konfigurer";
+            this.Text = "Konfigurer Adaptive";
             this.Load += new System.EventHandler(this.ConfigForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
