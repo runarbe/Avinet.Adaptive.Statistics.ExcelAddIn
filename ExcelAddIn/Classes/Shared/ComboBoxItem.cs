@@ -39,12 +39,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     {
         public bool Equals(ComboBoxItem x, ComboBoxItem y)
         {
-            return x.key == y.key;
+            return x.key.Trim() == y.key.Trim();
         }
 
         public int GetHashCode(ComboBoxItem obj)
         {
-            return obj.key.GetHashCode();
+            return obj.key.Trim().GetHashCode();
         }
     }
 }
