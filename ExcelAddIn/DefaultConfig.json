@@ -9,31 +9,22 @@
                 "key": "Ingen krins",
                 "value": " "
             },
-            {
-                "key": "Kommunar",
-                "value": "kommune"
-            },
-            {
-                "key": "Land",
+			{
+                "key": "Land (t.d. NO)",
                 "value": "land"
             },
             {
-                "key": "Fylke",
+                "key": "Fylke (t.d. 09)",
                 "value": "fylke"
             },
             {
-                "key": "Grunnkrinsar",
+                "key": "Kommune (0301)",
+                "value": "kommune"
+            },
+            {
+                "key": "Grunnkrins (t.d. 14450101",
                 "value": "krins"
-            },
-            {
-                "key": "Byar",
-                "value": "by"
-            },
-            {
-                "key": "Amt",
-                "value": "amt"
             }
-
         ],
         "measurementUnitTypes": [
             {

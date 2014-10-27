@@ -166,7 +166,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     var mAdaptiveValue = new AdaptiveValue(Table.GetNullOrDoubleString(mSelection[mR, mC]));
 
                     // Get manual settings for statistical variable
-                    var mManualStatVarProps = pFrm.GetStatVarProperties(mR, mC, pFrm.StatVarProperties.DataOrientation);
+                    var mManualStatVarProps = pFrm.ParseStatVarProperties(mR, mC, pFrm.StatVarProperties.DataOrientation);
 
                     // Get/set the corresponding statvar
                     mAdaptiveValue.StatVar1 = mManualStatVarProps.StatVar1;
@@ -174,6 +174,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     mAdaptiveValue.StatVar3 = mManualStatVarProps.StatVar3;
                     mAdaptiveValue.StatVar4 = mManualStatVarProps.StatVar4;
                     mAdaptiveValue.StatVar5 = mManualStatVarProps.StatVar5;
+
                     if (String.IsNullOrWhiteSpace(mManualStatVarProps.StatVar1))
                     {
                         mMessages.AddMessage(MessagesNotices.StatVarParseUsingDefaultNotice);

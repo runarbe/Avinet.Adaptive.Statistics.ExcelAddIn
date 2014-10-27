@@ -63,6 +63,26 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clipboard_copy_icon_16 {
+            get {
+                object obj = ResourceManager.GetObject("clipboard_copy_icon&16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap clipboard_copy_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("clipboard_copy_icon&24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap on_off_icon_24 {
             get {
                 object obj = ResourceManager.GetObject("on-off_icon&24", resourceCulture);

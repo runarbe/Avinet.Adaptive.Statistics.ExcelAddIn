@@ -33,6 +33,27 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             return DateTime.Now.ToString("yyyyMMdd-HHmmss") + "." + pExt;
         }
 
+        public static int GetComboBoxSelectedTextAsInt(ComboBox pComboBox)
+        {
+            int mStatus = -1;
+            if (pComboBox.Text != null && pComboBox.Text != "")
+            {
+                int.TryParse(pComboBox.Text, out mStatus);
+            }
+            return mStatus;
+        }
+
+        public static int GetComboBoxSelectedValueInt(ComboBox pComboBox)
+        {
+            int mStatus = -1;
+            if (pComboBox.SelectedValue != null)
+            {
+                Debug.WriteLine(pComboBox.SelectedValue);
+                int.TryParse(pComboBox.SelectedValue.ToString(), out mStatus);
+            }
+            return mStatus;
+        }
+
         public static string GetComboBoxSelectedValueString(ComboBox pComboBox)
         {
             string mStatus = CellContentType.Values;
@@ -133,50 +154,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 pComboBox.SelectedValue = tmp;
             }
         }
-
-        public static void SetDgvComboBoxDS(DataGridViewComboBoxColumn pDataGridViewComboBoxCol, IEnumerable pEnumerable, string pDisplayMember = "key", string pValueMember = "value")
-        {
-            pDataGridViewComboBoxCol.DataSource = pEnumerable;
-            pDataGridViewComboBoxCol.ValueType = typeof(string);
-            pDataGridViewComboBoxCol.ValueMember = pValueMember;
-            pDataGridViewComboBoxCol.DisplayMember = pDisplayMember;
-        }
-
-        /// <summary>
-        /// Add items to a DataGridViewComboBox (permits editing of values once datasource is not bound)
-        /// </summary>
-        /// <param name="pNameOfColumn">Name of the column in the DataGridView</param>
-        /// <param name="pComboBoxItems">A List<> of ComboBoxItem objects</param>
-        /// <param name="pDisplayMember">The property of the ComboBoxItem to use for display</param>
-        /// <param name="pValueMember">The property of the ComboBoxItem to use as value</param>
-        public static void AddItemsToDGVComboBox(
-            DataGridViewColumn pNameOfColumn,
-            List<ComboBoxItem> pComboBoxItems,
-            string pDisplayMember = "key",
-            string pValueMember = "value")
-        {
-            var mCol = pNameOfColumn as DataGridViewComboBoxColumn;
-            mCol.Items.Clear();
-            foreach (var mItem in pComboBoxItems)
-            {
-                mCol.Items.Add(mItem);
-            }
-            mCol.ValueType = typeof(string);
-            mCol.ValueMember = pValueMember;
-            mCol.DisplayMember = pDisplayMember;
-        }
-
-        public static void AddItemstoComboBoxFromDataTable(DataGridViewComboBoxColumn pDataGridViewComboBoxCol, DataTable pDataSource, string pDisplayMember = "key", string pValueMember = "value")
-        {
-            pDataGridViewComboBoxCol.Items.Clear();
-            foreach (DataRow mDataRow in pDataSource.Rows)
-            {
-                pDataGridViewComboBoxCol.Items.Add(new ComboBoxItem(mDataRow[pDisplayMember].ToString(), mDataRow[pValueMember].ToString()));
-            }
-            pDataGridViewComboBoxCol.ValueMember = pValueMember;
-            pDataGridViewComboBoxCol.DisplayMember = pDisplayMember;
-        }
-
 
         [Obsolete]
         public static void AddItemstoComboBox(ComboBox pComboBox, List<ComboBoxItem> pItems)

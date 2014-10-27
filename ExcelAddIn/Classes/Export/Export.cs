@@ -66,6 +66,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 return false;
             }
 

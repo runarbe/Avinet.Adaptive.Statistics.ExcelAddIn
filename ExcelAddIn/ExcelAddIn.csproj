@@ -34,7 +34,7 @@
     <PublishUrl>publish/</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.14</ApplicationVersion>
+    <ApplicationVersion>1.0.0.32</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -190,6 +190,7 @@
   <ItemGroup>
     <Compile Include="Classes\DataSetWS\AASDataset.cs" />
     <Compile Include="Classes\DataSetWS\AASDatasets.cs" />
+    <Compile Include="Classes\Shared\DataGridViewComboBoxExt.cs" />
     <Compile Include="Classes\StatVarsWS\AASStatVar.cs" />
     <Compile Include="Classes\StatVarsWS\AASStatVars.cs" />
     <Compile Include="Classes\Config\AsmxConfigListResponse.cs" />
@@ -235,12 +236,6 @@
     <Compile Include="Forms\ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\StatVarForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\StatVarForm.Designer.cs">
-      <DependentUpon>StatVarForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,9 +250,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\StatVarForm.resx">
-      <DependentUpon>StatVarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -274,7 +266,8 @@
     <Content Include="docs\brukarrettleiing-nynorsk.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="ExcelAddIn_TemporaryKey.pfx" />
+    <None Include="avinet.pfx" />
+    <None Include="docs\brukarrettleiing-nynorsk.docx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -301,7 +294,13 @@
     <None Include="Resources\eksempel.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="SavedImportSettings.json" />
+    <None Include="Resources\refresh_icon&amp;24.png" />
+    <None Include="Resources\on-off_icon&amp;24.png" />
+    <None Include="Resources\clipboard_copy_icon&amp;16.png" />
+    <None Include="Resources\clipboard_copy_icon&amp;24.png" />
+    <Content Include="SavedImportSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -312,7 +311,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DefaultConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -327,10 +326,20 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ExcelAddIn_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>avinet.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>018C39DA530A4806A5A0034CFCDE4555D44CCDDC</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E1A1FD6748ACCA3E9F6D9D931FD21AFAA2455DFC</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

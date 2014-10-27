@@ -13,7 +13,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     {
         [XmlElement("name")]
         public string name { get; set; }
+        
         [XmlElement("id")]
         public string id { get; set; }
+
+        [XmlElement("maincategory")]
+        public string maincategory { get; set; }
     }
 }

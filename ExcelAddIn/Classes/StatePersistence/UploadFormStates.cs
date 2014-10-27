@@ -67,25 +67,26 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             return mItems;
         }
 
-        public UploadFormStates AddState(String pName, UploadFormState pState)
+        public UploadFormStates AddState(String pStateID, String pStateName, UploadFormState pState, bool pConfirmOverwrite = false)
         {
-            pState.StateName = pName;
+            pState.StateName = pStateName;
+            pState.StateId = pStateID;
             var mCurrentStates = UploadFormStates.Load();
             var mToBeRemoved = new List<UploadFormState>();
 
             // Identify elements to be removed
             foreach (UploadFormState mState in mCurrentStates.States)
             {
-                if (mState.StateName == pName)
+                if (mState.StateId == pStateID)
                 {
                     mToBeRemoved.Add(mState);
                 }
             }
 
             // If existing, show confirmation dialog
-            if (mToBeRemoved.Count() > 0)
+            if (pConfirmOverwrite && mToBeRemoved.Count() > 0)
             {
-                var mConfirm = MessageBox.Show("Det finst allereie eitt importoppsett ned namnet " + pName +". Vil du overskrive dette?", "Åtvaring", MessageBoxButtons.YesNo);
+                var mConfirm = MessageBox.Show("Det finst allereie eitt importoppsett for datasettet " + pStateName +". Vil du overskrive dette?", "Åtvaring", MessageBoxButtons.YesNo);
                 if (mConfirm == DialogResult.No) return null;
             }
 

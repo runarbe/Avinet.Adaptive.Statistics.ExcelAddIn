@@ -5,9 +5,6 @@
     <Setting Name="configJson" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="adaptiveUri" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://projects.europetech.eu/adaptive</Value>
-    </Setting>
     <Setting Name="adaptiveNodeUuid" Type="System.String" Scope="User">
       <Value Profile="(Default)">na</Value>
     </Setting>
@@ -19,6 +16,9 @@
     </Setting>
     <Setting Name="testMode" Type="System.String" Scope="User">
       <Value Profile="(Default)">true</Value>
+    </Setting>
+    <Setting Name="adaptiveUri" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://statisticsdemo.avinet.no</Value>
     </Setting>
   </Settings>
 </SettingsFile>

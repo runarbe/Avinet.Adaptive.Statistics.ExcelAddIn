@@ -14,6 +14,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public const string StatDatum = "3";
         public const string StatAreaNames = "4";
         public const string StatAreaGroups = "5";
+        public const string StatAreaIDsAndNames = "6";
         public const string Ignore = "99";
 
         public static List<ComboBoxItem> GetComboBoxItems()
@@ -23,6 +24,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             mList.Add(new ComboBoxItem("Statistikkvariablar", CellContentType.StatVars));
             mList.Add(new ComboBoxItem("Krinsid", CellContentType.StatAreaIDs));
             mList.Add(new ComboBoxItem("Krinsnamn", CellContentType.StatAreaNames));
+            mList.Add(new ComboBoxItem("Krinsid Krinsnamn", CellContentType.StatAreaIDsAndNames));
             mList.Add(new ComboBoxItem("Region", CellContentType.StatAreaGroups));
             mList.Add(new ComboBoxItem("Datering", CellContentType.StatDatum));
             mList.Add(new ComboBoxItem("Ignorer", CellContentType.Ignore));

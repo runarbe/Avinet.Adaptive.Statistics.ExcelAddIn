@@ -49,6 +49,7 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
+[Pp]ublish/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -122,7 +123,7 @@ DocProject/Help/Html2
 DocProject/Help/html
 
 # Click-Once directory
-publish/
+publish[/\]
 
 # Publish Web Output
 *.Publish.xml
