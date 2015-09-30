@@ -37,15 +37,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdaptiveRibbon));
             this.TabDefault = this.Factory.CreateRibbonTab();
             this.TabAdaptive3 = this.Factory.CreateRibbonTab();
-            this.grpUpload = this.Factory.CreateRibbonGroup();
-            this.grpInfo = this.Factory.CreateRibbonGroup();
+            this.grpTools = this.Factory.CreateRibbonGroup();
             this.btnConfig = this.Factory.CreateRibbonButton();
             this.btnUpload = this.Factory.CreateRibbonButton();
+            this.btnSaveImportSettings = this.Factory.CreateRibbonButton();
+            this.btnMergeSavedImportSettings = this.Factory.CreateRibbonButton();
+            this.grpInfo = this.Factory.CreateRibbonGroup();
             this.btnHelp = this.Factory.CreateRibbonButton();
             this.btnAbout = this.Factory.CreateRibbonButton();
             this.TabDefault.SuspendLayout();
             this.TabAdaptive3.SuspendLayout();
-            this.grpUpload.SuspendLayout();
+            this.grpTools.SuspendLayout();
             this.grpInfo.SuspendLayout();
             // 
             // TabDefault
@@ -56,24 +58,19 @@
             // 
             // TabAdaptive3
             // 
-            this.TabAdaptive3.Groups.Add(this.grpUpload);
+            this.TabAdaptive3.Groups.Add(this.grpTools);
             this.TabAdaptive3.Groups.Add(this.grpInfo);
             this.TabAdaptive3.Label = "ADAPTIVE 3.0";
             this.TabAdaptive3.Name = "TabAdaptive3";
             // 
-            // grpUpload
+            // grpTools
             // 
-            this.grpUpload.Items.Add(this.btnConfig);
-            this.grpUpload.Items.Add(this.btnUpload);
-            this.grpUpload.Label = "Opplastingsverkty";
-            this.grpUpload.Name = "grpUpload";
-            // 
-            // grpInfo
-            // 
-            this.grpInfo.Items.Add(this.btnHelp);
-            this.grpInfo.Items.Add(this.btnAbout);
-            this.grpInfo.Label = "Informasjon";
-            this.grpInfo.Name = "grpInfo";
+            this.grpTools.Items.Add(this.btnConfig);
+            this.grpTools.Items.Add(this.btnUpload);
+            this.grpTools.Items.Add(this.btnSaveImportSettings);
+            this.grpTools.Items.Add(this.btnMergeSavedImportSettings);
+            this.grpTools.Label = "Verkty";
+            this.grpTools.Name = "grpTools";
             // 
             // btnConfig
             // 
@@ -92,6 +89,32 @@
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.ShowImage = true;
             this.btnUpload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnUpload_Click);
+            // 
+            // btnSaveImportSettings
+            // 
+            this.btnSaveImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnSaveImportSettings.Enabled = false;
+            this.btnSaveImportSettings.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.upload;
+            this.btnSaveImportSettings.Label = "Eksporter oppsett for opplasting";
+            this.btnSaveImportSettings.Name = "btnSaveImportSettings";
+            this.btnSaveImportSettings.ShowImage = true;
+            // 
+            // btnMergeSavedImportSettings
+            // 
+            this.btnMergeSavedImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnMergeSavedImportSettings.Enabled = false;
+            this.btnMergeSavedImportSettings.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.merge;
+            this.btnMergeSavedImportSettings.Label = "Slå saman importinnstillingar";
+            this.btnMergeSavedImportSettings.Name = "btnMergeSavedImportSettings";
+            this.btnMergeSavedImportSettings.ShowImage = true;
+            this.btnMergeSavedImportSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnMergeSavedImportSettings_Click);
+            // 
+            // grpInfo
+            // 
+            this.grpInfo.Items.Add(this.btnHelp);
+            this.grpInfo.Items.Add(this.btnAbout);
+            this.grpInfo.Label = "Informasjon";
+            this.grpInfo.Name = "grpInfo";
             // 
             // btnHelp
             // 
@@ -121,8 +144,8 @@
             this.TabDefault.PerformLayout();
             this.TabAdaptive3.ResumeLayout(false);
             this.TabAdaptive3.PerformLayout();
-            this.grpUpload.ResumeLayout(false);
-            this.grpUpload.PerformLayout();
+            this.grpTools.ResumeLayout(false);
+            this.grpTools.PerformLayout();
             this.grpInfo.ResumeLayout(false);
             this.grpInfo.PerformLayout();
 
@@ -132,12 +155,14 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab TabDefault;
         private Microsoft.Office.Tools.Ribbon.RibbonTab TabAdaptive3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpUpload;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpTools;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnConfig;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnUpload;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpInfo;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnHelp;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAbout;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnMergeSavedImportSettings;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSaveImportSettings;
     }
 
     partial class ThisRibbonCollection
