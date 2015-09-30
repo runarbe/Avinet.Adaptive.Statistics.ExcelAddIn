@@ -10,6 +10,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     {
         public const string Values = "0";
         public const string StatVars = "1";
+        public const string StatVars2 = "7";
         public const string StatAreaIDs = "2";
         public const string StatDatum = "3";
         public const string StatAreaNames = "4";
