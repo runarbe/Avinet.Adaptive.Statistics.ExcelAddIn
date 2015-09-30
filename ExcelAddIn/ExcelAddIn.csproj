@@ -29,12 +29,12 @@
     <AssemblyName>ExcelAddIn</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
+    <IsWebBootstrapper>True</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>publish/</PublishUrl>
-    <InstallUrl />
+    <PublishUrl>publish\</PublishUrl>
+    <InstallUrl>http://statistikkui.avinet.no/addin/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.32</ApplicationVersion>
+    <ApplicationVersion>1.0.0.40</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -155,6 +155,9 @@
     <Reference Include="Microsoft.VisualStudio.Tools.Applications.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -191,6 +194,7 @@
     <Compile Include="Classes\DataSetWS\AASDataset.cs" />
     <Compile Include="Classes\DataSetWS\AASDatasets.cs" />
     <Compile Include="Classes\Shared\DataGridViewComboBoxExt.cs" />
+    <Compile Include="Classes\Shared\WSRetVal.cs" />
     <Compile Include="Classes\StatVarsWS\AASStatVar.cs" />
     <Compile Include="Classes\StatVarsWS\AASStatVars.cs" />
     <Compile Include="Classes\Config\AsmxConfigListResponse.cs" />
@@ -268,6 +272,7 @@
     </Content>
     <None Include="avinet.pfx" />
     <None Include="docs\brukarrettleiing-nynorsk.docx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -298,9 +303,9 @@
     <None Include="Resources\on-off_icon&amp;24.png" />
     <None Include="Resources\clipboard_copy_icon&amp;16.png" />
     <None Include="Resources\clipboard_copy_icon&amp;24.png" />
-    <Content Include="SavedImportSettings.json">
+    <None Include="SavedImportSettings.json.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>

@@ -36,7 +36,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this[pIndex] = pValue;
         }
 
-        public System.Data.DataTable AsDataTable(int pFirstDataRow = 1, int pFirstDataCol = 1)
+        public System.Data.DataTable AsDataTable(int pFirstDataRow = 1, int pFirstDataCol = 1, StatProps pStatProps = null)
         {
             int mStartIndex;
             if (this.DataOrientation == DataOrientation.InRows)
@@ -53,11 +53,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             mDataTable.Columns.Add(new System.Data.DataColumn("Index", typeof(int)));
             mDataTable.Columns.Add(new System.Data.DataColumn("Title", typeof(string)));
 
+            if (pStatProps != null && pStatProps.Count() == this.Count())
+            {
+                mDataTable.Columns.Add(new System.Data.DataColumn("Title2", typeof(string)));
+            }
+
             for (int i = mStartIndex, j = this.Values.Count; i <= j; i++)
             {
                 var mRow = mDataTable.NewRow();
                 mRow["Index"] = i;
                 mRow["Title"] = this[i];
+                if (pStatProps != null && pStatProps.Count() == this.Count())
+                {
+                    mRow["Title2"] = pStatProps[i];
+                }
                 mDataTable.Rows.Add(mRow);
             }
 

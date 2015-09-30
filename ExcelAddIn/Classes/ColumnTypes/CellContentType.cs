@@ -23,6 +23,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             var mList = new List<ComboBoxItem>();
             mList.Add(new ComboBoxItem("Verdiar", CellContentType.Values));
             mList.Add(new ComboBoxItem("Statistikkvariablar", CellContentType.StatVars));
+            mList.Add(new ComboBoxItem("Statistikkvariablar2", CellContentType.StatVars2));
             mList.Add(new ComboBoxItem("Krinsid", CellContentType.StatAreaIDs));
             mList.Add(new ComboBoxItem("Krinsnamn", CellContentType.StatAreaNames));
             mList.Add(new ComboBoxItem("Krinsid Krinsnamn", CellContentType.StatAreaIDsAndNames));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,11 +18,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
             byte[] boundaryBytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
 
+            ServicePointManager.DefaultConnectionLimit = 100;
+            ServicePointManager.MaxServicePointIdleTime = 12000;
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.ContentType = "multipart/form-data; boundary=" + boundary;
             request.Method = "POST";
-            request.KeepAlive = true;
             request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            request.KeepAlive = true;
+            request.Proxy = null;
+            //request.AllowWriteStreamBuffering = false;
 
             if (parameters != null && parameters.Count > 0)
             {
@@ -39,15 +45,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                             string header = "Content-Disposition: form-data; name=\"" + pair.Key + "\"; filename=\"" + file.Name + "\"\r\nContent-Type: " + file.ContentType + "\r\n\r\n";
                             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(header);
                             requestStream.Write(bytes, 0, bytes.Length);
-                            byte[] buffer = new byte[32768];
+                            byte[] buffer = new byte[1024];
                             int bytesRead;
                             if (file.Stream == null)
                             {
                                 // upload from file
                                 using (FileStream fileStream = File.OpenRead(file.FilePath))
                                 {
+                                    fileStream.Position = Encoding.UTF8.GetPreamble().Length;
                                     while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                                    {
                                         requestStream.Write(buffer, 0, bytesRead);
+                                    }
                                     fileStream.Close();
                                 }
                             }
@@ -78,8 +87,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 using (StreamReader reader = new StreamReader(responseStream))
                     return reader.ReadToEnd();
             }
-
-
         }
     }
 }

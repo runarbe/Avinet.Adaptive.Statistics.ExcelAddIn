@@ -20,8 +20,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             CultureInfo provider = CultureInfo.InvariantCulture;
             var mDateTime = new DateTime();
-
-            if (!pStringFormat.Contains("K") && DateTime.TryParseExact(pString, pStringFormat, provider, DateTimeStyles.None, out mDateTime))
+            
+            if (!pStringFormat.Contains("k") && DateTime.TryParseExact(pString, pStringFormat, provider, DateTimeStyles.None, out mDateTime))
             {
                 this.Success = true;
 
@@ -29,20 +29,23 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 {
                     this.Year = mDateTime.Year.ToString();
                 }
+
                 if (pStringFormat.Contains("M"))
                 {
                     this.Month = mDateTime.Month.ToString();
                 }
+
                 if (pStringFormat.Contains("d"))
                 {
                     this.Day = mDateTime.Day.ToString();
                 }
             }
-            else if (pStringFormat.Contains("K"))
+            else if (pStringFormat.Contains("k") && pString.Contains("K"))
             {
                 var mDateParts = pString.Split('K');
                 if (mDateParts.Length == 2)
                 {
+                    this.Success = true;
                     this.Year = mDateParts[0];
                     this.Quarter = mDateParts[1];
                 }
