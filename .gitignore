@@ -1,3 +1,6 @@
+/ExcelAddIn/.nuget
+/ExcelAddIn/packages
+
 #################
 ## Eclipse
 #################
@@ -15,6 +18,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+ExcelAddIn/packages/
 
 # External tool builders
 .externalToolBuilders/

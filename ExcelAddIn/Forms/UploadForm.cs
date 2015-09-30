@@ -1123,7 +1123,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 this.Log("Merknad: Det er ikkje valt noko datasett å laste opp til");
                 return;
             }
-
             try
             {
                 tabControl.SelectedTab = tabPageLogOutput;

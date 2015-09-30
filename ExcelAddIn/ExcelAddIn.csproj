@@ -45,6 +45,8 @@
     <FriendlyName>Avinet.Adaptive.Statistics.ExcelAddIn</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -249,6 +251,8 @@
     <Compile Include="Forms\UploadForm.Designer.cs">
       <DependentUpon>UploadForm.cs</DependentUpon>
     </Compile>
+    <None Include="Resources\upload.png" />
+    <None Include="Resources\merge.png" />
     <EmbeddedResource Include="Forms\AboutAddInForm.resx">
       <DependentUpon>AboutAddInForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,6 +276,7 @@
     </Content>
     <None Include="avinet.pfx" />
     <None Include="docs\brukarrettleiing-nynorsk.docx" />
+    <None Include="ExcelAddIn_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -299,10 +304,10 @@
     <None Include="Resources\eksempel.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\refresh_icon&amp;24.png" />
-    <None Include="Resources\on-off_icon&amp;24.png" />
-    <None Include="Resources\clipboard_copy_icon&amp;16.png" />
-    <None Include="Resources\clipboard_copy_icon&amp;24.png" />
+    <None Include="Resources\refresh-24px.png" />
+    <None Include="Resources\onoff-24px.png" />
+    <None Include="Resources\copy-16px.png" />
+    <None Include="Resources\copy-24px.png" />
     <None Include="SavedImportSettings.json.template">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -331,10 +336,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>avinet.pfx</ManifestKeyFile>
+    <ManifestKeyFile>ExcelAddIn_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>E1A1FD6748ACCA3E9F6D9D931FD21AFAA2455DFC</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>537B07AD32B0DE20723BBB344A75CF0CBD0AA228</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -361,4 +366,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>

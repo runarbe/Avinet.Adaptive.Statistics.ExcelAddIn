@@ -21,9 +21,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this.States = new List<UploadFormState>();
         }
 
-        public static UploadFormStates Load()
+        public static UploadFormStates Load(string mFilename = null)
         {
-            var mFilename = Util.GetFullResourceFilename(UploadFormStates.StateFile);
+            if (mFilename == null)
+            {
+                mFilename = Util.GetFullResourceFilename(UploadFormStates.StateFile);
+            }
             if (File.Exists(mFilename + ".template") && !File.Exists(mFilename))
             {
                 File.Copy(mFilename + ".template", mFilename);

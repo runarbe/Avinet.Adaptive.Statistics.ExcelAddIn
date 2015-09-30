@@ -670,7 +670,7 @@
             // 
             // tsmiReloadAdaptiveConfiguration
             // 
-            this.tsmiReloadAdaptiveConfiguration.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.refresh_icon_24;
+            this.tsmiReloadAdaptiveConfiguration.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.refresh24;
             this.tsmiReloadAdaptiveConfiguration.Name = "tsmiReloadAdaptiveConfiguration";
             this.tsmiReloadAdaptiveConfiguration.Size = new System.Drawing.Size(251, 22);
             this.tsmiReloadAdaptiveConfiguration.Text = "Oppdater konfigurasjon frå server";
@@ -678,7 +678,7 @@
             // 
             // tsmiCloseWindow
             // 
-            this.tsmiCloseWindow.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.on_off_icon_24;
+            this.tsmiCloseWindow.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.onoff24;
             this.tsmiCloseWindow.Name = "tsmiCloseWindow";
             this.tsmiCloseWindow.Size = new System.Drawing.Size(251, 22);
             this.tsmiCloseWindow.Text = "Steng opplastingsvindauge";
@@ -959,7 +959,7 @@
             // 
             // btnCopyStatVarAll
             // 
-            this.btnCopyStatVarAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.clipboard_copy_icon_16;
+            this.btnCopyStatVarAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
             this.btnCopyStatVarAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyStatVarAll.Name = "btnCopyStatVarAll";
             this.btnCopyStatVarAll.Size = new System.Drawing.Size(194, 22);
@@ -973,7 +973,7 @@
             // 
             // btnCopyMeasurementUnitToAll
             // 
-            this.btnCopyMeasurementUnitToAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.clipboard_copy_icon_16;
+            this.btnCopyMeasurementUnitToAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
             this.btnCopyMeasurementUnitToAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyMeasurementUnitToAll.Name = "btnCopyMeasurementUnitToAll";
             this.btnCopyMeasurementUnitToAll.Size = new System.Drawing.Size(189, 22);
@@ -987,7 +987,7 @@
             // 
             // btnCopyTitleToStatVarColN
             // 
-            this.btnCopyTitleToStatVarColN.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.clipboard_copy_icon_16;
+            this.btnCopyTitleToStatVarColN.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
             this.btnCopyTitleToStatVarColN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyTitleToStatVarColN.Name = "btnCopyTitleToStatVarColN";
             this.btnCopyTitleToStatVarColN.Size = new System.Drawing.Size(135, 22);
@@ -1009,7 +1009,7 @@
             // 
             // btnCopyTitle2ToStatVarColN
             // 
-            this.btnCopyTitle2ToStatVarColN.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.clipboard_copy_icon_16;
+            this.btnCopyTitle2ToStatVarColN.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
             this.btnCopyTitle2ToStatVarColN.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyTitle2ToStatVarColN.Name = "btnCopyTitle2ToStatVarColN";
             this.btnCopyTitle2ToStatVarColN.Size = new System.Drawing.Size(141, 22);
