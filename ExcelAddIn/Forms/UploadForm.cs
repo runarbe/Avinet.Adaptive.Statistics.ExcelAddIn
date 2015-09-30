@@ -42,6 +42,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public StatProps StatVarProperties = null;
 
         /// <summary>
+        /// Statistical variable 2 definitions of the data
+        /// </summary>
+        public StatProps StatVarProperties2 = null;
+
+        /// <summary>
         /// Statistical area ids for the data
         /// </summary>
         public StatProps StatAreaIDsProperties = null;
@@ -101,7 +106,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
 
             // Set StatVar DataGridView to *NOT* auto-generate columns from datasource
-            this.dgvStatVarProperties.AutoGenerateColumns = false;
+            dgvStatVarProperties.AutoGenerateColumns = false;
 
             // Set default edit-mode of StatVar DataGridView
             dgvStatVarProperties.EditMode = DataGridViewEditMode.EditOnEnter;
@@ -117,6 +122,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             // Load Adaptive Configuration from server
             LoadAdaptiveConfig(true);
+
+            // Populate date format combobox for parsing of date-values
+            Util.SetComboBoxDS(cbStatDatumFormat, DateFormats.List);
+
+            // Populate and set default selection for CellContentType combos
+            foreach (var mComboBox in CellContentTypeComboBoxes)
+            {
+                var mCellContentTypes = CellContentType.GetComboBoxItems();
+                Util.SetComboBoxDS(mComboBox, mCellContentTypes);
+                mComboBox.SelectedValue = CellContentType.Values;
+            }
 
             // Load existing datasets
             LoadExistingDatasets();
@@ -293,17 +309,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 this.LoadExistingMeasurementUnits();
             }
 
-            // Populate date format combobox for parsing of date-values
-            Util.SetComboBoxDS(cbStatDatumFormat, DateFormats.List);
-
-            // Populate and set default selection for CellContentType combos
-            foreach (var mComboBox in CellContentTypeComboBoxes)
-            {
-                var mCellContentTypes = CellContentType.GetComboBoxItems();
-                Util.SetComboBoxDS(mComboBox, mCellContentTypes);
-                mComboBox.SelectedValue = CellContentType.Values;
-            }
-
         }
 
         private void dgvManualStatVarProps_EditingControlShowing(object sender,
@@ -329,7 +334,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void dgvManualStatVarProps_CellValidating(object sender,
                 DataGridViewCellValidatingEventArgs e)
-        
         {
             Debug.WriteLine("Validating value = " + dgvStatVarProperties);
 
@@ -374,8 +378,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// </summary>
         /// <param name="pMsg">The message to log</param>
         /// <param name="pClear">A boolean flag that determines if the log pane is to be cleared before adding the new info</param>
-        public void Log(object pMsg, bool pClear = false)
+        public void Log(object pMsg, bool pClear = false, bool pDoEvents = true)
         {
+            if (pMsg == null) return;
+
             var mList = tbLog.Lines.ToList<string>();
             if (pClear)
             {
@@ -394,6 +400,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Scroll to bottom
             this.tbLog.SelectionStart = tbLog.Text.Length;
             this.tbLog.ScrollToCaret();
+            if (pDoEvents) System.Windows.Forms.Application.DoEvents();
         }
 
         /// <summary>
@@ -701,6 +708,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 // or if change in content of perpendicular rows/columns
                 if (dgvStatVarProperties.DataSource == null ||
                     mNewCellContentType == CellContentType.StatVars ||
+                    mNewCellContentType == CellContentType.StatVars2 ||
                     pDataOrientation != this.StatVarProperties.DataOrientation)
                 {
                     this.LoadStatVarPropertiesGrid();
@@ -726,6 +734,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 // Load stat vars
                 case CellContentType.StatVars:
                     this.StatVarProperties = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
+                    break;
+                // Load stat dates
+                case CellContentType.StatVars2:
+                    this.StatVarProperties2 = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
                     break;
                 // Load stat dates
                 case CellContentType.StatDatum:
@@ -786,9 +798,19 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     ref mFirstDataRow,
                     ref mFirstDataCol);
 
-                dgvStatVarProperties.DataSource = this.StatVarProperties.AsDataTable(
-                    mFirstDataRow,
-                    mFirstDataCol);
+                if (this.StatVarProperties2 != null)
+                {
+                    dgvStatVarProperties.DataSource = this.StatVarProperties.AsDataTable(
+                        mFirstDataRow,
+                        mFirstDataCol,
+                        this.StatVarProperties2);
+                }
+                else
+                {
+                    dgvStatVarProperties.DataSource = this.StatVarProperties.AsDataTable(
+                        mFirstDataRow,
+                        mFirstDataCol);
+                }
 
                 dgvStatVarProperties.Refresh();
 
@@ -908,34 +930,34 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
                         switch (mDGVC.Index)
                         {
-                            case 2:
+                            case 3:
                                 mStatVarProperties.StatVar1 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 3:
+                            case 4:
                                 mStatVarProperties.StatVar2 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 4:
+                            case 5:
                                 mStatVarProperties.StatVar3 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 5:
+                            case 6:
                                 mStatVarProperties.StatVar4 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 6:
+                            case 7:
                                 mStatVarProperties.StatVar5 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 7:
+                            case 8:
                                 mStatVarProperties.MeasurementUnit = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 8:
+                            case 9:
                                 mStatVarProperties.Year = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 9:
+                            case 10:
                                 mStatVarProperties.Quarter = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 10:
+                            case 11:
                                 mStatVarProperties.Month = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
                                 break;
-                            case 11:
+                            case 12:
                                 mStatVarProperties.Day = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
                                 break;
                         }
@@ -1071,18 +1093,21 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            this.SaveUploadFormState();
+            this.SaveUploadFormState(true);
         }
 
         private void SaveUploadFormState(bool pConfirmOverwrite = false)
         {
-            Debug.WriteLine(Util.GetComboBoxSelectedValueString(cbDataset.ComboBox));
             if (Util.GetComboBoxSelectedValueString(cbDataset.ComboBox) != "")
             {
                 var mUploadFormStates = UploadFormStates.Load();
                 var mUploadFormState = UploadFormState.RecordState(this);
                 mUploadFormStates.AddState(Util.GetComboBoxSelectedValueString(cbDataset.ComboBox), cbDataset.ComboBox.Text, mUploadFormState, pConfirmOverwrite);
                 this.LoadSavedUploadFormStates();
+            }
+            else
+            {
+                this.Log("Du må velje eitt datasett for å kunne lagre oppsett.");
             }
         }
 
@@ -1101,25 +1126,34 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             try
             {
+                tabControl.SelectedTab = tabPageLogOutput;
+                Log("Byrjar opplasting...");
+
                 var mCsvFileName = Path.GetTempFileName();
                 if (Export.WriteCSVFile(this.ParsedData, mCsvFileName))
                 {
-
-                    var mResult = RequestHelper.PostMultipart(
+                    var mJSON = RequestHelper.PostMultipart(
                         String.Format("{0}/Webservices/administrator/modules/statistics/DataTableUpload.ashx", Properties.Settings.Default.adaptiveUri),
                         new Dictionary<string, object>() {
-        { "dataset_id", mDataset.value },
+        { "dataset_id", mDataset.value },   
         { "deleteOldData", "false" },
-        { "file", new FormFile() { Name = "statistikk.csv", ContentType = "text/csv", FilePath = mCsvFileName } },
+        { "file", new FormFile() { Name = "statistikk.csv", ContentType = "application/octet-stream", FilePath = mCsvFileName } },
     });
-                    this.Log(mResult);
-                    tabControl.SelectedTab = tabPageLogOutput;
+                    var mRes = WSRetVal.ParseJSON(mJSON);
+                    if (mRes.success == "true")
+                    {
+                        this.Log("Opplasting ferdig");
+                    }
+                    else
+                    {
+                        this.Log("Opplastinga misslukkast");
+                    }
                 }
 
                 this.SaveUploadFormState();
 
             }
-            catch (Exception ex)
+            catch (System.Net.WebException ex)
             {
                 this.Log("Feil: Noko gjekk gale og det var ikkje mogleg å laste opp tabellen (" + ex.Message + ")");
                 tabControl.SelectedTab = tabPageLogOutput;
@@ -1202,8 +1236,29 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        private void panelTopTopMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+
+        private void btnCopyTitle2ToStatVarColN_Click(object sender, EventArgs e)
         {
+            int i = 1;
+            string mTitle = "";
+            int mStatVarColNumber2 = Util.GetComboBoxSelectedTextAsInt(cbSelectedStatVarCol2.ComboBox);
+            if (mStatVarColNumber2 != -1 && mStatVarColNumber2 <= 5 && mStatVarColNumber2 >= 1)
+            {
+                string mStatVarColName2 = "StatVarCol" + mStatVarColNumber2.ToString();
+
+                foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
+                {
+                    var mTitleCol = mRow.Cells["Title2"] as DataGridViewTextBoxCell;
+                    var mCopyToCol = mRow.Cells[mStatVarColName2] as DataGridViewComboBoxCell;
+
+                    mTitle = (string)Table.GetNullOrString(mTitleCol.Value);
+                    mCopyToCol.AddItemIfNotExists(ComboBoxItem.GetNewItem(mTitle));
+                    mTitleCol.Value = mTitle;
+                }
+                i++;
+
+                this.ParseSelectionWithCurrentSettings();
+            }
 
         }
 

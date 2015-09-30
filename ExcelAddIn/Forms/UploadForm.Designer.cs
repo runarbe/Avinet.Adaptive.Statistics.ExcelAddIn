@@ -96,6 +96,7 @@
             this.dgvStatVarProperties = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatVarCol1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StatVarCol2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StatVarCol3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -113,6 +114,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCopyTitleToStatVarColN = new System.Windows.Forms.ToolStripButton();
             this.cbSelectedStatVarCol = new System.Windows.Forms.ToolStripComboBox();
+            this.btnCopyTitle2ToStatVarColN = new System.Windows.Forms.ToolStripButton();
+            this.cbSelectedStatVarCol2 = new System.Windows.Forms.ToolStripComboBox();
             this.tabPageLogOutput = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
@@ -655,7 +658,6 @@
             this.panelTopTopMenu.Size = new System.Drawing.Size(886, 24);
             this.panelTopTopMenu.TabIndex = 22;
             this.panelTopTopMenu.Text = "menuStrip1";
-            this.panelTopTopMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.panelTopTopMenu_ItemClicked);
             // 
             // tsmiFileMenu
             // 
@@ -773,6 +775,7 @@
             this.dgvStatVarProperties.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
             this.Title,
+            this.Title2,
             this.StatVarCol1,
             this.StatVarCol2,
             this.StatVarCol3,
@@ -814,6 +817,17 @@
             this.Title.ReadOnly = true;
             this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Title.Width = 36;
+            // 
+            // Title2
+            // 
+            this.Title2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Title2.DataPropertyName = "Title2";
+            this.Title2.Frozen = true;
+            this.Title2.HeaderText = "Tittel 2";
+            this.Title2.Name = "Title2";
+            this.Title2.ReadOnly = true;
+            this.Title2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Title2.Width = 41;
             // 
             // StatVarCol1
             // 
@@ -934,7 +948,9 @@
             this.btnCopyMeasurementUnitToAll,
             this.toolStripSeparator2,
             this.btnCopyTitleToStatVarColN,
-            this.cbSelectedStatVarCol});
+            this.cbSelectedStatVarCol,
+            this.btnCopyTitle2ToStatVarColN,
+            this.cbSelectedStatVarCol2});
             this.tsStatVarPropertiesDGV.Location = new System.Drawing.Point(3, 3);
             this.tsStatVarPropertiesDGV.Name = "tsStatVarPropertiesDGV";
             this.tsStatVarPropertiesDGV.Size = new System.Drawing.Size(872, 25);
@@ -980,6 +996,7 @@
             // 
             // cbSelectedStatVarCol
             // 
+            this.cbSelectedStatVarCol.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.cbSelectedStatVarCol.Items.AddRange(new object[] {
             "1",
             "2",
@@ -989,6 +1006,28 @@
             this.cbSelectedStatVarCol.Name = "cbSelectedStatVarCol";
             this.cbSelectedStatVarCol.Size = new System.Drawing.Size(75, 25);
             this.cbSelectedStatVarCol.Text = "3";
+            // 
+            // btnCopyTitle2ToStatVarColN
+            // 
+            this.btnCopyTitle2ToStatVarColN.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.clipboard_copy_icon_16;
+            this.btnCopyTitle2ToStatVarColN.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopyTitle2ToStatVarColN.Name = "btnCopyTitle2ToStatVarColN";
+            this.btnCopyTitle2ToStatVarColN.Size = new System.Drawing.Size(141, 22);
+            this.btnCopyTitle2ToStatVarColN.Text = "Kopier tittel2 til nivå...";
+            this.btnCopyTitle2ToStatVarColN.Click += new System.EventHandler(this.btnCopyTitle2ToStatVarColN_Click);
+            // 
+            // cbSelectedStatVarCol2
+            // 
+            this.cbSelectedStatVarCol2.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.cbSelectedStatVarCol2.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cbSelectedStatVarCol2.Name = "cbSelectedStatVarCol2";
+            this.cbSelectedStatVarCol2.Size = new System.Drawing.Size(75, 25);
+            this.cbSelectedStatVarCol2.Text = "4";
             // 
             // tabPageLogOutput
             // 
@@ -1180,8 +1219,11 @@
         private System.Windows.Forms.ToolStripButton btnCopyTitleToStatVarColN;
         private System.Windows.Forms.ToolStripComboBox cbSelectedStatVarCol;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton btnCopyTitle2ToStatVarColN;
+        private System.Windows.Forms.ToolStripComboBox cbSelectedStatVarCol2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Title2;
         private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol1;
         private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol2;
         private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol3;

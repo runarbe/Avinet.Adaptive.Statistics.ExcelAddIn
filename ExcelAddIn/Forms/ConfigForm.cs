@@ -27,15 +27,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             Properties.Settings.Default.adaptiveUri = this.tbAdaptiveURI.Text;
             Properties.Settings.Default.adaptiveUser = this.tbAdaptiveUser.Text;
             Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
-
-            if (this.chbTest.Checked == true)
-            {
-                Properties.Settings.Default.testMode = "true";
-            } else
-            {
-                Properties.Settings.Default.testMode = "false";
-            };
-
             Properties.Settings.Default.Save();
 
             ConfigList mConfig;
@@ -53,15 +44,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this.tbAdaptiveURI.Text = Properties.Settings.Default.adaptiveUri;
             this.tbAdaptiveUser.Text = Properties.Settings.Default.adaptiveUser;
             this.tbAdaptivePwd.Text = Properties.Settings.Default.adaptivePwd;
-
-            if (Properties.Settings.Default.testMode == "true")
-            {
-                this.chbTest.Checked = true;
-            }
-            else
-            {
-                this.chbTest.Checked = false;
-            }
         }
 
 

@@ -37,14 +37,13 @@
             this.lblAdaptiveUri = new System.Windows.Forms.Label();
             this.lblAdaptiveUser = new System.Windows.Forms.Label();
             this.lblAdaptivePwd = new System.Windows.Forms.Label();
-            this.chbTest = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // tbAdaptiveURI
             // 
             this.tbAdaptiveURI.Location = new System.Drawing.Point(93, 33);
             this.tbAdaptiveURI.Name = "tbAdaptiveURI";
-            this.tbAdaptiveURI.Size = new System.Drawing.Size(134, 20);
+            this.tbAdaptiveURI.Size = new System.Drawing.Size(186, 20);
             this.tbAdaptiveURI.TabIndex = 0;
             // 
             // btnConnect
@@ -118,22 +117,11 @@
             this.lblAdaptivePwd.TabIndex = 7;
             this.lblAdaptivePwd.Text = "Passord";
             // 
-            // chbTest
-            // 
-            this.chbTest.AutoSize = true;
-            this.chbTest.Location = new System.Drawing.Point(233, 35);
-            this.chbTest.Name = "chbTest";
-            this.chbTest.Size = new System.Drawing.Size(47, 17);
-            this.chbTest.TabIndex = 9;
-            this.chbTest.Text = "Test";
-            this.chbTest.UseVisualStyleBackColor = true;
-            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 147);
-            this.Controls.Add(this.chbTest);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.tbAdaptivePwd);
@@ -162,6 +150,5 @@
         private System.Windows.Forms.Label lblAdaptiveUri;
         private System.Windows.Forms.Label lblAdaptiveUser;
         private System.Windows.Forms.Label lblAdaptivePwd;
-        private System.Windows.Forms.CheckBox chbTest;
     }
 }
