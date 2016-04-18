@@ -712,7 +712,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     pDataOrientation != this.StatVarProperties.DataOrientation)
                 {
                     this.LoadStatVarPropertiesGrid();
-                    tabControl.SelectedTab = tpStatisticsVariables;
+                    //tabControl.SelectedTab = tpStatisticsVariables;
                 }
 
                 // Parse with current settings
