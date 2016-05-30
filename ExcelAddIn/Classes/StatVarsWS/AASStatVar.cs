@@ -11,15 +11,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     [XmlType("variableset")]
     public class AASStatVar
     {
-        [XmlElement(ElementName="var1", IsNullable=true)]
+        [XmlElement(ElementName="currentVar1", IsNullable=true)]
         public string var1 { get; set; }
-        [XmlElement(ElementName = "var2", IsNullable = true)]
+        [XmlElement(ElementName = "currentVar2", IsNullable = true)]
         public string var2 { get; set; }
-        [XmlElement(ElementName = "var3", IsNullable = true)]
+        [XmlElement(ElementName = "currentVar3", IsNullable = true)]
         public string var3 { get; set; }
-        [XmlElement(ElementName = "var4", IsNullable = true)]
+        [XmlElement(ElementName = "currentVar4", IsNullable = true)]
         public string var4 { get; set; }
-        [XmlElement(ElementName = "var5", IsNullable = true)]
+        [XmlElement(ElementName = "currentVar5", IsNullable = true)]
         public string var5 { get; set; }
     }
 }

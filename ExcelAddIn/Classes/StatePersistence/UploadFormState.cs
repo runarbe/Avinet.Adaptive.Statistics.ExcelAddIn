@@ -49,10 +49,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         }
 
         /// <summary>
-        /// Save the state of the form to a file
+        /// Save the state of the form to a f
         /// </summary>
         /// <param name="mFrm"></param>
         /// <returns></returns>
+        [Obsolete("No form states to be saved")]
         public static UploadFormState RecordState(UploadForm mFrm)
         {
             var mJson = new JavaScriptSerializer();
@@ -72,7 +73,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             mState.StatDatumYear = (string)mFrm.tbStatDatumYear.Text;
             mState.StatDatumQuarter = (string)mFrm.cbStatDatumQuarter.Text;
             mState.StatDatumMonth = (string)mFrm.tbStatDatumMonth.Text;
-            mState.StatDatumDay = (string)mFrm.tbStatDatumDay.Text;
 
             mState.StatUnitType = (string)mFrm.cbStatUnitType.SelectedValue;
             mState.StatUnitID = (string)mFrm.tbStatUnitID.Text;
@@ -133,10 +133,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             {
                 mFrm.tbStatDatumMonth.Text = mState.StatDatumMonth;
             }
-            if (mState.StatDatumDay != null)
-            {
-                mFrm.tbStatDatumDay.Text = mState.StatDatumDay;
-            }
 
             mFrm.LoadStatVarPropertiesGrid();
 
@@ -158,12 +154,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 DataGridViewComboBoxCell mStatVarCol3 = (DataGridViewComboBoxCell)mRow["StatVarCol3"];
                 DataGridViewComboBoxCell mStatVarCol4 = (DataGridViewComboBoxCell)mRow["StatVarCol4"];
                 DataGridViewComboBoxCell mStatVarCol5 = (DataGridViewComboBoxCell)mRow["StatVarCol5"];
-                DataGridViewComboBoxCell mMeasurementUnitCol = (DataGridViewComboBoxCell)mRow["MeasurementUnit"];
+                DataGridViewComboBoxCell mMeasurementUnitCol = (DataGridViewComboBoxCell)mRow["enhet"];
 
                 // Add the selected item to the combobox cells
                 if (mStatVarProperty.StatVarLevel1 != null)
                 {
-
                     mStatVarCol1.Items.Add(ComboBoxItem.GetNewItem(mStatVarProperty.StatVarLevel1));
                     mStatVarCol1.ValueMember = "value";
                     mStatVarCol1.DisplayMember = "key";
@@ -205,9 +200,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     mMeasurementUnitCol.Value = mStatVarProperty.MeasurementUnit;
                 }
 
-                mRow["Year"].Value = mStatVarProperty.Year;
-                mRow["Quarter"].Value = mStatVarProperty.Quarter;
-                mRow["Month"].Value = mStatVarProperty.Month;
+                mRow["ar"].Value = mStatVarProperty.Year;
+                mRow["kvartal"].Value = mStatVarProperty.Quarter;
+                mRow["mnd"].Value = mStatVarProperty.Month;
                 mRow["Day"].Value = mStatVarProperty.Day;
 
             }

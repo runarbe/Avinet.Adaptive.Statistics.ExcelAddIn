@@ -131,6 +131,9 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="CsvHelper">
+      <HintPath>packages\CsvHelper.2.14.2\lib\net40\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -171,6 +174,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -195,14 +199,20 @@
   <ItemGroup>
     <Compile Include="Classes\DataSetWS\AASDataset.cs" />
     <Compile Include="Classes\DataSetWS\AASDatasets.cs" />
-    <Compile Include="Classes\Shared\DataGridViewComboBoxExt.cs" />
+    <Compile Include="Classes\DebugToFile\DebugToFile.cs" />
+    <Compile Include="Classes\Portal\GetKretstyperResponse.cs" />
+    <Compile Include="Classes\Portal\ServiceOutput.cs" />
+    <Compile Include="Classes\Portal\StatTreeNode.cs" />
+    <Compile Include="Functions\DataGridViewComboBoxExt.cs" />
     <Compile Include="Classes\Shared\WSRetVal.cs" />
+    <Compile Include="Classes\Portal\Kretstyper.cs" />
+    <Compile Include="Classes\Portal\PortalClient.cs" />
     <Compile Include="Classes\StatVarsWS\AASStatVar.cs" />
     <Compile Include="Classes\StatVarsWS\AASStatVars.cs" />
     <Compile Include="Classes\Config\AsmxConfigListResponse.cs" />
     <Compile Include="Classes\Shared\ComboBoxItem.cs" />
-    <Compile Include="Classes\Config\ConfigList.cs" />
-    <Compile Include="Classes\Config\ConfigListEntry.cs" />
+    <Compile Include="Classes\Config\ConfigProvider.cs" />
+    <Compile Include="Classes\Config\ConfigSetting.cs" />
     <Compile Include="Classes\Config\ConfigListOffline.cs" />
     <Compile Include="Classes\ColumnTypes\CellContentType.cs" />
     <Compile Include="Classes\UploadWS\FormFile.cs" />
@@ -242,6 +252,19 @@
     <Compile Include="Forms\ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UploadForm.StatVarGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions\IntExts.cs" />
+    <Compile Include="Functions\StringExts.cs" />
+    <Compile Include="Forms\StatVarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StatVarForm.Designer.cs">
+      <DependentUpon>StatVarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\TreeNodeCollectionExts.cs" />
+    <Compile Include="Functions\TreeNodeExts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -251,6 +274,12 @@
     <Compile Include="Forms\UploadForm.Designer.cs">
       <DependentUpon>UploadForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Portal\AddVariableRequest.cs" />
+    <Compile Include="Classes\Portal\GetVariableResponse.cs" />
+    <Compile Include="Classes\Portal\StatVarTreeNode.cs" />
+    <Compile Include="Classes\Portal\Variable.cs" />
+    <None Include="Resources\hierarchy1.png" />
+    <None Include="Resources\hierarchy.png" />
     <None Include="Resources\upload.png" />
     <None Include="Resources\merge.png" />
     <EmbeddedResource Include="Forms\AboutAddInForm.resx">
@@ -258,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StatVarForm.resx">
+      <DependentUpon>StatVarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

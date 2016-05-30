@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-    public class ConfigListEntry
+    public class ConfigSetting
     {
         public string key { get; set; }
         public string value { get; set; }
 
-        public ConfigListEntry()
+        public ConfigSetting()
         {
         }
 
-        public ConfigListEntry(string pKey, string pValue)
+        public ConfigSetting(string pKey, string pValue)
         {
             this.key = pKey;
             this.value = pValue;

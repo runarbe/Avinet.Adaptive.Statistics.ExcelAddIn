@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Avinet.Adaptive.Statistics.ExcelAddIn.Classes;
+using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -6,20 +8,25 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-    public class ConfigList
+    public class ConfigProvider
     {
-        public List<ConfigListEntry> statUnitTypes { get; set; }
-        public List<ConfigListEntry> measurementUnitTypes { get; set; }
-        public List<ConfigListEntry> statVariableTypes { get; set; }
+        public List<ConfigSetting> statUnitTypes { get; set; }
+        public List<ConfigSetting> measurementUnitTypes { get; set; }
+        public List<ConfigSetting> statVariableTypes { get; set; }
+
+        public static IEnumerable<Variable> variableDefinitions { get; set; }
+
+        public static IEnumerable<StatTreeNode> variableTree { get; set; }
+
         public string type { get; set; }
         
-        public ConfigList()
+        public ConfigProvider()
         {
         }
 
-        public static System.Data.DataTable AsDataTable(List<ConfigListEntry> mList)
+        public static DataTable AsDataTable(List<ConfigSetting> mList)
         {
-            System.Data.DataTable mDataTable = new System.Data.DataTable();
+            DataTable mDataTable = new DataTable();
             mDataTable.Columns.Add(new DataColumn("key", typeof(string)));
             mDataTable.Columns.Add(new DataColumn("value", typeof(string)));
             foreach (var mConfigListEntry in mList)

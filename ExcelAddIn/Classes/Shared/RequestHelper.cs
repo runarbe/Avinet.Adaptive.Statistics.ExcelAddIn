@@ -27,7 +27,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             request.Credentials = System.Net.CredentialCache.DefaultCredentials;
             request.KeepAlive = true;
             request.Proxy = null;
-            //request.AllowWriteStreamBuffering = false;
+            //req.AllowWriteStreamBuffering = false;
 
             if (parameters != null && parameters.Count > 0)
             {
@@ -49,7 +49,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                             int bytesRead;
                             if (file.Stream == null)
                             {
-                                // upload from file
+                                // upload from f
                                 using (FileStream fileStream = File.OpenRead(file.FilePath))
                                 {
                                     fileStream.Position = Encoding.UTF8.GetPreamble().Length;

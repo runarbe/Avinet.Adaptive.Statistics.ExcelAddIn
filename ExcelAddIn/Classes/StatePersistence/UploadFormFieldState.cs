@@ -31,6 +31,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
         }
 
+        [Obsolete("No form states to be loaded from server")]
         public static List<UploadFormFieldState> GetFieldStates(DataGridView pDgv)
         {
             var mFields = new List<UploadFormFieldState>();
@@ -43,10 +44,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 mField.StatVarLevel3 = (string)m.Cells["StatVarCol3"].Value;
                 mField.StatVarLevel4 = (string)m.Cells["StatVarCol4"].Value;
                 mField.StatVarLevel5 = (string)m.Cells["StatVarCol5"].Value;
-                mField.MeasurementUnit = (string)m.Cells["MeasurementUnit"].Value;
-                mField.Year = (string)m.Cells["Year"].Value;
-                mField.Quarter = (string)m.Cells["Quarter"].Value;
-                mField.Month = (string)m.Cells["Month"].Value;
+                mField.MeasurementUnit = (string)m.Cells["enhet"].Value;
+                mField.Year = (string)m.Cells["ar"].Value;
+                mField.Quarter = (string)m.Cells["kvartal"].Value;
+                mField.Month = (string)m.Cells["mnd"].Value;
                 mField.Day = (string)m.Cells["Day"].Value;
 
                 mFields.Add(mField);
