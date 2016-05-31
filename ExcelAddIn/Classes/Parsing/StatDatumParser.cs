@@ -35,7 +35,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     this.Month = mDateTime.Month.ToString();
                 }
 
-                if (pStringFormat.Contains("d"))
+                if (pStringFormat.Contains("r"))
                 {
                     this.Day = mDateTime.Day.ToString();
                 }

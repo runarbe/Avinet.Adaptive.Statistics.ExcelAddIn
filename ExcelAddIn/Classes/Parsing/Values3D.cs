@@ -39,7 +39,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 return "";
             }
 
-            return this[pRowIndex][pFieldIndex].Value;
+            return this[pRowIndex][pFieldIndex].verdi;
         }
 
         public Dictionary<int, AdaptiveValue> GetRow(int pRowIndex)
@@ -75,7 +75,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         public string GetCSVHeader()
         {
-            return "\"krets_id\";\"krets_navn\";\"region\";\"år\";\"kvartal\"; \"mnd\";\"variable1\";\"variable2\";\"variable3\";\"variable4\";\"variable5\";\"verdi\";\"enhet\"";
+            return "\"fk_variable\";\"krets_id\";\"krets_navn\";\"region\";\"år\";\"kvartal\"; \"mnd\";\"variable1\";\"variable2\";\"variable3\";\"variable4\";\"variable5\";\"verdi\";\"enhet\"";
         }
 
     }

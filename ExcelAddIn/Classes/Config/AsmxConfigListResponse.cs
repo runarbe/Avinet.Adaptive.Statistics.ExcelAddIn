@@ -7,7 +7,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class AsmxConfigListResponse
     {
-        public ConfigList d { get; set; }
+        public ConfigProvider d { get; set; }
         public AsmxConfigListResponse()
         {
         }

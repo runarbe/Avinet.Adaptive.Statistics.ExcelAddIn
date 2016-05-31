@@ -15,6 +15,11 @@ using System.Reflection;
 using System.Net;
 using System.Xml.Serialization;
 using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Shared;
+using System.Collections.Specialized;
+using Newtonsoft.Json;
+using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
+using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
+using Avinet.Adaptive.Statistics.ExcelAddIn.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -75,18 +80,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// The application configuration, read from Adaptive, cached locally
         /// TODO: Add remote storage
         /// </summary>
-        public ConfigList AdaptiveConf = null;
+        public ConfigProvider AdaptiveConf = null;
 
         /// <summary>
         /// Loaded datasets from Adaptive
         /// TODO: Add remote storage
         /// </summary>
+        [Obsolete]
         public AASDatasets AdaptiveDatasets = null;
 
         /// <summary>
         /// Existing saved states
         /// TODO: Add remote storage
-        /// </summary>
+        /// </summary>'
+        [Obsolete]
         public UploadFormStates SavedStates = null;
 
         /// <summary>
@@ -104,6 +111,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <param name="e"></param>
         private void UploadForm_Load(object sender, EventArgs e)
         {
+            DebugToFile.Log("Testing to write this");
 
             // Set StatVar DataGridView to *NOT* auto-generate columns from datasource
             dgvStatVarProperties.AutoGenerateColumns = false;
@@ -111,7 +119,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Set default edit-mode of StatVar DataGridView
             dgvStatVarProperties.EditMode = DataGridViewEditMode.EditOnEnter;
 
-            // Attach event handlers to StatVar DataGridView to permit editing of cell values
+            // Attach event handlers to StatVar DataGridView to permit editing of currentCell values
             dgvStatVarProperties.EditingControlShowing += dgvManualStatVarProps_EditingControlShowing;
             dgvStatVarProperties.CellValidating += dgvManualStatVarProps_CellValidating;
 
@@ -134,18 +142,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 mComboBox.SelectedValue = CellContentType.Values;
             }
 
-            // Load existing datasets
-            LoadExistingDatasets();
-
-            // Populate dataset categories combobox
-            PopulateDatasetCategories();
-
-            // Populate datasets combobox
-            PopulateDatasets();
-
-            // Load saved settings
-            LoadSavedUploadFormStates();
-
             // Set default state of CellContentType combos
             SetCellContentTypeComboBoxEnabledState();
 
@@ -158,6 +154,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Load any existing saved settings from the client machine
         /// </summary>
+        [Obsolete("No saving or loading of form states in v2")]
         private void LoadSavedUploadFormStates()
         {
 
@@ -165,7 +162,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             //cbSettings.ComboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
             //cbSettings.ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-            //var mTmp = cbSettings.ComboBox.Text;
+            //sv mTmp = cbSettings.ComboBox.Text;
             //Util.SetComboBoxDS(cbSettings.ComboBox, UploadFormStates.GetComboBoxItems());
 
             //if (mTmp != null)
@@ -175,42 +172,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         }
 
         /// <summary>
-        /// Load existing measurement units (presently loaded from config file)
+        /// Load existing measurement units (presently loaded from config f)
         /// TODO: Connect to web service
         /// </summary>
         public void LoadExistingMeasurementUnits()
         {
-            var mColumn = (DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["MeasurementUnit"];
-            mColumn.AddItemsFromDataTable(ConfigList.AsDataTable(this.AdaptiveConf.measurementUnitTypes));
+            var mColumn = (DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["enhet"];
+            mColumn.AddItemsFromDataTable(ConfigProvider.AsDataTable(this.AdaptiveConf.measurementUnitTypes));
         }
 
-        /// <summary>
-        /// Load existing statvars from server
-        /// </summary>
-        private void LoadExistingStatVars()
-        {
-            var mUrl = String.Format("{0}/WebServices/administrator/modules/statistics/DataDownload.asmx/ReadVariables",
-                Properties.Settings.Default.adaptiveUri);
-            try
-            {
-                var mWebClient = new WebClient();
-                var mByteArray = mWebClient.DownloadData(mUrl);
-                var mReader = new MemoryStream(mByteArray);
-                var mSerializer = new XmlSerializer(typeof(AASStatVars));
-                AASStatVars mStatVars = (AASStatVars)mSerializer.Deserialize(mReader);
-                mReader.Close();
-                ((DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["StatVarCol1"]).AddItemsFromList(mStatVars.GetLevel1());
-                ((DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["StatVarCol2"]).AddItemsFromList(mStatVars.GetLevel2());
-                ((DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["StatVarCol3"]).AddItemsFromList(mStatVars.GetLevel3());
-                ((DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["StatVarCol4"]).AddItemsFromList(mStatVars.GetLevel4());
-                ((DataGridViewComboBoxColumn)dgvStatVarProperties.Columns["StatVarCol5"]).AddItemsFromList(mStatVars.GetLevel5());
-            }
-            catch (Exception ex)
-            {
-                this.Log("Feil: Kunne ikkje laste eksisterande statistikkvariablar frå " + mUrl + " (" + ex.Message + ")");
-            }
-        }
-
+        [Obsolete("No dataset concept in v2")]
         private void PopulateDatasetCategories()
         {
             if (this.AdaptiveDatasets == null) return;
@@ -235,6 +206,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this.cbDatasetCategory.ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
+        [Obsolete("No dataset concept in v2")]
         private void PopulateDatasets()
         {
             if (this.AdaptiveDatasets == null) return;
@@ -264,6 +236,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Load existing datasets from server
         /// </summary>
+        [Obsolete("No dataset concept in v2")]
         private void LoadExistingDatasets()
         {
             var mUrl = String.Format("{0}/WebServices/administrator/modules/statistics/DataDownload.asmx/DownloadDatasetId", Properties.Settings.Default.adaptiveUri);
@@ -294,10 +267,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this.AdaptiveConf = WsDataSources.DownloadAdaptiveConfig(pUpdateFromWeb);
 
             // Download list of existing datasets that can be added to
-            this.LoadSavedUploadFormStates();
+            //this.LoadSavedUploadFormStates();
 
             // Download list of existing statistical variables
-            this.LoadExistingStatVars();
+            this.LoadExistingStatVars2();
 
             // Set data source for statareatypes
             if (this.AdaptiveConf != null)
@@ -311,21 +284,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        private void dgvManualStatVarProps_EditingControlShowing(object sender,
-                DataGridViewEditingControlShowingEventArgs e)
-        {
-            ComboBox mComboBox = e.Control as ComboBox;
-            if (mComboBox != null)
-            {
-                mComboBox.DropDownStyle = ComboBoxStyle.DropDown;
-                mComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                mComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            };
-        }
-
         void dgvStatVarProperties_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            // You could also check here to see if the cell in question is the combobox
+
+            // You could also check here to see if the currentCell in question is the combobox
             if (dgvStatVarProperties.IsCurrentCellDirty)
             {
                 dgvStatVarProperties.CommitEdit(DataGridViewDataErrorContexts.Commit);
@@ -335,16 +297,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         private void dgvManualStatVarProps_CellValidating(object sender,
                 DataGridViewCellValidatingEventArgs e)
         {
-            Debug.WriteLine("Validating value = " + dgvStatVarProperties);
-
             if (e.ColumnIndex == dgvStatVarProperties.Columns["StatVarCol1"].Index ||
                 e.ColumnIndex == dgvStatVarProperties.Columns["StatVarCol2"].Index ||
                 e.ColumnIndex == dgvStatVarProperties.Columns["StatVarCol3"].Index ||
                 e.ColumnIndex == dgvStatVarProperties.Columns["StatVarCol4"].Index ||
                 e.ColumnIndex == dgvStatVarProperties.Columns["StatVarCol5"].Index ||
-                e.ColumnIndex == dgvStatVarProperties.Columns["MeasurementUnit"].Index)
+                e.ColumnIndex == dgvStatVarProperties.Columns["enhet"].Index)
             {
-                DataGridViewComboBoxCell mDGVComboBoxCell = dgvStatVarProperties.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewComboBoxCell;
+                DataGridViewComboBoxCell mDGVComboBoxCell = dgvStatVarProperties[e.ColumnIndex, e.RowIndex] as DataGridViewComboBoxCell;
                 string mUserEnteredValue = e.FormattedValue.ToString();
                 ComboBoxItem mNewItem = ComboBoxItem.GetNewItem(mUserEnteredValue.ToString());
                 mDGVComboBoxCell.AddItemIfNotExists(mNewItem);
@@ -414,62 +374,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
             {
-                mRow.Cells["Year"].Value = tbStatDatumYear.Text;
-                var m = mRow.Cells["Quarter"] as DataGridViewComboBoxCell;
+                mRow.Cells["ar"].Value = tbStatDatumYear.Text;
+                var m = mRow.Cells["kvartal"] as DataGridViewComboBoxCell;
                 m.Value = cbStatDatumQuarter.Text;
-                mRow.Cells["Month"].Value = tbStatDatumMonth.Text;
-                mRow.Cells["Day"].Value = tbStatDatumDay.Text;
+                mRow.Cells["mnd"].Value = tbStatDatumMonth.Text;
             }
             this.ParseSelectionWithCurrentSettings();
-        }
-
-        /// <summary>
-        /// Copy the settings for the first row of the StatVarProperties DataGridView to all rows
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnCopyFirstRowToAll_Click(object sender, EventArgs e)
-        {
-            int i = 1;
-            string mYear = "", mQuarter = "", mMonth = "", mDay = "", mMeasurementUnit = "", mVariableType = "";
-            foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
-            {
-                var mQuarterCell = mRow.Cells["Quarter"] as DataGridViewComboBoxCell;
-                var mVariableTypeCell = mRow.Cells["VariableType"] as DataGridViewComboBoxCell;
-                var mMeasurementUnitCell = mRow.Cells["MeasurementUnit"] as DataGridViewComboBoxCell;
-
-                if (i == 1)
-                {
-                    mYear = Table.GetNullOrString(mRow.Cells["Year"].Value);
-                    mQuarter = Table.GetNullOrString(mQuarterCell.Value);
-                    mMonth = Table.GetNullOrString(mRow.Cells["Month"].Value);
-                    mDay = Table.GetNullOrString(mRow.Cells["day"].Value);
-                    mVariableType = Table.GetNullOrString(mVariableTypeCell.Value);
-                    mMeasurementUnit = Table.GetNullOrString(mMeasurementUnitCell.Value);
-                }
-                else
-                {
-                    mRow.Cells["Year"].Value = mYear;
-                    mQuarterCell.Value = mQuarter;
-                    mRow.Cells["Month"].Value = mMonth;
-                    mRow.Cells["day"].Value = mDay;
-                    mVariableTypeCell.Value = mVariableType;
-                    mMeasurementUnitCell.Value = mMeasurementUnit;
-                }
-                i++;
-            }
-
-        }
-
-        [Obsolete]
-        /// <summary>
-        /// Update 
-        /// </summary>
-        /// <param name="pSender"></param>
-        /// <param name="e"></param>
-        private void cbStatisticalUnitField_SelectedIndexChanged(object pSender, EventArgs e)
-        {
-            cbFieldsUpdateHandler(pSender);
         }
 
         private void cbFieldsUpdateHandler(Object pSender)
@@ -574,7 +484,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             this.Log("Ferdig med eksport");
 
-            this.SaveUploadFormState();
+            //this.SaveUploadFormState();
         }
 
         private void btnTestParsing_Click(object sender, EventArgs e)
@@ -645,18 +555,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             {
                 this.grpStatDatumSettings.Enabled = false;
                 this.grpAutoDateSettings.Enabled = true;
-                this.dgvStatVarProperties.Columns["Year"].Visible = false;
-                this.dgvStatVarProperties.Columns["Quarter"].Visible = false;
-                this.dgvStatVarProperties.Columns["Month"].Visible = false;
+                this.dgvStatVarProperties.Columns["ar"].Visible = false;
+                this.dgvStatVarProperties.Columns["kvartal"].Visible = false;
+                this.dgvStatVarProperties.Columns["mnd"].Visible = false;
                 this.dgvStatVarProperties.Columns["Day"].Visible = false;
             }
             else if (!mAssignedCellContentTypes.Contains(CellContentType.StatDatum) && mAssignedCellContentTypes.Contains(CellContentType.StatVars))
             {
                 this.grpStatDatumSettings.Enabled = true;
                 this.grpAutoDateSettings.Enabled = false;
-                this.dgvStatVarProperties.Columns["Year"].Visible = true;
-                this.dgvStatVarProperties.Columns["Quarter"].Visible = true;
-                this.dgvStatVarProperties.Columns["Month"].Visible = true;
+                this.dgvStatVarProperties.Columns["ar"].Visible = true;
+                this.dgvStatVarProperties.Columns["kvartal"].Visible = true;
+                this.dgvStatVarProperties.Columns["mnd"].Visible = true;
                 this.dgvStatVarProperties.Columns["Day"].Visible = true;
             }
             else
@@ -712,7 +622,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     pDataOrientation != this.StatVarProperties.DataOrientation)
                 {
                     this.LoadStatVarPropertiesGrid();
-                    tabControl.SelectedTab = tpStatisticsVariables;
+                    //tabControl.SelectedTab = tpStatisticsVariables;
                 }
 
                 // Parse with current settings
@@ -731,7 +641,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
             switch (pCellContentType)
             {
-                // Load stat vars
+                // Load stat variables
                 case CellContentType.StatVars:
                     this.StatVarProperties = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
                     break;
@@ -902,73 +812,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        public StatVarProperties ParseStatVarProperties(int pRow, int pCol, DataOrientation pDataOrientation)
-        {
-
-            int mStatVarIndex;
-
-            if (pDataOrientation == DataOrientation.InColumns)
-            {
-                mStatVarIndex = pRow;
-            }
-            else
-            {
-                mStatVarIndex = pCol;
-            }
-
-            var mStatVarProperties = new StatVarProperties();
-
-            for (int i = 0, j = dgvStatVarProperties.RowCount; i < j; i++)
-            {
-                int mIndex = (int)dgvStatVarProperties["Index", i].Value;
-
-                if (mIndex == mStatVarIndex)
-                {
-                    for (int f = 0; f < dgvStatVarProperties.ColumnCount; f++)
-                    {
-                        DataGridViewColumn mDGVC = dgvStatVarProperties.Columns[f];
-
-                        switch (mDGVC.Index)
-                        {
-                            case 3:
-                                mStatVarProperties.StatVar1 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 4:
-                                mStatVarProperties.StatVar2 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 5:
-                                mStatVarProperties.StatVar3 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 6:
-                                mStatVarProperties.StatVar4 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 7:
-                                mStatVarProperties.StatVar5 = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 8:
-                                mStatVarProperties.MeasurementUnit = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 9:
-                                mStatVarProperties.Year = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 10:
-                                mStatVarProperties.Quarter = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 11:
-                                mStatVarProperties.Month = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
-                                break;
-                            case 12:
-                                mStatVarProperties.Day = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
-                                break;
-                        }
-
-                    }
-
-                    break;
-                }
-            }
-            return mStatVarProperties;
-        }
 
         private void btnCopyFirstRowAll_Click(object sender, EventArgs e)
         {
@@ -978,19 +821,19 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
             {
-                var mQuarterCell = mRow.Cells["Quarter"] as DataGridViewComboBoxCell;
+                var mQuarterCell = mRow.Cells["kvartal"] as DataGridViewComboBoxCell;
                 var mStatVarCell1 = mRow.Cells["StatVarCol1"] as DataGridViewComboBoxCell;
                 var mStatVarCell2 = mRow.Cells["StatVarCol2"] as DataGridViewComboBoxCell;
                 var mStatVarCell3 = mRow.Cells["StatVarCol3"] as DataGridViewComboBoxCell;
                 var mStatVarCell4 = mRow.Cells["StatVarCol4"] as DataGridViewComboBoxCell;
                 var mStatVarCell5 = mRow.Cells["StatVarCol5"] as DataGridViewComboBoxCell;
-                var mMeasurementUnitCell = mRow.Cells["MeasurementUnit"] as DataGridViewComboBoxCell;
+                var mMeasurementUnitCell = mRow.Cells["enhet"] as DataGridViewComboBoxCell;
 
                 if (i == 1)
                 {
-                    mYear = Table.GetNullOrString(mRow.Cells["Year"].Value);
+                    mYear = Table.GetNullOrString(mRow.Cells["ar"].Value);
                     mQuarter = Table.GetNullOrString(mQuarterCell.Value);
-                    mMonth = Table.GetNullOrString(mRow.Cells["Month"].Value);
+                    mMonth = Table.GetNullOrString(mRow.Cells["mnd"].Value);
                     mDay = Table.GetNullOrString(mRow.Cells["Day"].Value);
                     mStatVar1 = Table.GetNullOrString(mStatVarCell1.Value);
                     mStatVar2 = Table.GetNullOrString(mStatVarCell2.Value);
@@ -1001,9 +844,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 }
                 else
                 {
-                    mRow.Cells["Year"].Value = mYear;
+                    mRow.Cells["ar"].Value = mYear;
                     mQuarterCell.Value = mQuarter;
-                    mRow.Cells["Month"].Value = mMonth;
+                    mRow.Cells["mnd"].Value = mMonth;
                     mRow.Cells["Day"].Value = mDay;
 
                     mStatVarCell1.Value = mStatVar1;
@@ -1024,20 +867,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         private void btnCopyFirstMeasurementUnitToAll_Click(object sender, EventArgs e)
         {
             int i = 1;
-            string mMeasurementUnit = "";
-            foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
+            DataGridViewComboBoxCell firstMeasurementUnitCell = null;
+            foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
             {
-                var mMeasurementUnitCell = mRow.Cells["MeasurementUnit"] as DataGridViewComboBoxCell;
+                var currentMeasurementUnitCell = currentRow.Cells["enhet"] as DataGridViewComboBoxCell;
 
                 if (i == 1)
                 {
-                    mMeasurementUnit = Table.GetNullOrString(mMeasurementUnitCell.Value);
-                    Debug.WriteLine(mMeasurementUnit);
+                    firstMeasurementUnitCell = currentRow.Cells["enhet"] as DataGridViewComboBoxCell;
                 }
                 else
                 {
-                    mMeasurementUnitCell.AddItemIfNotExists(ComboBoxItem.GetNewItem(mMeasurementUnit));
-                    mMeasurementUnitCell.Value = mMeasurementUnit;
+                    currentMeasurementUnitCell.CopyValueFrom(firstMeasurementUnitCell);
                 }
                 i++;
             }
@@ -1054,35 +895,36 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         private void btnCopyStatVarAll_Click(object sender, EventArgs e)
         {
             int i = 1;
-            string mStatVarType1 = "";
-            string mStatVarType2 = "";
-            string mStatVarType3 = "";
-            string mStatVarType4 = "";
-            string mStatVarType5 = "";
 
-            foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
+            DataGridViewComboBoxCell firstVar1 = null;
+            DataGridViewComboBoxCell firstVar2 = null;
+            DataGridViewComboBoxCell firstVar3 = null;
+            DataGridViewComboBoxCell firstVar4 = null;
+            DataGridViewComboBoxCell firstVar5 = null;
+
+            foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
             {
-                var mStatVarCell1 = mRow.Cells["StatVarCol1"] as DataGridViewComboBoxCell;
-                var mStatVarCell2 = mRow.Cells["StatVarCol2"] as DataGridViewComboBoxCell;
-                var mStatVarCell3 = mRow.Cells["StatVarCol3"] as DataGridViewComboBoxCell;
-                var mStatVarCell4 = mRow.Cells["StatVarCol4"] as DataGridViewComboBoxCell;
-                var mStatVarCell5 = mRow.Cells["StatVarCol5"] as DataGridViewComboBoxCell;
+                var currentVar1 = currentRow.Cells["StatVarCol1"] as DataGridViewComboBoxCell;
+                var currentVar2 = currentRow.Cells["StatVarCol2"] as DataGridViewComboBoxCell;
+                var currentVar3 = currentRow.Cells["StatVarCol3"] as DataGridViewComboBoxCell;
+                var currentVar4 = currentRow.Cells["StatVarCol4"] as DataGridViewComboBoxCell;
+                var currentVar5 = currentRow.Cells["StatVarCol5"] as DataGridViewComboBoxCell;
 
                 if (i == 1)
                 {
-                    mStatVarType1 = (string)Table.GetNullOrString(mStatVarCell1.Value);
-                    mStatVarType2 = (string)Table.GetNullOrString(mStatVarCell2.Value);
-                    mStatVarType3 = (string)Table.GetNullOrString(mStatVarCell3.Value);
-                    mStatVarType4 = (string)Table.GetNullOrString(mStatVarCell4.Value);
-                    mStatVarType5 = (string)Table.GetNullOrString(mStatVarCell5.Value);
+                    firstVar1 = currentVar1;
+                    firstVar2 = currentVar2;
+                    firstVar3 = currentVar3;
+                    firstVar4 = currentVar4;
+                    firstVar5 = currentVar5;
                 }
                 else
                 {
-                    mStatVarCell1.AddItemIfNotExists(ComboBoxItem.GetNewItem(mStatVarType1));
-                    mStatVarCell2.AddItemIfNotExists(ComboBoxItem.GetNewItem(mStatVarType2));
-                    mStatVarCell3.AddItemIfNotExists(ComboBoxItem.GetNewItem(mStatVarType3));
-                    mStatVarCell4.AddItemIfNotExists(ComboBoxItem.GetNewItem(mStatVarType4));
-                    mStatVarCell5.AddItemIfNotExists(ComboBoxItem.GetNewItem(mStatVarType5));
+                    currentVar1.CopyValueFrom(firstVar1);
+                    currentVar2.CopyValueFrom(firstVar2);
+                    currentVar3.CopyValueFrom(firstVar3);
+                    currentVar4.CopyValueFrom(firstVar4);
+                    currentVar5.CopyValueFrom(firstVar5);
                 }
                 i++;
             }
@@ -1091,11 +933,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        private void btnSaveSettings_Click(object sender, EventArgs e)
-        {
-            this.SaveUploadFormState(true);
-        }
+        //private void btnSaveSettings_Click(object sender, EventArgs e)
+        //{
+        //    //this.SaveUploadFormState(true);
+        //}
 
+        [Obsolete("No saving of form states from now on")]
         private void SaveUploadFormState(bool pConfirmOverwrite = false)
         {
             if (Util.GetComboBoxSelectedValueString(cbDataset.ComboBox) != "")
@@ -1116,13 +959,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             var mConfirm = MessageBox.Show("Vil du laste opp tabellen til Adaptive med gjeldande innstillingar?", "Åtvaring", MessageBoxButtons.YesNo);
             if (mConfirm == DialogResult.No) return;
 
-            ComboBoxItem mDataset = cbDataset.SelectedItem as ComboBoxItem;
+            //ComboBoxItem mDataset = cbDataset.SelectedItem as ComboBoxItem;
 
-            if (mDataset == null)
-            {
-                this.Log("Merknad: Det er ikkje valt noko datasett å laste opp til");
-                return;
-            }
+            //if (mDataset == null)
+            //{
+            //    this.Log("Merknad: Det er ikkje valt noko datasett å laste opp til");
+            //    return;
+            //}
+
             try
             {
                 tabControl.SelectedTab = tabPageLogOutput;
@@ -1134,9 +978,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     var mJSON = RequestHelper.PostMultipart(
                         String.Format("{0}/Webservices/administrator/modules/statistics/DataTableUpload.ashx", Properties.Settings.Default.adaptiveUri),
                         new Dictionary<string, object>() {
-        { "dataset_id", mDataset.value },   
-        { "deleteOldData", "false" },
-        { "file", new FormFile() { Name = "statistikk.csv", ContentType = "application/octet-stream", FilePath = mCsvFileName } },
+        //{ "dataset_id", mDataset.value },   
+        //{ "deleteOldData", "false" },
+        { "f", new FormFile() { Name = "statistikk.csv", ContentType = "application/octet-stream", FilePath = mCsvFileName } },
     });
                     var mRes = WSRetVal.ParseJSON(mJSON);
                     if (mRes.success == "true")
@@ -1149,12 +993,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     }
                 }
 
-                this.SaveUploadFormState();
+                //this.SaveUploadFormState();
 
             }
             catch (System.Net.WebException ex)
             {
-                this.Log("Feil: Noko gjekk gale og det var ikkje mogleg å laste opp tabellen (" + ex.Message + ")");
+                this.Log("Feil: Noko gjekk gale og det sv ikkje mogleg å laste opp tabellen (" + ex.Message + ")");
                 tabControl.SelectedTab = tabPageLogOutput;
             }
 
@@ -1180,10 +1024,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnDeleteSettings_Click(object sender, EventArgs e)
         {
-            //var mSelectedSetting = cbSettings.ComboBox.SelectedValue;
+            //sv mSelectedSetting = cbSettings.ComboBox.SelectedValue;
             //if (mSelectedSetting != null)
             //{
-            //var mConfirm = MessageBox.Show("Er du sikker på at du vil slette importoppsettet: " + cbSettings.ComboBox.Text + "?", "Åtvaring", MessageBoxButtons.YesNo);
+            //sv mConfirm = MessageBox.Show("Er du sikker på at du vil slette importoppsettet: " + cbSettings.ComboBox.Text + "?", "Åtvaring", MessageBoxButtons.YesNo);
             //if (mConfirm == DialogResult.No) return;
 
             //UploadFormStates.RemoveState(mSelectedSetting.ToString());
@@ -1191,74 +1035,25 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             //this.LoadSavedUploadFormStates();
         }
 
-        private void cbDatasetCategory_SelectedIndexChanged(object sender, EventArgs e)
+        //private void cbDatasetCategory_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    this.PopulateDatasets();
+        //}
+
+        //private void cbDataset_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    this.RestoreSettingsForDataset();
+        //}
+
+
+        private void tsBtnTest_Click(object sender, EventArgs e)
         {
-            this.PopulateDatasets();
         }
 
-        private void cbDataset_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnAddEditVariables_Click(object sender, EventArgs e)
         {
-            this.RestoreSettingsForDataset();
-        }
-
-        private void btnCopyTitleToStatVarColN_Click(object sender, EventArgs e)
-        {
-            int i = 1;
-            string mTitle = "";
-            int mStatVarColNumber = Util.GetComboBoxSelectedTextAsInt(cbSelectedStatVarCol.ComboBox);
-            if (mStatVarColNumber != -1 && mStatVarColNumber <= 5 && mStatVarColNumber >= 1)
-            {
-                string mStatVarColName = "StatVarCol" + mStatVarColNumber.ToString();
-
-                foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
-                {
-                    var mTitleCol = mRow.Cells["Title"] as DataGridViewTextBoxCell;
-                    var mCopyToCol = mRow.Cells[mStatVarColName] as DataGridViewComboBoxCell;
-
-                    mTitle = (string)Table.GetNullOrString(mTitleCol.Value);
-                    mCopyToCol.AddItemIfNotExists(ComboBoxItem.GetNewItem(mTitle));
-                    mTitleCol.Value = mTitle;
-                }
-                i++;
-
-                this.ParseSelectionWithCurrentSettings();
-            }
-
-        }
-
-        private void dgvStatVarProperties_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            Debug.WriteLine(e.Exception.Message);
-            Debug.WriteLine(e.ColumnIndex);
-            Debug.WriteLine(e.RowIndex);
-            Debug.WriteLine(e.ToString());
-
-        }
-
-
-        private void btnCopyTitle2ToStatVarColN_Click(object sender, EventArgs e)
-        {
-            int i = 1;
-            string mTitle = "";
-            int mStatVarColNumber2 = Util.GetComboBoxSelectedTextAsInt(cbSelectedStatVarCol2.ComboBox);
-            if (mStatVarColNumber2 != -1 && mStatVarColNumber2 <= 5 && mStatVarColNumber2 >= 1)
-            {
-                string mStatVarColName2 = "StatVarCol" + mStatVarColNumber2.ToString();
-
-                foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
-                {
-                    var mTitleCol = mRow.Cells["Title2"] as DataGridViewTextBoxCell;
-                    var mCopyToCol = mRow.Cells[mStatVarColName2] as DataGridViewComboBoxCell;
-
-                    mTitle = (string)Table.GetNullOrString(mTitleCol.Value);
-                    mCopyToCol.AddItemIfNotExists(ComboBoxItem.GetNewItem(mTitle));
-                    mTitleCol.Value = mTitle;
-                }
-                i++;
-
-                this.ParseSelectionWithCurrentSettings();
-            }
-
+            var frm = new StatVarForm();
+            frm.ShowDialog();
         }
 
     }

@@ -15,12 +15,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public static class JsonLoader
     {
-        public static ConfigList LoadConfigFromSettings(string mConfigListJson)
+        public static ConfigProvider LoadConfigFromSettings(string mConfigListJson)
         {
             try
             {
                 var jsonSerializer = new JavaScriptSerializer();
-                return jsonSerializer.Deserialize<ConfigList>(mConfigListJson);
+                return jsonSerializer.Deserialize<ConfigProvider>(mConfigListJson);
             }
             catch (Exception)
             {
@@ -28,7 +28,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
         }
 
-        public static ConfigList LoadConfigFromWeb()
+        public static ConfigProvider LoadConfigFromWeb()
         {
             var webClient = new WebClient();
             
