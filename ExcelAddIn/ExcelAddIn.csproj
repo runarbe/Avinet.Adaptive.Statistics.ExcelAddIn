@@ -197,29 +197,28 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Classes\DataSetWS\AASDataset.cs" />
-    <Compile Include="Classes\DataSetWS\AASDatasets.cs" />
+    <Compile Include="Classes\Adaptive\TreeNodeType.cs" />
     <Compile Include="Classes\DebugToFile\DebugToFile.cs" />
-    <Compile Include="Classes\Portal\GetKretstyperResponse.cs" />
-    <Compile Include="Classes\Portal\ServiceOutput.cs" />
-    <Compile Include="Classes\Portal\StatTreeNode.cs" />
+    <Compile Include="Classes\Adaptive\AddDataRequest.cs" />
+    <Compile Include="Classes\Adaptive\GetKretstyperResponse.cs" />
+    <Compile Include="Classes\Adaptive\ServiceOutput.cs" />
+    <Compile Include="Classes\Adaptive\StatTreeNode.cs" />
+    <Compile Include="Classes\Shared\ValidationResult.cs" />
+    <Compile Include="Forms\NewVariable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewVariable.Designer.cs">
+      <DependentUpon>NewVariable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Functions\DataGridViewComboBoxExt.cs" />
-    <Compile Include="Classes\Shared\WSRetVal.cs" />
-    <Compile Include="Classes\Portal\Kretstyper.cs" />
-    <Compile Include="Classes\Portal\PortalClient.cs" />
-    <Compile Include="Classes\StatVarsWS\AASStatVar.cs" />
-    <Compile Include="Classes\StatVarsWS\AASStatVars.cs" />
-    <Compile Include="Classes\Config\AsmxConfigListResponse.cs" />
+    <Compile Include="Classes\Adaptive\Kretstyper.cs" />
+    <Compile Include="Classes\Adaptive\AdaptiveClient.cs" />
     <Compile Include="Classes\Shared\ComboBoxItem.cs" />
     <Compile Include="Classes\Config\ConfigProvider.cs" />
-    <Compile Include="Classes\Config\ConfigSetting.cs" />
-    <Compile Include="Classes\Config\ConfigListOffline.cs" />
     <Compile Include="Classes\ColumnTypes\CellContentType.cs" />
-    <Compile Include="Classes\UploadWS\FormFile.cs" />
     <Compile Include="Classes\Shared\MessageObject.cs" />
     <Compile Include="Classes\Shared\MessagesErrors.cs" />
     <Compile Include="Classes\Shared\MessagesNotices.cs" />
-    <Compile Include="Classes\Shared\RequestHelper.cs" />
     <Compile Include="Classes\Parsing\StatDatumParser.cs" />
     <Compile Include="Classes\Parsing\DataOrientation.cs" />
     <Compile Include="Classes\Parsing\DateFormats.cs" />
@@ -227,19 +226,13 @@
     <Compile Include="Classes\Parsing\AdaptiveRow.cs" />
     <Compile Include="Classes\Parsing\AdaptiveMatrix.cs" />
     <Compile Include="Classes\Parsing\AdaptiveValue.cs" />
-    <Compile Include="Classes\Export\CSVFormat.cs" />
-    <Compile Include="Classes\Export\Export.cs" />
     <Compile Include="Classes\Parsing\Key.cs" />
     <Compile Include="Classes\Parsing\SelectionType.cs" />
-    <Compile Include="Classes\ManualStatVarProps.cs" />
+    <Compile Include="Classes\StatVarProps.cs" />
     <Compile Include="Classes\Parsing\Table.cs" />
-    <Compile Include="Classes\StatePersistence\UploadFormFieldState.cs" />
-    <Compile Include="Classes\StatePersistence\UploadFormState.cs" />
-    <Compile Include="Classes\StatePersistence\UploadFormStates.cs" />
     <Compile Include="Classes\Shared\Util.cs" />
     <Compile Include="Classes\Parsing\Values3D.cs" />
     <Compile Include="Classes\Config\JsonLoader.cs" />
-    <Compile Include="Classes\Config\WsDataSources.cs" />
     <Compile Include="Forms\AboutAddInForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +249,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Functions\IntExts.cs" />
+    <Compile Include="Functions\ObjectExt.cs" />
     <Compile Include="Functions\StringExts.cs" />
     <Compile Include="Forms\StatVarForm.cs">
       <SubType>Form</SubType>
@@ -274,10 +268,14 @@
     <Compile Include="Forms\UploadForm.Designer.cs">
       <DependentUpon>UploadForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Portal\AddVariableRequest.cs" />
-    <Compile Include="Classes\Portal\GetVariableResponse.cs" />
-    <Compile Include="Classes\Portal\StatVarTreeNode.cs" />
-    <Compile Include="Classes\Portal\Variable.cs" />
+    <Compile Include="Classes\Adaptive\AddVariableRequest.cs" />
+    <Compile Include="Classes\Adaptive\GetVariableResponse.cs" />
+    <Compile Include="Classes\Adaptive\Variable.cs" />
+    <None Include="Resources\1465320688_Bricks1.png" />
+    <None Include="Resources\1465320688_Bricks.png" />
+    <None Include="Resources\1465320544_Open_folder.png" />
+    <None Include="Resources\1465320501_Closed_folder.png" />
+    <None Include="Resources\closed-folder.bmp" />
     <None Include="Resources\hierarchy1.png" />
     <None Include="Resources\hierarchy.png" />
     <None Include="Resources\upload.png" />
@@ -288,11 +286,14 @@
     <EmbeddedResource Include="Forms\ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewVariable.resx">
+      <DependentUpon>NewVariable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\StatVarForm.resx">
       <DependentUpon>StatVarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

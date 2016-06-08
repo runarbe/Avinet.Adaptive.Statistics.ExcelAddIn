@@ -13,7 +13,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
     public static class DataGridViewComboBoxExt
     {
         /// <summary>
-        /// Set the data source of a combobox to values read from a data table
+        /// Set the valuesList source of a combobox to valuesList read from a valuesList table
         /// </summary>
         /// <param name="pDataGridViewComboBoxCol"></param>
         /// <param name="pDataSource"></param>
@@ -31,7 +31,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         }
 
         /// <summary>
-        /// Set data source of combo box to IEnumerable collection
+        /// Set valuesList source of combo box to IEnumerable collection
         /// </summary>
         /// <param name="pDataGridViewComboBoxCol"></param>
         /// <param name="pEnumerable"></param>
@@ -46,7 +46,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         }
 
         /// <summary>
-        /// Add items to a DataGridViewComboBox (permits editing of values once datasource is not bound)
+        /// Add items to a DataGridViewComboBox (permits editing of valuesList once datasource is not bound)
         /// </summary>
         /// <param name="pNameOfColumn">Name of the column in the DataGridView</param>
         /// <param name="pComboBoxItems">A List<> of ComboBoxItem objects</param>
@@ -80,7 +80,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         {
             if (pComboBoxCell != null && pItem != null && pComboBoxCell.DataSource == null && !pComboBoxCell.HasItem(pItem))
             {
-                Debug.WriteLine("verdi added: " + pItem.value);
+                Debug.WriteLine("value added: " + pItem.value);
                 pComboBoxCell.Items.Add(pItem);
 
                 pComboBoxCell.DisplayMember = "key";
@@ -129,7 +129,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         }
 
         /// <summary>
-        /// Copy value and data source binding from a DataGridViewComboBoxCell object
+        /// Copy value and valuesList source binding from a DataGridViewComboBoxCell object
         /// </summary>
         /// <param name="tgtCell"></param>
         /// <param name="srcCell"></param>

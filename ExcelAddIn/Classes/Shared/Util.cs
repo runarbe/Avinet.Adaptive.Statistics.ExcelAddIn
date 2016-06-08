@@ -56,7 +56,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         public static string GetComboBoxSelectedValueString(ComboBox pComboBox)
         {
-            string mStatus = CellContentType.Values;
+            string mStatus = CellContentTypes.Values;
             if (pComboBox.SelectedValue != null && pComboBox.SelectedValue.GetType() == typeof(string))
             {
                 var mSelectedValue = (string)pComboBox.SelectedValue;
@@ -105,7 +105,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
         }
 
-
         public static string CheckNullOrEmpty(object pObj)
         {
             string pString;
@@ -143,10 +142,22 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
         }
 
-        public static void SetComboBoxDS(ComboBox pComboBox, IEnumerable pDataSource, string pDisplayMember = "key", string pValueMember = "value")
+        public static void SetComboBoxDSDictionary(ComboBox pComboBox, Dictionary<string, string> pDataSource) 
         {
             var tmp = pComboBox.SelectedValue;
             pComboBox.DataSource = pDataSource;
+            pComboBox.DisplayMember = "key";
+            pComboBox.ValueMember = "value";
+            if (tmp != null)
+            {
+                pComboBox.SelectedValue = tmp;
+            }
+        }
+
+        public static void SetComboBoxDS(ComboBox pComboBox, IEnumerable pDataSource, string pDisplayMember = "key", string pValueMember = "value")
+        {
+            var tmp = pComboBox.SelectedValue;
+            pComboBox.DataSource = new BindingSource(pDataSource, null);
             pComboBox.ValueMember = pValueMember;
             pComboBox.DisplayMember = pDisplayMember;
             if (tmp != null)

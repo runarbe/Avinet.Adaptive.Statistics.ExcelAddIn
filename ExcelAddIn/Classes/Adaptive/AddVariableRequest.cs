@@ -11,7 +11,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
     public class AddVariableRequest
     {
         /// <summary>
-        /// Data object holding the variable data
+        /// Data object holding the variable valuesList
         /// </summary>
         public Variable data { get; set; }
 

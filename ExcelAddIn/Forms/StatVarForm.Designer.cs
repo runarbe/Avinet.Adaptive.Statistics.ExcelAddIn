@@ -30,6 +30,7 @@
         {
             this.svTree = new System.Windows.Forms.TreeView();
             this.formPanel = new System.Windows.Forms.Panel();
+            this.tbVarName = new System.Windows.Forms.TextBox();
             this.tbVarLevel = new System.Windows.Forms.TextBox();
             this.tbParentVariable = new System.Windows.Forms.TextBox();
             this.chkbShowUnit = new System.Windows.Forms.CheckBox();
@@ -41,10 +42,7 @@
             this.lblUnit = new System.Windows.Forms.Label();
             this.lblParent = new System.Windows.Forms.Label();
             this.lblVarName = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.tbDescription = new System.Windows.Forms.TextBox();
             this.cbUnit = new System.Windows.Forms.ComboBox();
-            this.cbVarName = new System.Windows.Forms.ComboBox();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.btnRefreshTree = new System.Windows.Forms.Button();
@@ -64,6 +62,7 @@
             // 
             // formPanel
             // 
+            this.formPanel.Controls.Add(this.tbVarName);
             this.formPanel.Controls.Add(this.tbVarLevel);
             this.formPanel.Controls.Add(this.tbParentVariable);
             this.formPanel.Controls.Add(this.chkbShowUnit);
@@ -75,15 +74,19 @@
             this.formPanel.Controls.Add(this.lblUnit);
             this.formPanel.Controls.Add(this.lblParent);
             this.formPanel.Controls.Add(this.lblVarName);
-            this.formPanel.Controls.Add(this.lblDescription);
-            this.formPanel.Controls.Add(this.tbDescription);
             this.formPanel.Controls.Add(this.cbUnit);
-            this.formPanel.Controls.Add(this.cbVarName);
             this.formPanel.Controls.Add(this.btnCreateNew);
             this.formPanel.Location = new System.Drawing.Point(421, 13);
             this.formPanel.Name = "formPanel";
             this.formPanel.Size = new System.Drawing.Size(296, 359);
             this.formPanel.TabIndex = 1;
+            // 
+            // tbVarName
+            // 
+            this.tbVarName.Location = new System.Drawing.Point(114, 84);
+            this.tbVarName.Name = "tbVarName";
+            this.tbVarName.Size = new System.Drawing.Size(166, 22);
+            this.tbVarName.TabIndex = 0;
             // 
             // tbVarLevel
             // 
@@ -91,7 +94,8 @@
             this.tbVarLevel.Location = new System.Drawing.Point(114, 50);
             this.tbVarLevel.Name = "tbVarLevel";
             this.tbVarLevel.Size = new System.Drawing.Size(38, 22);
-            this.tbVarLevel.TabIndex = 23;
+            this.tbVarLevel.TabIndex = 1;
+            this.tbVarLevel.TabStop = false;
             // 
             // tbParentVariable
             // 
@@ -99,7 +103,8 @@
             this.tbParentVariable.Location = new System.Drawing.Point(114, 17);
             this.tbParentVariable.Name = "tbParentVariable";
             this.tbParentVariable.Size = new System.Drawing.Size(166, 22);
-            this.tbParentVariable.TabIndex = 23;
+            this.tbParentVariable.TabIndex = 0;
+            this.tbParentVariable.TabStop = false;
             // 
             // chkbShowUnit
             // 
@@ -107,7 +112,7 @@
             this.chkbShowUnit.Location = new System.Drawing.Point(231, 155);
             this.chkbShowUnit.Name = "chkbShowUnit";
             this.chkbShowUnit.Size = new System.Drawing.Size(49, 21);
-            this.chkbShowUnit.TabIndex = 21;
+            this.chkbShowUnit.TabIndex = 3;
             this.chkbShowUnit.Text = "Vis";
             this.chkbShowUnit.UseVisualStyleBackColor = true;
             this.chkbShowUnit.CheckedChanged += new System.EventHandler(this.chkbShowUnit_CheckedChanged);
@@ -118,7 +123,7 @@
             this.cbKretstyper.Location = new System.Drawing.Point(114, 118);
             this.cbKretstyper.Name = "cbKretstyper";
             this.cbKretstyper.Size = new System.Drawing.Size(166, 24);
-            this.cbKretstyper.TabIndex = 19;
+            this.cbKretstyper.TabIndex = 1;
             // 
             // lblKrinstype
             // 
@@ -144,7 +149,7 @@
             this.cbTimeUnit.Location = new System.Drawing.Point(114, 188);
             this.cbTimeUnit.Name = "cbTimeUnit";
             this.cbTimeUnit.Size = new System.Drawing.Size(166, 24);
-            this.cbTimeUnit.TabIndex = 22;
+            this.cbTimeUnit.TabIndex = 4;
             // 
             // lblVarLevel
             // 
@@ -183,45 +188,20 @@
             this.lblVarName.Text = "Namn";
             this.lblVarName.Click += new System.EventHandler(this.lblVarName_Click);
             // 
-            // lblDescription
-            // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(8, 223);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(62, 17);
-            this.lblDescription.TabIndex = 16;
-            this.lblDescription.Text = "Skildring";
-            // 
-            // tbDescription
-            // 
-            this.tbDescription.Location = new System.Drawing.Point(114, 223);
-            this.tbDescription.Multiline = true;
-            this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(166, 80);
-            this.tbDescription.TabIndex = 18;
-            // 
             // cbUnit
             // 
             this.cbUnit.FormattingEnabled = true;
             this.cbUnit.Location = new System.Drawing.Point(114, 153);
             this.cbUnit.Name = "cbUnit";
             this.cbUnit.Size = new System.Drawing.Size(111, 24);
-            this.cbUnit.TabIndex = 11;
-            // 
-            // cbVarName
-            // 
-            this.cbVarName.FormattingEnabled = true;
-            this.cbVarName.Location = new System.Drawing.Point(114, 83);
-            this.cbVarName.Name = "cbVarName";
-            this.cbVarName.Size = new System.Drawing.Size(166, 24);
-            this.cbVarName.TabIndex = 8;
+            this.cbUnit.TabIndex = 2;
             // 
             // btnCreateNew
             // 
             this.btnCreateNew.Location = new System.Drawing.Point(11, 314);
             this.btnCreateNew.Name = "btnCreateNew";
             this.btnCreateNew.Size = new System.Drawing.Size(267, 33);
-            this.btnCreateNew.TabIndex = 6;
+            this.btnCreateNew.TabIndex = 5;
             this.btnCreateNew.Text = "Opprett ny variabel";
             this.btnCreateNew.UseVisualStyleBackColor = true;
             this.btnCreateNew.Click += new System.EventHandler(this.btnCreateNew_Click);
@@ -290,13 +270,9 @@
         private System.Windows.Forms.Panel formPanel;
         private System.Windows.Forms.TextBox tbLog;
         private System.Windows.Forms.ComboBox cbUnit;
-        private System.Windows.Forms.ComboBox cbVarName;
         private System.Windows.Forms.Button btnCreateNew;
         private System.Windows.Forms.Label lblUnit;
-        private System.Windows.Forms.Label lblVarName;
-        private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblParent;
-        private System.Windows.Forms.TextBox tbDescription;
         private System.Windows.Forms.CheckBox chkbShowUnit;
         private System.Windows.Forms.Label lblKrinstype;
         private System.Windows.Forms.ComboBox cbKretstyper;
@@ -308,5 +284,7 @@
         private System.Windows.Forms.Button btnRefreshTree;
         private System.Windows.Forms.Panel panelTree;
         private System.Windows.Forms.Label lblLog;
+        private System.Windows.Forms.Label lblVarName;
+        private System.Windows.Forms.TextBox tbVarName;
     }
 }

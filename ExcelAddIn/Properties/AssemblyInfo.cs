@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 
 // General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
+// set of attributes. Change these attribute valuesList to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Adaptive 3.0 ExcelAddIn")]
 [assembly: AssemblyDescription("Excel Add-In to Upload Data to Adaptive 3.0 Statistics Module")]
@@ -23,14 +23,14 @@ using System.Security;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("AA2007EA-1B29-424E-9A82-012F200E21A3")]
 
-// Version information for an assembly consists of the following four values:
+// Version information for an assembly consists of the following four valuesList:
 //
 //      Major Version
 //      Minor Version 
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the valuesList or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.*")]

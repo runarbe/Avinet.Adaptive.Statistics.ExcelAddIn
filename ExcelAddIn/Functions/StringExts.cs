@@ -8,13 +8,25 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
 {
     public static class StringExts
     {
+        public static int? AsNullableInt(this string s, int? defaultValue = null)
+        {
+            int i;
+            if (int.TryParse(s, out i))
+            {
+                return (int?)i;
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
 
         /// <summary>
         /// Return null if string is '' or null
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string nullIfEmpty(this string s)
+        public static string NullIfEmpty(this string s)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -31,7 +43,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static string emptyIfNull(this string s)
+        public static string EmptyIfNull(this string s)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -43,12 +55,23 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
             }
         }
 
+
+        /// <summary>
+        /// Checks wheter a string is null or empty
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this String s)
+        {
+            return !IsNotNullOrEmpty(s);
+        }
+
         /// <summary>
         /// Return true if string is not null, empty or consists exclusively of whitespace
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static bool isNotNullOrEmpty(this String s)
+        public static bool IsNotNullOrEmpty(this String s)
         {
             if (s != null && s.Trim() != "")
             {

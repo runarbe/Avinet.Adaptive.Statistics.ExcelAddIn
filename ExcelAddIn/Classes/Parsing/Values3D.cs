@@ -19,27 +19,27 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             if (!this[pRowIndex].ContainsKey(pFieldIndex))
             {
-                this[pRowIndex].Add(pFieldIndex, new AdaptiveValue(""));
+                this[pRowIndex].Add(pFieldIndex, null);
             }
 
             this[pRowIndex][pFieldIndex] = pValue;
         }
 
-        public string GetValueByFieldRow(int pFieldIndex, int pRowIndex)
+        public int? GetValueByFieldRow(int pFieldIndex, int pRowIndex)
         {
             if (!this.ContainsKey(pRowIndex))
             {
                 //InRows doesn't exist
-                return "";
+                return null;
             }
 
             if (!this[pRowIndex].ContainsKey(pFieldIndex))
             {
                 // Field doesn't exist
-                return "";
+                return null;
             }
 
-            return this[pRowIndex][pFieldIndex].verdi;
+            return this[pRowIndex][pFieldIndex].value;
         }
 
         public Dictionary<int, AdaptiveValue> GetRow(int pRowIndex)
@@ -73,10 +73,39 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             return mRetVal;
         }
 
-        public string GetCSVHeader()
+        /// <summary>
+        /// Structure all valuesList from the selected upload valuesList into a list
+        /// </summary>
+        /// <param name="pData"></param>
+        /// <returns>List of AdaptiveValue objects</returns>
+        public List<AdaptiveValue> AsAdaptiveValuesList()
         {
-            return "\"fk_variable\";\"krets_id\";\"krets_navn\";\"region\";\"år\";\"kvartal\"; \"mnd\";\"variable1\";\"variable2\";\"variable3\";\"variable4\";\"variable5\";\"verdi\";\"enhet\"";
+            var valueList = new List<AdaptiveValue>();
+
+            foreach (var mRow in this.Keys)
+            {
+                foreach (var mCol in this[mRow].Keys)
+                {
+                    var dataItem = this[mRow][mCol];
+                    if (dataItem != null)
+                    {
+                        var validation = dataItem.Validate();
+
+                        if (validation.IsValid)
+                        {
+                            valueList.Add(this[mRow][mCol]);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+
+                    }
+                }
+            }
+            return valueList;
         }
+
 
     }
 

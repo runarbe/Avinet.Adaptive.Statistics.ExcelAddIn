@@ -13,14 +13,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     public class StatProps : Dictionary<int, object>
     {
         /// <summary>
-        /// Determine whether the data shall be accessed by row or by column
+        /// Determine whether the valuesList shall be accessed by row or by column
         /// </summary>
         public DataOrientation DataOrientation = DataOrientation.InRows;
 
         /// <summary>
         /// Basic constructor
         /// </summary>
-        /// <param name="pType">Set whether data are in rows or in columns</param>
+        /// <param name="pType">Set whether valuesList are in rows or in columns</param>
         public StatProps(DataOrientation pType = DataOrientation.InRows)
         {
             this.DataOrientation = pType;

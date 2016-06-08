@@ -28,15 +28,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             Properties.Settings.Default.adaptiveUser = this.tbAdaptiveUser.Text;
             Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
             Properties.Settings.Default.Save();
-
-            ConfigProvider mConfig;
-            if (null != (mConfig = WsDataSources.DownloadAdaptiveConfig(true)))
-            {
-                this.Close();
-            }
-            else
-            {
-            }
+            this.Close();
         }
 
         private void ConfigForm_Load(object sender, EventArgs e)

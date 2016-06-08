@@ -8,13 +8,14 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Data;
 using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
+using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public static class Table
     {
         /// <summary>
-        /// Get a data table from an Excel range object
+        /// Get a valuesList table from an Excel range object
         /// </summary>
         /// <param name="pSelection">Excel range object</param>
         /// <returns>A .NET DataTable</returns>
@@ -74,7 +75,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             {
                 return "";
             }
-
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             var mSelection = pSelection.Cells.Value;
 
-            // Create data object to hold values
+            // Create valuesList object to hold valuesList
             var mData = new Values3D();
 
             // For each row
@@ -180,129 +180,142 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 // For each column
                 for (int mC = mFirstDataCol; mC <= pSelection.Columns.Count; mC++)
                 {
+                    AdaptiveValue adaptiveValue;
+
                     // Get the value (as a double)
-                    var mAdaptiveValue = new AdaptiveValue(Table.GetNullOrDoubleString(mSelection[mR, mC]));
+                    string mValueString = Table.GetNullOrDoubleString(mSelection[mR, mC]);
+                    int? mValue = mValueString.AsNullableInt();
 
-                    // Get manual settings for statistical variable
-                    var mManualStatVarProps = pFrm.ParseStatVarProperties(mR, mC, pFrm.StatVarProperties.DataOrientation);
-
-                    // Get/set the corresponding statvar
-                    if (mManualStatVarProps.StatVar1 != null)
+                    //Exclude null values from being stored
+                    if (mValue == null)
                     {
-                        mAdaptiveValue.variable1 = mManualStatVarProps.StatVar1.var1;
+                        mData.AddByKey(null, mR, mC);
+                        continue;
+                    }
+                    else
+                    {
+                        adaptiveValue = new AdaptiveValue((int)mValue);
 
-                        if (String.IsNullOrWhiteSpace(mManualStatVarProps.StatVar1.var1))
+                        // Get manual settings for statistical variable
+                        var statVarProps = StatVarProperties.Get(pFrm.dgvStatVarProperties, mR, mC, pFrm.StatVarProperties.DataOrientation);
+
+                        // Get/set the corresponding statvar
+                        if (statVarProps.StatVar1 != null)
                         {
-                            mMessages.AddMessage(MessagesNotices.StatVarParseUsingDefaultNotice);
+                            adaptiveValue.variable1 = statVarProps.StatVar1.var1;
+
+                            if (String.IsNullOrWhiteSpace(statVarProps.StatVar1.var1))
+                            {
+                                mMessages.AddMessage(MessagesNotices.StatVarParseUsingDefaultNotice);
+                            }
+
                         }
-                        
-                    }
 
-                    if (mManualStatVarProps.StatVar2 != null)
-                    {
-                        mAdaptiveValue.variable2 = mManualStatVarProps.StatVar2.var2;
-                    }
-
-                    if (mManualStatVarProps.StatVar3 != null)
-                    {
-                        mAdaptiveValue.variable3 = mManualStatVarProps.StatVar3.var3;
-                    }
-
-                    if (mManualStatVarProps.StatVar4 != null)
-                    {
-                        mAdaptiveValue.variable4 = mManualStatVarProps.StatVar4.var4;
-                    }
-
-                    if (mManualStatVarProps.StatVar5 != null)
-                    {
-                        mAdaptiveValue.variable5 = mManualStatVarProps.StatVar5.var5;
-                    }
-
-                    mAdaptiveValue.fk_variable = mManualStatVarProps.fk_variable;
-
-                    // Get/set the measurement unit
-                    mAdaptiveValue.enhet = mManualStatVarProps.MeasurementUnit;
-                    if (mAdaptiveValue.enhet == null)
-                    {
-                        mMessages.AddMessage(MessagesErrors.MUnitNotSet);
-                    }
-
-                    // Add date, if available
-                    if (pFrm.StatDatumProperties != null)
-                    {
-                        // Add logic to parse the date value into its individual parts here
-                        var mStatDatum = new StatDateParser((string)pFrm.StatDatumProperties.GetValue(mR, mC), (string)pFrm.cbStatDatumFormat.SelectedValue);
-
-                        if (mStatDatum.Success == true)
+                        if (statVarProps.StatVar2 != null)
                         {
-                            mAdaptiveValue.ar = mStatDatum.Year;
-                            mAdaptiveValue.mnd = mStatDatum.Month;
-                            //mAdaptiveValue.Day = mStatDatum.Day;
-                            mAdaptiveValue.kvartal = mStatDatum.Quarter;
+                            adaptiveValue.variable2 = statVarProps.StatVar2.var2;
+                        }
+
+                        if (statVarProps.StatVar3 != null)
+                        {
+                            adaptiveValue.variable3 = statVarProps.StatVar3.var3;
+                        }
+
+                        if (statVarProps.StatVar4 != null)
+                        {
+                            adaptiveValue.variable4 = statVarProps.StatVar4.var4;
+                        }
+
+                        if (statVarProps.StatVar5 != null)
+                        {
+                            adaptiveValue.variable5 = statVarProps.StatVar5.var5;
+                        }
+
+                        adaptiveValue.variable_id = statVarProps.fk_variable.AsNullableInt(-1);
+
+                        adaptiveValue.fk_variable = statVarProps.fk_variable.AsNullableInt(-1);
+
+                        adaptiveValue.time_unit = statVarProps.time_unit;
+
+                        adaptiveValue.kretstype_id = statVarProps.fk_kretstype;
+
+                        // Get/set the measurement unit
+                        adaptiveValue.unit = statVarProps.Unit;
+                        if (adaptiveValue.unit == null)
+                        {
+                            mMessages.AddMessage(MessagesErrors.MUnitNotSet);
+                        }
+
+                        // Add date, if available
+                        if (pFrm.StatDatumProperties != null)
+                        {
+                            // Add logic to parse the date value into its individual parts here
+                            var mStatDatum = new StatDateParser((string)pFrm.StatDatumProperties.GetValue(mR, mC), (string)pFrm.cbStatDatumFormat.SelectedValue);
+
+                            if (mStatDatum.Success == true)
+                            {
+                                adaptiveValue.year = mStatDatum.Year.AsNullableInt();
+                                adaptiveValue.month = mStatDatum.Month.AsNullableInt();
+                                adaptiveValue.quarter = mStatDatum.Quarter.AsNullableInt();
+                            }
+                            else
+                            {
+                                mMessages.AddMessage(MessagesErrors.AutoDateParseError);
+                            }
                         }
                         else
                         {
-                            mMessages.AddMessage(MessagesErrors.AutoDateParseError);
+                            // Get the valuesList from the datagridview with statistical variables
+                            if (statVarProps.Year != null)
+                            {
+                                adaptiveValue.year = statVarProps.Year.AsNullableInt();
+                                mMessages.AddMessage(MessagesErrors.ManualDateNotSet);
+                            }
+
+                            if (statVarProps.Quarter != null)
+                            {
+                                adaptiveValue.quarter = statVarProps.Quarter.AsNullableInt();
+                                mMessages.AddMessage(MessagesNotices.ManualQuarterNotSet);
+                            }
+
+                            if (statVarProps.Month != null)
+                            {
+                                adaptiveValue.month = statVarProps.Month.AsNullableInt();
+                                mMessages.AddMessage(MessagesNotices.ManualMonthNotSet);
+                            }
+
                         }
+                        if (pFrm.StatAreaIDsProperties != null || pFrm.StatAreaNameProperties != null || pFrm.StatAreaGroupProperties != null)
+                        {
+                            // Add statareaID if available
+                            if (pFrm.StatAreaIDsProperties != null)
+                            {
+                                adaptiveValue.krets_id = pFrm.StatAreaIDsProperties.GetValue(mR, mC).ToString().AsNullableInt();
+                            }
+
+                            // Statareaname is only relevant if id is present
+                            if (pFrm.StatAreaNameProperties != null)
+                            {
+                                adaptiveValue.krets_name = (string)pFrm.StatAreaNameProperties.GetValue(mR, mC);
+                            }
+
+                            // Statarea group is only relevant if id is present
+                            if (pFrm.StatAreaGroupProperties != null)
+                            {
+                                adaptiveValue.region = (string)pFrm.StatAreaGroupProperties.GetValue(mR, mC);
+                            }
+
+                        }
+                        // If no auto-properties, pick valuesList from manual form fields
+                        else
+                        {
+                            adaptiveValue.krets_id = pFrm.tbStatUnitID.Text.AsNullableInt();
+                            adaptiveValue.krets_name = pFrm.tbStatUnitName.Text;
+                            adaptiveValue.region = pFrm.tbStatUnitGroup.Text;
+                        }
+
+                        mData.AddByKey(adaptiveValue, mR, mC);
                     }
-                    else
-                    {
-                        // Get the values from the datagridview with statistical variables
-                        if (mManualStatVarProps.Year != null)
-                        {
-                            mAdaptiveValue.ar = mManualStatVarProps.Year;
-                            mMessages.AddMessage(MessagesErrors.ManualDateNotSet);
-                        }
-
-                        if (mManualStatVarProps.Quarter != null)
-                        {
-                            mAdaptiveValue.kvartal = mManualStatVarProps.Quarter;
-                            mMessages.AddMessage(MessagesNotices.ManualQuarterNotSet);
-                        }
-
-                        if (mManualStatVarProps.Month != null)
-                        {
-                            mAdaptiveValue.mnd = mManualStatVarProps.Month;
-                            mMessages.AddMessage(MessagesNotices.ManualMonthNotSet);
-                        }
-
-                        if (mManualStatVarProps.Day != null)
-                        {
-                            mAdaptiveValue.Day = mManualStatVarProps.Day;
-                            mMessages.AddMessage(MessagesNotices.ManualDayNotSet);
-                        }
-
-                    }
-                    if (pFrm.StatAreaIDsProperties != null || pFrm.StatAreaNameProperties != null || pFrm.StatAreaGroupProperties != null)
-                    {
-                        // Add statareaID if available
-                        if (pFrm.StatAreaIDsProperties != null)
-                        {
-                            mAdaptiveValue.krets_id = (string)pFrm.StatAreaIDsProperties.GetValue(mR, mC);
-                        }
-
-                        // Statareaname is only relevant if id is present
-                        if (pFrm.StatAreaNameProperties != null)
-                        {
-                            mAdaptiveValue.krets_navn = (string)pFrm.StatAreaNameProperties.GetValue(mR, mC);
-                        }
-
-                        // Statarea group is only relevant if id is present
-                        if (pFrm.StatAreaGroupProperties != null)
-                        {
-                            mAdaptiveValue.region = (string)pFrm.StatAreaGroupProperties.GetValue(mR, mC);
-                        }
-
-                    }
-                    // If no auto-properties, pick values from manual form fields
-                    else
-                    {
-                        mAdaptiveValue.krets_id = pFrm.tbStatUnitID.Text;
-                        mAdaptiveValue.krets_navn = pFrm.tbStatUnitName.Text;
-                        mAdaptiveValue.region = pFrm.tbStatUnitGroup.Text;
-                    }
-
-                    mData.AddByKey(mAdaptiveValue, mR, mC);
                 }
             }
             mTimer.Stop();

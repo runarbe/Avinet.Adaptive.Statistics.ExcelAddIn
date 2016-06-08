@@ -22,7 +22,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap copy16 {
+        public static System.Drawing.Bitmap closedFolder {
+            get {
+                object obj = ResourceManager.GetObject("closedFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap copy16 {
             get {
                 object obj = ResourceManager.GetObject("copy16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +83,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap copy24 {
+        public static System.Drawing.Bitmap copy24 {
             get {
                 object obj = ResourceManager.GetObject("copy24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +93,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap hierarchy {
+        public static System.Drawing.Bitmap hierarchy {
             get {
                 object obj = ResourceManager.GetObject("hierarchy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +103,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap hierarchy1 {
+        public static System.Drawing.Bitmap hierarchy1 {
             get {
                 object obj = ResourceManager.GetObject("hierarchy1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +113,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap merge {
+        public static System.Drawing.Bitmap merge {
             get {
                 object obj = ResourceManager.GetObject("merge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +123,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap onoff24 {
+        public static System.Drawing.Bitmap onoff24 {
             get {
                 object obj = ResourceManager.GetObject("onoff24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +133,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap refresh24 {
+        public static System.Drawing.Bitmap openFolder {
+            get {
+                object obj = ResourceManager.GetObject("openFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap refresh24 {
             get {
                 object obj = ResourceManager.GetObject("refresh24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,9 +153,29 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap upload {
+        public static System.Drawing.Bitmap selectedVariable {
+            get {
+                object obj = ResourceManager.GetObject("selectedVariable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap upload {
             get {
                 object obj = ResourceManager.GetObject("upload", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap variable {
+            get {
+                object obj = ResourceManager.GetObject("variable", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

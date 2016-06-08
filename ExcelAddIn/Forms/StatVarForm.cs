@@ -32,7 +32,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         }
 
         /// <summary>
-        /// Reset the form values
+        /// Reset the form valuesList
         /// </summary>
         public void ResetForm()
         {
@@ -66,14 +66,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         /// <summary>
         /// Reload the statistical variables
         /// </summary>
-        public void ReloadTree(int? parentNode = null)
+        public void ReloadTree(string parentNode = null)
         {
             svTree.Nodes.Clear();
-            ConfigProvider.variableTree = PortalClient.GetVariable();
+            ConfigProvider.variableTree = AdaptiveClient.GetVariable();
             svTree.Nodes.AddIEnum(ConfigProvider.variableTree);
             if (parentNode != null)
             {
-                var foundNodes = svTree.Nodes.Find(parentNode.ToString(), true);
+                var foundNodes = svTree.Nodes.Find(parentNode, true);
                 foreach (var tn in foundNodes)
                 {
                     tn.EnsureVisible();
@@ -84,22 +84,33 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         }
 
         /// <summary>
-        /// Load data on startup
+        /// Load valuesList on startup
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void StatVarTreeForm_Load(object sender, EventArgs e)
         {
+            var imageList = new ImageList();
+            imageList.Images.Add("openFolder", Properties.Resources.openFolder);
+            imageList.Images.Add("closedFolder", Properties.Resources.closedFolder);
+            imageList.Images.Add("variable", Properties.Resources.variable);
+            imageList.Images.Add("selectedVariable", Properties.Resources.selectedVariable);
+            svTree.ImageList = imageList;
+
             ReloadTree();
             svTree.ExpandAll();
 
-            //Log(DebugToFile.LogFileName);
+            cbKretstyper.DataSource = new BindingSource(AdaptiveClient.GetKretstyper(), null);
+            cbKretstyper.DisplayMember = "name";
+            cbKretstyper.ValueMember = "uuid";
 
-            var mKretstyper = PortalClient.GetKretstyper();
+            cbTimeUnit.DataSource = new BindingSource(AdaptiveClient.GetTimeUnits(), null);
+            cbTimeUnit.DisplayMember = "key";
+            cbTimeUnit.ValueMember = "value";
 
-            cbKretstyper.DataSource = new BindingSource(mKretstyper.ToDictionary(t => t.name, c => c.uuid), null);
-            cbKretstyper.DisplayMember = "key";
-            cbKretstyper.ValueMember = "value";
+            cbUnit.DataSource = new BindingSource(AdaptiveClient.GetUnits(), null);
+            cbUnit.DisplayMember = "key";
+            cbUnit.ValueMember = "value";
 
         }
 
@@ -121,57 +132,45 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
             int level;
             int.TryParse(tbVarLevel.Text, out level);
 
+            req.data.CopyNamesFrom(selectedParentVariable, level);
+
             if (level == 5)
             {
-                req.data.var5 = cbVarName.Text.emptyIfNull();
-                req.data.var4 = selectedParentTreeNode.Text.emptyIfNull();
-                req.data.var3 = selectedParentTreeNode.Parent.Text.emptyIfNull();
-                req.data.var2 = selectedParentTreeNode.Parent.Parent.Text.emptyIfNull();
-                req.data.var1 = selectedParentTreeNode.Parent.Parent.Parent.Text.emptyIfNull();
+                req.data.var5 = tbVarName.Text.EmptyIfNull();
             }
             else if (level == 4)
             {
-                req.data.var4 = cbVarName.Text.emptyIfNull();
-                req.data.var3 = selectedParentTreeNode.Text.emptyIfNull();
-                req.data.var2 = selectedParentTreeNode.Parent.Text.emptyIfNull();
-                req.data.var1 = selectedParentTreeNode.Parent.Parent.Text.emptyIfNull();
+                req.data.var4 = tbVarName.Text.EmptyIfNull();
             }
             else if (level == 3)
             {
-                req.data.var3 = cbVarName.Text.emptyIfNull();
-                req.data.var2 = selectedParentTreeNode.Text.emptyIfNull();
-                req.data.var1 = selectedParentTreeNode.Parent.Text.emptyIfNull();
+                req.data.var3 = tbVarName.Text.EmptyIfNull();
             }
             else if (level == 2)
             {
-                req.data.var2 = cbVarName.Text.emptyIfNull();
-                req.data.var1 = selectedParentTreeNode.Text.emptyIfNull();
+                req.data.var2 = tbVarName.Text.EmptyIfNull();
             }
             else if (level == 1)
             {
-                req.data.var1 = cbVarName.Text.emptyIfNull();
+                req.data.var1 = tbVarName.Text.EmptyIfNull();
             }
 
-            req.data.description = tbDescription.Text;
-            req.data.name = cbVarName.Text.nullIfEmpty();
             req.data.unit = (string)cbUnit.SelectedValue;
             req.data.showunit = chkbShowUnit.Checked;
             req.data.time_unit = (string)cbTimeUnit.SelectedValue;
             req.data.fk_kretstyper = (string)cbKretstyper.SelectedValue;
-            req.data.parent_id = selectedParentVariable == null ? null : (int?)selectedParentVariable.id;
 
             try
             {
-                var res = PortalClient.AddVariable(req);
+                var res = AdaptiveClient.AddVariable(req);
                 if (!res.d.success)
                 {
-                    this.Log("Kunne ikkje legge til variabel: " +  req.data.getNameAtLevel(level));
+                    this.Log("Kunne ikkje legge til variabel: " +  req.data.GetNameAtLevel(level));
                 }
                 else
                 {
-                    this.Log("La til ny variabel: " + req.data.getNameAtLevel(level));
-                    var scrollOffset = svTree.AutoScrollOffset;
-                    ReloadTree(selectedParentTreeNode.id);
+                    this.Log("La til ny variabel: " + req.data.GetNameAtLevel(level));
+                    ReloadTree(req.data.GetConcatId());
                 }
             }
             catch (Exception ex)
@@ -183,23 +182,37 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         private bool isValid()
         {
             bool valid = true;
+            if (cbTimeUnit.SelectedValue == null)
+            {
+                Log("Ugyldig tidsoppløysing");
+                valid = false;
+            }
+            if (cbUnit.SelectedValue == null)
+            {
+                Log("Ugyldig måleeining");
+                valid = false;
+            }
             if (cbKretstyper.SelectedValue == null)
             {
+                Log("Ugyldig kretstype");
                 valid = false;
             }
 
-            if (!cbVarName.Text.isNotNullOrEmpty())
+            if (!tbVarName.Text.IsNotNullOrEmpty())
             {
+                Log("Ugyldig variabelnamn");
                 valid = false;
             }
 
             if (selectedParentTreeNode == null || selectedParentTreeNode.Level >= 4)
             {
+                Log("'Foreldrenode' ikkje valt");
                 valid = false;
             }
 
             if (selectedParentVariable == null)
             {
+                Log("Ikkje i stand til å lese 'foreldrevariabel'");
                 valid = false;
             }
 
@@ -207,7 +220,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         }
 
         /// <summary>
-        /// Populate form with values from an existing tree node
+        /// Populate form with valuesList from an existing tree node
         /// </summary>
         /// <param name="node"></param>
         private void populateForm(StatTreeNode node)
@@ -217,7 +230,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
                 return;
             }
 
-            // Disable editing if node selected parent level is greater than 3
+            // Disable editing if node selected parent varLevel is greater than 3
             if (node.Level > 3)
             {
                 formPanel.Enabled = false;
@@ -235,17 +248,27 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
             selectedParentTreeNode = node;
             selectedParentVariable = sv;
 
-            // Set level of NEW node
+            // Set varLevel of NEW node
             tbVarLevel.Text = (node.Level + 2).ToString();
 
             // Get the name of the selected node
-            tbParentVariable.Text = sv.getNameAtLevel(node.Level + 1);
+            tbParentVariable.Text = sv.GetNameAtLevel(node.Level + 1);
             
             // Populate text and comboboxes
-            cbKretstyper.SelectedValue = sv.fk_kretstyper;
-            cbTimeUnit.SelectedValue = sv.time_unit;
-            cbUnit.SelectedValue = sv.unit;
-            chkbShowUnit.Checked = sv.showunit;
+            if (sv == null || sv.unit == null)
+            {
+                cbUnit.SelectedValue = "";
+                cbTimeUnit.SelectedValue = "";
+                cbUnit.SelectedValue = "";
+                chkbShowUnit.Checked = false;
+            }
+            else
+            {
+                cbKretstyper.SelectedValue = sv.fk_kretstyper;
+                cbTimeUnit.SelectedValue = sv.time_unit;
+                cbUnit.SelectedValue = sv.unit;
+                chkbShowUnit.Checked = sv.showunit;
+            }
 
         }
 

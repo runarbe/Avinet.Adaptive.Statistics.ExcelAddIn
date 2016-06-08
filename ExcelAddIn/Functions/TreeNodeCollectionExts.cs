@@ -15,6 +15,5 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
                 coll.Add(treeNode);
             }
         }
-
     }
 }

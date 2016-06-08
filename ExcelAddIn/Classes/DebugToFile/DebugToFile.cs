@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -16,7 +17,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         static DebugToFile()
         {
-            String LogFileDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            //String LogFileDir = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            String LogFileDir = Application.StartupPath;
 
             LogFileName = Path.Combine(new String[] {
                 LogFileDir,
@@ -28,6 +30,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             {
                 Directory.CreateDirectory(mLogFileInfo.DirectoryName);
             }
+
         }
 
         public static void Write(string s)

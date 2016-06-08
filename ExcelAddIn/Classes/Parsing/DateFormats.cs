@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
+    /// <summary>
+    /// The date formats that can be used to parse Excel data into year, quarter or month 
+    /// </summary>
     static class DateFormats
     {
         public static List<ComboBoxItem> List = new List<ComboBoxItem>();
@@ -16,7 +19,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             DateFormats.List.Add(new ComboBoxItem("åååå.mm (td 2008.01)", "MM.yyyy"));
             DateFormats.List.Add(new ComboBoxItem("åååå.mm.dd (td 2008.12.24)", "yyyy.mm.dd"));
             DateFormats.List.Add(new ComboBoxItem("mm.åååå (td 04.2008)", "MM.yyyy"));
-            DateFormats.List.Add(new ComboBoxItem("dd.mm.åååå (td 01.09.2013)", "dd.MM.yyyy"));
         }
     }
 }

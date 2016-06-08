@@ -40,16 +40,16 @@
             this.grpTools = this.Factory.CreateRibbonGroup();
             this.btnConfig = this.Factory.CreateRibbonButton();
             this.btnUpload = this.Factory.CreateRibbonButton();
-            this.btnMergeSavedImportSettings = this.Factory.CreateRibbonButton();
-            this.btnSaveImportSettings = this.Factory.CreateRibbonButton();
             this.btnEditStatVar = this.Factory.CreateRibbonButton();
             this.grpInfo = this.Factory.CreateRibbonGroup();
             this.btnHelp = this.Factory.CreateRibbonButton();
             this.btnAbout = this.Factory.CreateRibbonButton();
+            this.grpSettings = this.Factory.CreateRibbonGroup();
             this.TabDefault.SuspendLayout();
             this.TabAdaptive3.SuspendLayout();
             this.grpTools.SuspendLayout();
             this.grpInfo.SuspendLayout();
+            this.grpSettings.SuspendLayout();
             // 
             // TabDefault
             // 
@@ -60,16 +60,14 @@
             // TabAdaptive3
             // 
             this.TabAdaptive3.Groups.Add(this.grpTools);
+            this.TabAdaptive3.Groups.Add(this.grpSettings);
             this.TabAdaptive3.Groups.Add(this.grpInfo);
             this.TabAdaptive3.Label = "ADAPTIVE 3.0";
             this.TabAdaptive3.Name = "TabAdaptive3";
             // 
             // grpTools
             // 
-            this.grpTools.Items.Add(this.btnConfig);
             this.grpTools.Items.Add(this.btnUpload);
-            this.grpTools.Items.Add(this.btnMergeSavedImportSettings);
-            this.grpTools.Items.Add(this.btnSaveImportSettings);
             this.grpTools.Items.Add(this.btnEditStatVar);
             this.grpTools.Label = "Verkty";
             this.grpTools.Name = "grpTools";
@@ -91,27 +89,6 @@
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.ShowImage = true;
             this.btnUpload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnUpload_Click);
-            // 
-            // btnMergeSavedImportSettings
-            // 
-            this.btnMergeSavedImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnMergeSavedImportSettings.Enabled = false;
-            this.btnMergeSavedImportSettings.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.merge;
-            this.btnMergeSavedImportSettings.Label = "Slå saman importinnstillingar";
-            this.btnMergeSavedImportSettings.Name = "btnMergeSavedImportSettings";
-            this.btnMergeSavedImportSettings.ShowImage = true;
-            this.btnMergeSavedImportSettings.Visible = false;
-            this.btnMergeSavedImportSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnMergeSavedImportSettings_Click);
-            // 
-            // btnSaveImportSettings
-            // 
-            this.btnSaveImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnSaveImportSettings.Enabled = false;
-            this.btnSaveImportSettings.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.upload;
-            this.btnSaveImportSettings.Label = "Eksporter oppsett for opplasting";
-            this.btnSaveImportSettings.Name = "btnSaveImportSettings";
-            this.btnSaveImportSettings.ShowImage = true;
-            this.btnSaveImportSettings.Visible = false;
             // 
             // btnEditStatVar
             // 
@@ -147,6 +124,12 @@
             this.btnAbout.ShowImage = true;
             this.btnAbout.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAbout_Click);
             // 
+            // grpSettings
+            // 
+            this.grpSettings.Items.Add(this.btnConfig);
+            this.grpSettings.Label = "Innstillingar";
+            this.grpSettings.Name = "grpSettings";
+            // 
             // AdaptiveRibbon
             // 
             this.Name = "AdaptiveRibbon";
@@ -161,6 +144,8 @@
             this.grpTools.PerformLayout();
             this.grpInfo.ResumeLayout(false);
             this.grpInfo.PerformLayout();
+            this.grpSettings.ResumeLayout(false);
+            this.grpSettings.PerformLayout();
 
         }
 
@@ -174,9 +159,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpInfo;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnHelp;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAbout;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnMergeSavedImportSettings;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSaveImportSettings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnEditStatVar;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup grpSettings;
     }
 
     partial class ThisRibbonCollection
