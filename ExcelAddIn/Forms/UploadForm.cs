@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
-using System.Windows.Forms;
+﻿using Avinet.Adaptive.Statistics.ExcelAddIn.Forms;
 using Microsoft.Office.Interop.Excel;
-using Microsoft.Win32;
-using System.Reflection;
-using System.Net;
-using System.Xml.Serialization;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Shared;
-using System.Collections.Specialized;
-using Newtonsoft.Json;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Forms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -93,10 +77,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Function that is executed when the form is loaded. Setting up valuesList sources of controls, behaviors etc.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void UploadForm_Load(object sender, EventArgs e)
         {
+            if (!ConfigProvider.IsConfigured())
+            {
+                ConfigProvider.Load();
+            }
+
+            this.Log("Detailed log messages may be found here: " + DebugToFile.LogFileName);
+
             // Set StatVar DataGridView to *NOT* auto-generate columns from datasource
             dgvStatVarProperties.AutoGenerateColumns = false;
 
@@ -157,8 +148,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// Determine how many rows and cols to offset the selection to get *only* the valuesList cells, omitting any column
         /// or row headers
         /// </summary>
-        /// <param name="pFirstDataRow"></param>
-        /// <param name="pFirstDataCol"></param>
+        /// <param title="pFirstDataRow"></param>
+        /// <param title="pFirstDataCol"></param>
         public void GetRowColOffset(ref int pFirstDataRow, ref int pFirstDataCol)
         {
             // Increment if row types are set
@@ -178,8 +169,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Add a log message to the log pane
         /// </summary>
-        /// <param name="pMsg">The message to log</param>
-        /// <param name="pClear">A boolean flag that determines if the log pane is to be cleared before adding the new info</param>
+        /// <param title="pMsg">The message to log</param>
+        /// <param title="pClear">A boolean flag that determines if the log pane is to be cleared before adding the new info</param>
         public void Log(object pMsg, bool pClear = false, bool pDoEvents = true)
         {
             if (pMsg == null) return;
@@ -208,18 +199,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Copy the manual date settings to all rows in the StatVarProperties DataGridView
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void btnCopyDateToAll_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = tpStatisticsVariables;
 
             foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
             {
-                mRow.Cells["year"].Value = tbStatDatumYear.Text;
-                var m = mRow.Cells["quarter"] as DataGridViewComboBoxCell;
-                m.Value = cbStatDatumQuarter.Text;
-                mRow.Cells["month"].Value = tbStatDatumMonth.Text;
+                mRow.Cells["Year"].Value = tbStatDatumYear.Text;
+                mRow.Cells["Quarter"].AsComboBox().Value = cbStatDatumQuarter.SelectedItem;
+                mRow.Cells["Month"].Value = tbStatDatumMonth.Text;
             }
             this.ParseSelectionWithCurrentSettings();
         }
@@ -250,8 +240,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Handler function for the close window button
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void tsmiCloseWindow_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -339,10 +329,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Get the new value of the changed CB
             var mNewCellContentType = Util.GetComboBoxSelectedValueString(pChangedComboBox);
 
-            // Create a list to store all currently selected CB valuesList
+            // Create a list to store all currently selected CB values
             var mAssignedCellContentTypes = new List<string>();
 
-            // For each of the comboboxes with valuesList layout info
+            // For each of the comboboxes that may contain values
             foreach (ComboBox mComboBox in this.CellContentTypeComboBoxes)
             {
                 // Get the current contents of col/row
@@ -371,22 +361,24 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Based on the new value of the changed CB, do something
             SetStatVarProperties(mNewCellContentType, pIndex, pDataOrientation);
 
+            DebugToFile.Json(mAssignedCellContentTypes);
+
             // Set conditional visibility of manual statdatum settings
             if (mAssignedCellContentTypes.Contains(CellContentTypes.StatDatum) && mAssignedCellContentTypes.Contains(CellContentTypes.StatVars))
             {
                 this.grpStatDatumSettings.Enabled = false;
                 this.grpAutoDateSettings.Enabled = true;
-                this.dgvStatVarProperties.Columns["year"].Visible = false;
-                this.dgvStatVarProperties.Columns["quarter"].Visible = false;
-                this.dgvStatVarProperties.Columns["month"].Visible = false;
+                this.dgvStatVarProperties.Columns["Year"].Visible = false;
+                this.dgvStatVarProperties.Columns["Quarter"].Visible = false;
+                this.dgvStatVarProperties.Columns["Month"].Visible = false;
             }
             else if (!mAssignedCellContentTypes.Contains(CellContentTypes.StatDatum) && mAssignedCellContentTypes.Contains(CellContentTypes.StatVars))
             {
                 this.grpStatDatumSettings.Enabled = true;
                 this.grpAutoDateSettings.Enabled = false;
-                this.dgvStatVarProperties.Columns["year"].Visible = true;
-                this.dgvStatVarProperties.Columns["quarter"].Visible = true;
-                this.dgvStatVarProperties.Columns["month"].Visible = true;
+                this.dgvStatVarProperties.Columns["Year"].Visible = true;
+                this.dgvStatVarProperties.Columns["Quarter"].Visible = true;
+                this.dgvStatVarProperties.Columns["Month"].Visible = true;
             }
             else
             {
@@ -465,17 +457,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     this.StatVarProperties = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
                     break;
                 // Load stat dates
-                //case CellContentTypes.StatVars2:
-                //    this.StatVarProperties2 = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
-                //    break;
-                // Load stat dates
                 case CellContentTypes.StatDatum:
                     this.StatDatumProperties = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
                     break;
                 // Load stat area IDs and names concatenated - note that this takes presedent over other stat area attributes
                 case CellContentTypes.StatAreaIDsAndNames:
                     // Create three statvar props,
-                    // One for idParts and names concatenated
+                    // One for ids and names concatenated
                     StatProps mIDsAndNames = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
                     // One for idParts alone
                     this.StatAreaIDsProperties = Table.GetIndex(this.SelectedRange.Cells.Value, pIndex, pDataOrientation);
@@ -633,60 +621,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-
-        private void btnCopyFirstRowAll_Click(object sender, EventArgs e)
-        {
-            int i = 1;
-            string mYear = "", mQuarter = "", mMonth = "", mUnit = "",
-                mStatVar1 = "", mStatVar2 = "", mStatVar3 = "", mStatVar4 = "", mStatVar5 = "", mTimeUnit = "", mKretstype = "";
-
-            foreach (DataGridViewRow mRow in dgvStatVarProperties.Rows)
-            {
-                var mQuarterCell = mRow.Cells["Quarter"] as DataGridViewComboBoxCell;
-                var mStatVarCell1 = mRow.Cells["StatVarCol1"] as DataGridViewComboBoxCell;
-                var mStatVarCell2 = mRow.Cells["StatVarCol2"] as DataGridViewComboBoxCell;
-                var mStatVarCell3 = mRow.Cells["StatVarCol3"] as DataGridViewComboBoxCell;
-                var mStatVarCell4 = mRow.Cells["StatVarCol4"] as DataGridViewComboBoxCell;
-                var mStatVarCell5 = mRow.Cells["StatVarCol5"] as DataGridViewComboBoxCell;
-                var mUnitCell = mRow.Cells["Unit"] as DataGridViewComboBoxCell;
-                var mTimeUnitCell = mRow.Cells["TimeUnit"] as DataGridViewComboBoxCell;
-                var mKretstypeCell = mRow.Cells["Kretstype"] as DataGridViewComboBoxCell;
-
-                if (i == 1)
-                {
-                    mYear = Table.GetNullOrString(mRow.Cells["Year"].Value);
-                    mQuarter = Table.GetNullOrString(mQuarterCell.Value);
-                    mMonth = Table.GetNullOrString(mRow.Cells["Month"].Value);
-                    mStatVar1 = Table.GetNullOrString(mStatVarCell1.Value);
-                    mStatVar2 = Table.GetNullOrString(mStatVarCell2.Value);
-                    mStatVar3 = Table.GetNullOrString(mStatVarCell3.Value);
-                    mStatVar4 = Table.GetNullOrString(mStatVarCell4.Value);
-                    mStatVar5 = Table.GetNullOrString(mStatVarCell5.Value);
-                    mUnit = Table.GetNullOrString(mUnitCell.Value);
-                    mTimeUnit = Table.GetNullOrString(mTimeUnitCell.Value);
-                    mKretstype = Table.GetNullOrString(mKretstypeCell.Value);
-                }
-                else
-                {
-                    mRow.Cells["Year"].Value = mYear;
-                    mQuarterCell.Value = mQuarter;
-                    mRow.Cells["Month"].Value = mMonth;
-                    mStatVarCell1.Value = mStatVar1;
-                    mStatVarCell2.Value = mStatVar2;
-                    mStatVarCell3.Value = mStatVar3;
-                    mStatVarCell4.Value = mStatVar4;
-                    mStatVarCell5.Value = mStatVar5;
-                    mUnitCell.Value = mUnit;
-                    mTimeUnitCell.Value = mTimeUnit;
-                    mKretstypeCell.Value = mKretstype;
-                }
-                i++;
-            }
-
-            this.ParseSelectionWithCurrentSettings();
-
-        }
-
         private void btnCopyFirstMeasurementUnitToAll_Click(object sender, EventArgs e)
         {
             int i = 1;
@@ -768,16 +702,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         }
 
-        [Obsolete("To be implemented")]
-        private void btnSaveSettings_Click(object sender, EventArgs e)
-        {
-        }
-
-        [Obsolete("To be implemented")]        
-        private void SaveUploadFormState(bool pConfirmOverwrite = true)
-        {
-        }
-
         private void btnUploadToAdaptive_Click(object sender, EventArgs e)
         {
             var mConfirm = MessageBox.Show("Vil du laste opp tabellen til Adaptive med gjeldande innstillingar?", "Åtvaring", MessageBoxButtons.YesNo);
@@ -821,6 +745,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             var frm = new StatVarForm();
             frm.ShowDialog();
         }
+
 
     }
 }

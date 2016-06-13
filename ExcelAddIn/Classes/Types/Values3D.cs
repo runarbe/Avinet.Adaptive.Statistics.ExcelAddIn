@@ -76,7 +76,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Structure all valuesList from the selected upload valuesList into a list
         /// </summary>
-        /// <param name="pData"></param>
+        /// <param title="pData"></param>
         /// <returns>List of AdaptiveValue objects</returns>
         public List<AdaptiveValue> AsAdaptiveValuesList()
         {

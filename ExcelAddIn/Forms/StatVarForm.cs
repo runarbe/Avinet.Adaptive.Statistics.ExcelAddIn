@@ -1,16 +1,5 @@
-﻿using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 {
@@ -48,7 +37,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
                 else if (field is ComboBox)
                 {
                     ((ComboBox)field).SelectedIndex = 0;
-
                 }
             }
 
@@ -57,7 +45,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         /// <summary>
         /// Log message to log text area
         /// </summary>
-        /// <param name="pObj"></param>
+        /// <param title="pObj"></param>
         public void Log(Object pObj)
         {
             tbLog.AppendText(pObj.ToString() + Environment.NewLine);
@@ -86,10 +74,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         /// <summary>
         /// Load valuesList on startup
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void StatVarTreeForm_Load(object sender, EventArgs e)
         {
+            if (!ConfigProvider.IsConfigured())
+            {
+                ConfigProvider.Load();
+            }
+
             var imageList = new ImageList();
             imageList.Images.Add("openFolder", Properties.Resources.openFolder);
             imageList.Images.Add("closedFolder", Properties.Resources.closedFolder);
@@ -99,26 +92,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 
             ReloadTree();
             svTree.ExpandAll();
-
-            cbKretstyper.DataSource = new BindingSource(AdaptiveClient.GetKretstyper(), null);
-            cbKretstyper.DisplayMember = "name";
-            cbKretstyper.ValueMember = "uuid";
-
-            cbTimeUnit.DataSource = new BindingSource(AdaptiveClient.GetTimeUnits(), null);
-            cbTimeUnit.DisplayMember = "key";
-            cbTimeUnit.ValueMember = "value";
-
-            cbUnit.DataSource = new BindingSource(AdaptiveClient.GetUnits(), null);
-            cbUnit.DisplayMember = "key";
-            cbUnit.ValueMember = "value";
-
         }
 
         /// <summary>
         /// Create a new tree node
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void btnCreateNew_Click(object sender, EventArgs e)
         {
             if (!isValid())
@@ -155,22 +135,23 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
                 req.data.var1 = tbVarName.Text.EmptyIfNull();
             }
 
-            req.data.unit = (string)cbUnit.SelectedValue;
-            req.data.showunit = chkbShowUnit.Checked;
-            req.data.time_unit = (string)cbTimeUnit.SelectedValue;
-            req.data.fk_kretstyper = (string)cbKretstyper.SelectedValue;
+            req.data.title = tbVarName.Text;
+
+            req.data.level = tbVarLevel.Text.AsInt();
+
+            req.data.parent_id = selectedParentVariable.id;
 
             try
             {
                 var res = AdaptiveClient.AddVariable(req);
                 if (!res.d.success)
                 {
-                    this.Log("Kunne ikkje legge til variabel: " +  req.data.GetNameAtLevel(level));
+                    this.Log("Kunne ikkje legge til variabel: " +  req.data.title);
                 }
                 else
                 {
-                    this.Log("La til ny variabel: " + req.data.GetNameAtLevel(level));
-                    ReloadTree(req.data.GetConcatId());
+                    this.Log("La til ny variabel: " + req.data.title);
+                    ReloadTree(req.data.parent_id.ToString());
                 }
             }
             catch (Exception ex)
@@ -182,21 +163,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         private bool isValid()
         {
             bool valid = true;
-            if (cbTimeUnit.SelectedValue == null)
-            {
-                Log("Ugyldig tidsoppløysing");
-                valid = false;
-            }
-            if (cbUnit.SelectedValue == null)
-            {
-                Log("Ugyldig måleeining");
-                valid = false;
-            }
-            if (cbKretstyper.SelectedValue == null)
-            {
-                Log("Ugyldig kretstype");
-                valid = false;
-            }
 
             if (!tbVarName.Text.IsNotNullOrEmpty())
             {
@@ -220,9 +186,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         }
 
         /// <summary>
-        /// Populate form with valuesList from an existing tree node
+        /// Populate form with values from an existing tree node
         /// </summary>
-        /// <param name="node"></param>
+        /// <param title="node"></param>
         private void populateForm(StatTreeNode node)
         {
             if (node == null)
@@ -251,32 +217,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
             // Set varLevel of NEW node
             tbVarLevel.Text = (node.Level + 2).ToString();
 
-            // Get the name of the selected node
+            // Get the title of the selected node
             tbParentVariable.Text = sv.GetNameAtLevel(node.Level + 1);
             
-            // Populate text and comboboxes
-            if (sv == null || sv.unit == null)
-            {
-                cbUnit.SelectedValue = "";
-                cbTimeUnit.SelectedValue = "";
-                cbUnit.SelectedValue = "";
-                chkbShowUnit.Checked = false;
-            }
-            else
-            {
-                cbKretstyper.SelectedValue = sv.fk_kretstyper;
-                cbTimeUnit.SelectedValue = sv.time_unit;
-                cbUnit.SelectedValue = sv.unit;
-                chkbShowUnit.Checked = sv.showunit;
-            }
-
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void svTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TreeNode tn = svTree.SelectedNode;

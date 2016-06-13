@@ -17,7 +17,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Return a stream from a string
         /// </summary>
-        /// <param name="pString">Any string</param>
+        /// <param title="pString">Any string</param>
         /// <returns>Stream</returns>
         public static Stream StreamFromString(String pString)
         {

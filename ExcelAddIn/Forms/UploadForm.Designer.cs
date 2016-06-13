@@ -97,7 +97,7 @@
             this.StatVarCol5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TimeUnit = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quarter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quarter = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Month = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unit = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Kretstype = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -193,6 +193,7 @@
             // 
             // cbStatDatumQuarter
             // 
+            this.cbStatDatumQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStatDatumQuarter.FormattingEnabled = true;
             this.cbStatDatumQuarter.Items.AddRange(new object[] {
             "",
@@ -297,10 +298,10 @@
             this.panelTopFill.Controls.Add(this.grpAutoDateSettings);
             this.panelTopFill.Controls.Add(this.grpCellContentTypeSettings);
             this.panelTopFill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTopFill.Location = new System.Drawing.Point(0, 68);
+            this.panelTopFill.Location = new System.Drawing.Point(0, 67);
             this.panelTopFill.Margin = new System.Windows.Forms.Padding(4);
             this.panelTopFill.Name = "panelTopFill";
-            this.panelTopFill.Size = new System.Drawing.Size(1181, 317);
+            this.panelTopFill.Size = new System.Drawing.Size(1181, 318);
             this.panelTopFill.TabIndex = 23;
             // 
             // grpStatAreaSettings
@@ -586,7 +587,7 @@
             this.topToolBar.Location = new System.Drawing.Point(0, 28);
             this.topToolBar.Name = "topToolBar";
             this.topToolBar.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.topToolBar.Size = new System.Drawing.Size(1181, 40);
+            this.topToolBar.Size = new System.Drawing.Size(1181, 39);
             this.topToolBar.TabIndex = 0;
             this.topToolBar.Text = "toolStripTop";
             // 
@@ -606,7 +607,7 @@
             this.btnSaveUploadSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveUploadSettings.Image")));
             this.btnSaveUploadSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveUploadSettings.Name = "btnSaveUploadSettings";
-            this.btnSaveUploadSettings.Size = new System.Drawing.Size(121, 25);
+            this.btnSaveUploadSettings.Size = new System.Drawing.Size(121, 24);
             this.btnSaveUploadSettings.Text = "Lagre oppsett";
             this.btnSaveUploadSettings.ToolTipText = "Lagre/oppdater oppsett";
             this.btnSaveUploadSettings.Visible = false;
@@ -810,7 +811,6 @@
             this.StatVarCol1.DataPropertyName = "StatVarCol1";
             this.StatVarCol1.DropDownWidth = 350;
             this.StatVarCol1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol1.Frozen = true;
             this.StatVarCol1.HeaderText = "Stat.sv. nivå 1";
             this.StatVarCol1.Items.AddRange(new object[] {
             "",
@@ -828,7 +828,6 @@
             this.StatVarCol2.DataPropertyName = "StatVarCol2";
             this.StatVarCol2.DropDownWidth = 350;
             this.StatVarCol2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol2.Frozen = true;
             this.StatVarCol2.HeaderText = "Nivå 2";
             this.StatVarCol2.MinimumWidth = 100;
             this.StatVarCol2.Name = "StatVarCol2";
@@ -839,7 +838,6 @@
             this.StatVarCol3.DataPropertyName = "StatVarCol3";
             this.StatVarCol3.DropDownWidth = 350;
             this.StatVarCol3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol3.Frozen = true;
             this.StatVarCol3.HeaderText = "Nivå 3";
             this.StatVarCol3.MinimumWidth = 100;
             this.StatVarCol3.Name = "StatVarCol3";
@@ -850,7 +848,6 @@
             this.StatVarCol4.DataPropertyName = "StatVarCol4";
             this.StatVarCol4.DropDownWidth = 350;
             this.StatVarCol4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol4.Frozen = true;
             this.StatVarCol4.HeaderText = "Nivå 4";
             this.StatVarCol4.MinimumWidth = 100;
             this.StatVarCol4.Name = "StatVarCol4";
@@ -861,7 +858,6 @@
             this.StatVarCol5.DataPropertyName = "StatVarCol5";
             this.StatVarCol5.DropDownWidth = 350;
             this.StatVarCol5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol5.Frozen = true;
             this.StatVarCol5.HeaderText = "Nivå 5";
             this.StatVarCol5.MinimumWidth = 100;
             this.StatVarCol5.Name = "StatVarCol5";
@@ -871,7 +867,6 @@
             this.TimeUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.TimeUnit.DataPropertyName = "TimeUnit";
             this.TimeUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TimeUnit.Frozen = true;
             this.TimeUnit.HeaderText = "Tidsoppløysing";
             this.TimeUnit.MinimumWidth = 50;
             this.TimeUnit.Name = "TimeUnit";
@@ -882,7 +877,6 @@
             // Year
             // 
             this.Year.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Year.Frozen = true;
             this.Year.HeaderText = "År";
             this.Year.MinimumWidth = 50;
             this.Year.Name = "Year";
@@ -892,17 +886,24 @@
             // Quarter
             // 
             this.Quarter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Quarter.Frozen = true;
+            this.Quarter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Quarter.HeaderText = "Kvartal";
+            this.Quarter.Items.AddRange(new object[] {
+            "",
+            "1",
+            "2",
+            "3",
+            "4"});
             this.Quarter.MinimumWidth = 50;
             this.Quarter.Name = "Quarter";
             this.Quarter.ReadOnly = true;
+            this.Quarter.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Quarter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Quarter.Width = 77;
             // 
             // Month
             // 
             this.Month.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Month.Frozen = true;
             this.Month.HeaderText = "Månad";
             this.Month.MinimumWidth = 50;
             this.Month.Name = "Month";
@@ -914,7 +915,6 @@
             this.Unit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Unit.DataPropertyName = "Unit";
             this.Unit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Unit.Frozen = true;
             this.Unit.HeaderText = "Måleeining";
             this.Unit.MinimumWidth = 50;
             this.Unit.Name = "Unit";
@@ -926,7 +926,6 @@
             this.Kretstype.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Kretstype.DataPropertyName = "Kretstype";
             this.Kretstype.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Kretstype.Frozen = true;
             this.Kretstype.HeaderText = "Kretstype";
             this.Kretstype.MinimumWidth = 50;
             this.Kretstype.Name = "Kretstype";
@@ -1190,7 +1189,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol5;
         private System.Windows.Forms.DataGridViewComboBoxColumn TimeUnit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quarter;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Quarter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Month;
         private System.Windows.Forms.DataGridViewComboBoxColumn Unit;
         private System.Windows.Forms.DataGridViewComboBoxColumn Kretstype;

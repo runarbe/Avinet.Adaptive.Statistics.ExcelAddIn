@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
-using System.Windows.Forms;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Adaptive;
 
-namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
+namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class Variable
     {
@@ -16,13 +12,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
         public string var3 { get; set; }
         public string var4 { get; set; }
         public string var5 { get; set; }
-        public string name { get; set; }
+        public string title { get; set; }
         public string description { get; set; }
-        public string unit { get; set; }
-        public bool showunit { get; set; }
-        public string fk_kretstyper { get; set; }
-        public string time_unit { get; set; }
-        public DateTime create_date { get; set; }
+        public int level { get; set; }
+        public int? parent_id { get; set; }
 
         public Variable()
         {
@@ -31,16 +24,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
             var3 = "";
             var4 = "";
             var5 = "";
-            fk_kretstyper = "e8009aaf-4475-4397-b01a-86584dcadcb1";
-            unit = "";
-            showunit = false;
-            time_unit = "Year";
         }
 
         /// <summary>
         /// Copy names from a parent variable
         /// </summary>
-        /// <param name="parent"></param>
+        /// <param title="parent"></param>
         public void CopyNamesFrom(Variable parent, int toLevel)
         {
             try
@@ -71,9 +60,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
             }
         }
 
@@ -81,66 +69,38 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
         /// Check if a the current variable  belongs at a sepecific varLevel
         /// (1-5) in the variable hierarchy
         /// </summary>
-        /// <param name="i">An integer between 1 and 5</param>
+        /// <param title="i">An integer between 1 and 5</param>
         /// <returns>True if is specified varLevel, false otherwise</returns>
         public bool IsLevel(int i)
         {
-            int l = 0;
-
-            if (this.var5.IsNotNullOrEmpty())
-            {
-                l = 5;
-            }
-            else if (this.var4.IsNotNullOrEmpty())
-            {
-                l = 4;
-            }
-            else if (this.var3.IsNotNullOrEmpty())
-            {
-                l = 3;
-            }
-            else if (this.var2.IsNotNullOrEmpty())
-            {
-                l = 2;
-            }
-            else if (this.var1.IsNotNullOrEmpty())
-            {
-                l = 1;
-            }
-            return i == l ? true : false;
-
+            return i == this.level ? true : false;
         }
 
 
         /// <summary>
         /// Return the current collection as a stat tree node
         /// </summary>
-        /// <param name="children"></param>
+        /// <param title="children"></param>
         /// <returns></returns>
         public StatTreeNode AsStatTreeNode(IEnumerable<StatTreeNode> children = null)
         {
             var s = new StatTreeNode();
-            s.Text = this.GetNameAtLevel(GetLevel());
+
+            s.Text = this.title;
             s.id = this.id;
             s.Tag = this;
-            s.Name = this.GetConcatId();
-            
+            s.Name = this.id.ToString();
+
             if (children != null)
             {
                 s.Nodes.AddIEnum(children);
-            }
-
-            if (s.id == -2)
-            {
-                s.ImageKey = "closedFolder";
+                s.ImageKey = "openFolder";
                 s.SelectedImageKey = "openFolder";
-                s.TreeNodeType = TreeNodeType.Folder;
             }
             else
             {
                 s.ImageKey = "variable";
-                s.SelectedImageKey = "selectedVariable";
-                s.TreeNodeType = TreeNodeType.Variable;
+                s.SelectedImageKey = "variable";
             }
 
             return s;
@@ -178,57 +138,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
             }
         }
 
-        private List<string> GetIdParts()
+        [Obsolete("Use parent_id property instead")]
+        public string GetParentId()
         {
-            var idParts = new List<string>();
-
-            int varLevel = GetLevel();
-
-            if (varLevel >= 1)
-            {
-                idParts.Add(var1);
-            }
-
-            if (varLevel >= 2)
-            {
-                idParts.Add(var2);
-            }
-
-            if (varLevel >= 3)
-            {
-                idParts.Add(var3);
-            }
-            if (varLevel >= 4)
-            {
-                idParts.Add(var4);
-            }
-            if (varLevel >= 5)
-            {
-                idParts.Add(var5);
-            }
-
-            return idParts;
-
+            return this.parent_id.ToString();
         }
 
-        public string GetConcatParentId()
+        [Obsolete("Use id property instead")]
+        public string GetId()
         {
-            if (GetLevel() == 1)
-            {
-                return null;
-            }
-            else
-            {
-                var idParts = GetIdParts();
-                idParts.RemoveAt(idParts.Count() - 1);
-                return String.Join("-", idParts.ToArray());
-            }
-        }
-
-        public string GetConcatId()
-        {
-            var idParts = GetIdParts();
-            return String.Join("-", idParts.ToArray());
+            return this.id.ToString();
         }
 
         public void SetNameAtLevel(int level, string name)
@@ -286,47 +205,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
                     retVal = this.var5;
                     break;
             }
-            if (id == -2)
-            {
-                return retVal;
-            }
-            else
-            {
-                return String.Format("{0} - ({1}, {2}, {3})",
-                    retVal,
-                    ConfigProvider.GetUnitByValue(this.unit).ToLower(),
-                    ConfigProvider.GetTimeUnitByValue(this.time_unit).ToLower(),
-                    ConfigProvider.GetKretstypeByValue(this.fk_kretstyper).ToLower()
-                    );
-            }
+
+            return retVal;
         }
 
+        [Obsolete("Use title property instead")]
         /// <summary>
-        /// Copy names 
+        /// Get the leaf-title of the current variable
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>        
         public string GetLeafName()
         {
-            if (var5.IsNotNullOrEmpty())
-            {
-                return var5;
-            }
-            else if (var4.IsNotNullOrEmpty())
-            {
-                return var4;
-            }
-            else if (var3.IsNotNullOrEmpty())
-            {
-                return var3;
-            }
-            else if (var2.IsNotNullOrEmpty())
-            {
-                return var2;
-            }
-            else
-            {
-                return var1;
-            }
+            return this.title;
         }
     }
 

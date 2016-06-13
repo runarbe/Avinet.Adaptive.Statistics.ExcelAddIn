@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Shared
+namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class ValidationResult
     {

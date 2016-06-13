@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Shared;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -64,7 +61,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public string region = null;
 
         /// <summary>
-        /// The name of the statistical area that is identified by the statistical area id, currentRow.e. "Gloppen" for "kommunenummer = 1445"
+        /// The title of the statistical area that is identified by the statistical area id, currentRow.e. "Gloppen" for "kommunenummer = 1445"
         /// </summary>
         public string krets_name = null;
 
@@ -102,7 +99,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Main constructor
         /// </summary>
-        /// <param name="pValue">The value</param>
+        /// <param title="pValue">The value</param>
         public AdaptiveValue(int pValue)
         {
             this.value = pValue;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
+namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
 
     public static class DataGridViewComboBoxExt
@@ -15,10 +15,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         /// <summary>
         /// Set the valuesList source of a combobox to valuesList read from a valuesList table
         /// </summary>
-        /// <param name="pDataGridViewComboBoxCol"></param>
-        /// <param name="pDataSource"></param>
-        /// <param name="pDisplayMember"></param>
-        /// <param name="pValueMember"></param>
+        /// <param title="pDataGridViewComboBoxCol"></param>
+        /// <param title="pDataSource"></param>
+        /// <param title="pDisplayMember"></param>
+        /// <param title="pValueMember"></param>
         public static void AddItemsFromDataTable(this DataGridViewComboBoxColumn pDataGridViewComboBoxCol, DataTable pDataSource, string pDisplayMember = "key", string pValueMember = "value")
         {
             pDataGridViewComboBoxCol.Items.Clear();
@@ -33,10 +33,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         /// <summary>
         /// Set valuesList source of combo box to IEnumerable collection
         /// </summary>
-        /// <param name="pDataGridViewComboBoxCol"></param>
-        /// <param name="pEnumerable"></param>
-        /// <param name="pDisplayMember"></param>
-        /// <param name="pValueMember"></param>
+        /// <param title="pDataGridViewComboBoxCol"></param>
+        /// <param title="pEnumerable"></param>
+        /// <param title="pDisplayMember"></param>
+        /// <param title="pValueMember"></param>
         public static void SetDataSource(this DataGridViewComboBoxColumn pDataGridViewComboBoxCol, IEnumerable pEnumerable, string pDisplayMember = "key", string pValueMember = "value")
         {
             pDataGridViewComboBoxCol.DataSource = new BindingSource(pEnumerable, null);
@@ -48,10 +48,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         /// <summary>
         /// Add items to a DataGridViewComboBox (permits editing of valuesList once datasource is not bound)
         /// </summary>
-        /// <param name="pNameOfColumn">Name of the column in the DataGridView</param>
-        /// <param name="pComboBoxItems">A List<> of ComboBoxItem objects</param>
-        /// <param name="pDisplayMember">The property of the ComboBoxItem to use for display</param>
-        /// <param name="pValueMember">The property of the ComboBoxItem to use as value</param>
+        /// <param title="pNameOfColumn">Name of the column in the DataGridView</param>
+        /// <param title="pComboBoxItems">A List<> of ComboBoxItem objects</param>
+        /// <param title="pDisplayMember">The property of the ComboBoxItem to use for display</param>
+        /// <param title="pValueMember">The property of the ComboBoxItem to use as value</param>
         public static void AddItemsFromList(
             this DataGridViewColumn pNameOfColumn,
             List<ComboBoxItem> pComboBoxItems,
@@ -73,8 +73,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         /// <summary>
         /// Adds an item to a combobox collection if it does not already exist there
         /// </summary>
-        /// <param name="pComboBoxCell"></param>
-        /// <param name="pItem"></param>
+        /// <param title="pComboBoxCell"></param>
+        /// <param title="pItem"></param>
         [Obsolete("All statvars to be predefined")]
         public static void AddItemIfNotExists(this DataGridViewComboBoxCell pComboBoxCell, ComboBoxItem pItem)
         {
@@ -92,10 +92,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         }
 
         /// <summary>
-        /// Checks if a combobox has an item with teh same key name
+        /// Checks if a combobox has an item with teh same key title
         /// </summary>
-        /// <param name="pCell"></param>
-        /// <param name="pNewItem"></param>
+        /// <param title="pCell"></param>
+        /// <param title="pNewItem"></param>
         /// <returns></returns>
         public static bool HasItem(this DataGridViewComboBoxCell pCell, ComboBoxItem pNewItem)
         {
@@ -131,8 +131,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
         /// <summary>
         /// Copy value and valuesList source binding from a DataGridViewComboBoxCell object
         /// </summary>
-        /// <param name="tgtCell"></param>
-        /// <param name="srcCell"></param>
+        /// <param title="tgtCell"></param>
+        /// <param title="srcCell"></param>
         public static void CopyValueFrom(this DataGridViewComboBoxCell tgtCell, DataGridViewComboBoxCell srcCell)
         {
             if (srcCell.DataSource != null)

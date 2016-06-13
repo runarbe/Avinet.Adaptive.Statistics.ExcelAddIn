@@ -38,18 +38,18 @@
             this.TabDefault = this.Factory.CreateRibbonTab();
             this.TabAdaptive3 = this.Factory.CreateRibbonTab();
             this.grpTools = this.Factory.CreateRibbonGroup();
-            this.btnConfig = this.Factory.CreateRibbonButton();
             this.btnUpload = this.Factory.CreateRibbonButton();
             this.btnEditStatVar = this.Factory.CreateRibbonButton();
+            this.grpSettings = this.Factory.CreateRibbonGroup();
+            this.btnConfig = this.Factory.CreateRibbonButton();
             this.grpInfo = this.Factory.CreateRibbonGroup();
             this.btnHelp = this.Factory.CreateRibbonButton();
             this.btnAbout = this.Factory.CreateRibbonButton();
-            this.grpSettings = this.Factory.CreateRibbonGroup();
             this.TabDefault.SuspendLayout();
             this.TabAdaptive3.SuspendLayout();
             this.grpTools.SuspendLayout();
-            this.grpInfo.SuspendLayout();
             this.grpSettings.SuspendLayout();
+            this.grpInfo.SuspendLayout();
             // 
             // TabDefault
             // 
@@ -72,15 +72,6 @@
             this.grpTools.Label = "Verkty";
             this.grpTools.Name = "grpTools";
             // 
-            // btnConfig
-            // 
-            this.btnConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
-            this.btnConfig.Label = "Konfigurer Adaptive";
-            this.btnConfig.Name = "btnConfig";
-            this.btnConfig.ShowImage = true;
-            this.btnConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnConfig_Click);
-            // 
             // btnUpload
             // 
             this.btnUpload.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -98,6 +89,21 @@
             this.btnEditStatVar.Name = "btnEditStatVar";
             this.btnEditStatVar.ShowImage = true;
             this.btnEditStatVar.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnEditStatVar_Click);
+            // 
+            // grpSettings
+            // 
+            this.grpSettings.Items.Add(this.btnConfig);
+            this.grpSettings.Label = "Innstillingar";
+            this.grpSettings.Name = "grpSettings";
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
+            this.btnConfig.Label = "Konfigurer Adaptive";
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.ShowImage = true;
+            this.btnConfig.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnConfig_Click);
             // 
             // grpInfo
             // 
@@ -124,12 +130,6 @@
             this.btnAbout.ShowImage = true;
             this.btnAbout.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAbout_Click);
             // 
-            // grpSettings
-            // 
-            this.grpSettings.Items.Add(this.btnConfig);
-            this.grpSettings.Label = "Innstillingar";
-            this.grpSettings.Name = "grpSettings";
-            // 
             // AdaptiveRibbon
             // 
             this.Name = "AdaptiveRibbon";
@@ -142,10 +142,10 @@
             this.TabAdaptive3.PerformLayout();
             this.grpTools.ResumeLayout(false);
             this.grpTools.PerformLayout();
-            this.grpInfo.ResumeLayout(false);
-            this.grpInfo.PerformLayout();
             this.grpSettings.ResumeLayout(false);
             this.grpSettings.PerformLayout();
+            this.grpInfo.ResumeLayout(false);
+            this.grpInfo.PerformLayout();
 
         }
 

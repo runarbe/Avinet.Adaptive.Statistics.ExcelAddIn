@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
+namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class ServiceOutput    
     {
@@ -14,6 +14,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal
             public int total { get; set; }
             public object records { get; set; }
             public bool success { get; set; }
+            public AdaptiveException exception { get; set; }
+            public AdaptiveException[] exceptions { get; set; }
+
+            public string GetMessage()
+            {
+                if (exception != null)
+                {
+                    return exception.msg;
+                }
+                else
+                {
+                    return "";
+                }
+            }
         }
     }
 }

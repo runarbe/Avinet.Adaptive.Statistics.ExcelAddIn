@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Avinet.Adaptive.Statistics.ExcelAddIn.Functions
+namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public static class IntExts
     {

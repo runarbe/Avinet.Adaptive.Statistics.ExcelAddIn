@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
@@ -24,11 +17,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnConnectToAdaptive_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.adaptiveUri = this.tbAdaptiveURI.Text;
-            Properties.Settings.Default.adaptiveUser = this.tbAdaptiveUser.Text;
-            Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
-            Properties.Settings.Default.Save();
-            this.Close();
+            if (this.tbAdaptiveURI.Text.IsNotNullOrEmpty()
+                && Uri.IsWellFormedUriString(this.tbAdaptiveURI.Text, UriKind.Absolute)
+                && tbAdaptiveURI.Text.CheckIfUrlExists())
+            {
+                Properties.Settings.Default.adaptiveUri = this.tbAdaptiveURI.Text;
+                Properties.Settings.Default.adaptiveUser = this.tbAdaptiveUser.Text;
+                Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
+                Properties.Settings.Default.Save();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Kunne ikkje kople til spesifisert URL", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ConfigForm_Load(object sender, EventArgs e)

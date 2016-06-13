@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
-using System.Diagnostics;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using System.Net;
-using System.IO;
-using System.Xml.Serialization;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes;
 using Avinet.Adaptive.Statistics.ExcelAddIn.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
@@ -54,8 +45,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Handler for when edits occur to statvarcombobox
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void dgvManualStatVarProps_EditingControlShowing(object sender,
         DataGridViewEditingControlShowingEventArgs e)
         {
@@ -68,13 +59,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 mComboBox.SelectionChangeCommitted -= OnSelectStatVarLevel;
                 mComboBox.SelectionChangeCommitted += OnSelectStatVarLevel;
             };
+
+            Log(dgvStatVarProperties.CurrentCell.ColumnIndex.ToString());
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="colIndex"></param>
-        /// <param name="rowIndex"></param>
+        /// <param title="colIndex"></param>
+        /// <param title="rowIndex"></param>
         /// <returns></returns>
         private DataGridViewComboBoxCell GetChildCombo(int colIndex, int rowIndex)
         {
@@ -97,8 +90,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Function that is executed when the value of one of the five variable levels are selected
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param title="sender"></param>
+        /// <param title="e"></param>
         private void OnSelectStatVarLevel(object sender, EventArgs e)
         {
             // Get the current cell (the one that was clicked)
@@ -123,10 +116,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 // Get parent variable
                 var parentVariable = (Variable)parentCombo.Value;
 
+                string titleOfSelectedStatVar = dgvStatVarProperties["Title", currentCell.RowIndex].FormattedValue.ToString();
+
                 // Open form to create a new variable
                 // If it closes successfully, reload variables
                 // rebind control
-                var newVariable = NewVariable.NewVariablePopup(parentVariable);
+                var newVariable = NewVariable.NewVariablePopup(parentVariable, titleOfSelectedStatVar);
+
                 if (newVariable != null)
                 {
                     var mComboBoxCell = (DataGridViewComboBoxCell)currentCell;
@@ -135,7 +131,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     mComboBoxCell.DataSource = new BindingSource(updatedDataSource, null);
                     mComboBoxCell.ValueMember = "Tag";
                     mComboBoxCell.DisplayMember = "Text";
-                    //mComboBox.Refresh();
                     mComboBoxCell.Value = newVariable;
                 }
             }
@@ -163,9 +158,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     var timeUnitCell = (DataGridViewComboBoxCell)dgvStatVarProperties["TimeUnit", currentCell.RowIndex];
                     var kretstypeCell = (DataGridViewComboBoxCell)dgvStatVarProperties["Kretstype", currentCell.RowIndex];
 
-                    unitCell.Value = mVariable.unit;
-                    timeUnitCell.Value = mVariable.time_unit;
-                    kretstypeCell.Value = mVariable.fk_kretstyper;
                 }
             }
         }
@@ -237,13 +229,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     throw new Exception("The cell does not contain a combobox");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //DebugToFile.Log(ex.Message);
             }
 
             return null;
-
         }
     }
 }

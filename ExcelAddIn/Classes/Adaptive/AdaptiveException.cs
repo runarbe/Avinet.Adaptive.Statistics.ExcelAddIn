@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-    public enum TreeNodeType
+    public class AdaptiveException
     {
-        Folder,
-        Variable
+        public string code { get; set; }
+
+        public string msg { get; set; }
     }
 }

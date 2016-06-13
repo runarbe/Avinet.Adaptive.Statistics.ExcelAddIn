@@ -20,7 +20,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Basic constructor
         /// </summary>
-        /// <param name="pType">Set whether valuesList are in rows or in columns</param>
+        /// <param title="pType">Set whether valuesList are in rows or in columns</param>
         public StatProps(DataOrientation pType = DataOrientation.InRows)
         {
             this.DataOrientation = pType;
@@ -29,8 +29,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Add a property at the specified index
         /// </summary>
-        /// <param name="pIndex">The row or column index</param>
-        /// <param name="pValue">The property value to store</param>
+        /// <param title="pIndex">The row or column index</param>
+        /// <param title="pValue">The property value to store</param>
         public void AddValue(int pIndex, string pValue)
         {
             this[pIndex] = pValue;
@@ -77,8 +77,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Return a property value for a row,col pair
         /// </summary>
-        /// <param name="pRow">Row index</param>
-        /// <param name="pCol">Column index</param>
+        /// <param title="pRow">Row index</param>
+        /// <param title="pCol">Column index</param>
         /// <returns>A value as a string</returns>
         public object GetValue(int pRow, int pCol)
         {

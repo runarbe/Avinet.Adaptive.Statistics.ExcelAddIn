@@ -30,6 +30,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>True</IsWebBootstrapper>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <PublishUrl>publish\</PublishUrl>
     <InstallUrl>http://statistikkui.avinet.no/addin/</InstallUrl>
@@ -45,8 +47,6 @@
     <FriendlyName>Avinet.Adaptive.Statistics.ExcelAddIn</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -123,7 +123,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+    <DefineConstants>DEBUG;VSTO40;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <!--
@@ -197,42 +197,42 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Classes\Adaptive\AdaptiveException.cs" />
     <Compile Include="Classes\Adaptive\TreeNodeType.cs" />
-    <Compile Include="Classes\DebugToFile\DebugToFile.cs" />
+    <Compile Include="Classes\ExtensionFunctions\DataGridViewCellExt.cs" />
+    <Compile Include="Classes\Utilities\DebugToFile.cs" />
     <Compile Include="Classes\Adaptive\AddDataRequest.cs" />
     <Compile Include="Classes\Adaptive\GetKretstyperResponse.cs" />
     <Compile Include="Classes\Adaptive\ServiceOutput.cs" />
     <Compile Include="Classes\Adaptive\StatTreeNode.cs" />
-    <Compile Include="Classes\Shared\ValidationResult.cs" />
+    <Compile Include="Classes\Utilities\ValidationResult.cs" />
     <Compile Include="Forms\NewVariable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\NewVariable.Designer.cs">
       <DependentUpon>NewVariable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functions\DataGridViewComboBoxExt.cs" />
+    <Compile Include="Classes\ExtensionFunctions\DataGridViewComboBoxExt.cs" />
     <Compile Include="Classes\Adaptive\Kretstyper.cs" />
     <Compile Include="Classes\Adaptive\AdaptiveClient.cs" />
-    <Compile Include="Classes\Shared\ComboBoxItem.cs" />
-    <Compile Include="Classes\Config\ConfigProvider.cs" />
-    <Compile Include="Classes\ColumnTypes\CellContentType.cs" />
-    <Compile Include="Classes\Shared\MessageObject.cs" />
-    <Compile Include="Classes\Shared\MessagesErrors.cs" />
-    <Compile Include="Classes\Shared\MessagesNotices.cs" />
-    <Compile Include="Classes\Parsing\StatDatumParser.cs" />
-    <Compile Include="Classes\Parsing\DataOrientation.cs" />
-    <Compile Include="Classes\Parsing\DateFormats.cs" />
-    <Compile Include="Classes\Parsing\StatProps.cs" />
-    <Compile Include="Classes\Parsing\AdaptiveRow.cs" />
-    <Compile Include="Classes\Parsing\AdaptiveMatrix.cs" />
-    <Compile Include="Classes\Parsing\AdaptiveValue.cs" />
-    <Compile Include="Classes\Parsing\Key.cs" />
-    <Compile Include="Classes\Parsing\SelectionType.cs" />
+    <Compile Include="Classes\Utilities\ComboBoxItem.cs" />
+    <Compile Include="Classes\Utilities\ConfigProvider.cs" />
+    <Compile Include="Classes\CellContentType.cs" />
+    <Compile Include="Classes\Utilities\MessageObject.cs" />
+    <Compile Include="Classes\Utilities\MessagesErrors.cs" />
+    <Compile Include="Classes\Utilities\MessagesNotices.cs" />
+    <Compile Include="Classes\Types\StatDatumParser.cs" />
+    <Compile Include="Classes\Types\DataOrientation.cs" />
+    <Compile Include="Classes\Types\DateFormats.cs" />
+    <Compile Include="Classes\Types\StatProps.cs" />
+    <Compile Include="Classes\Types\AdaptiveRow.cs" />
+    <Compile Include="Classes\Types\AdaptiveMatrix.cs" />
+    <Compile Include="Classes\Types\AdaptiveValue.cs" />
+    <Compile Include="Classes\Types\SelectionType.cs" />
     <Compile Include="Classes\StatVarProps.cs" />
-    <Compile Include="Classes\Parsing\Table.cs" />
-    <Compile Include="Classes\Shared\Util.cs" />
-    <Compile Include="Classes\Parsing\Values3D.cs" />
-    <Compile Include="Classes\Config\JsonLoader.cs" />
+    <Compile Include="Classes\Types\Table.cs" />
+    <Compile Include="Classes\Utilities\Util.cs" />
+    <Compile Include="Classes\Types\Values3D.cs" />
     <Compile Include="Forms\AboutAddInForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,17 +248,17 @@
     <Compile Include="Forms\UploadForm.StatVarGrid.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Functions\IntExts.cs" />
-    <Compile Include="Functions\ObjectExt.cs" />
-    <Compile Include="Functions\StringExts.cs" />
+    <Compile Include="Classes\ExtensionFunctions\IntExts.cs" />
+    <Compile Include="Classes\ExtensionFunctions\ObjectExt.cs" />
+    <Compile Include="Classes\ExtensionFunctions\StringExts.cs" />
     <Compile Include="Forms\StatVarForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\StatVarForm.Designer.cs">
       <DependentUpon>StatVarForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Functions\TreeNodeCollectionExts.cs" />
-    <Compile Include="Functions\TreeNodeExts.cs" />
+    <Compile Include="Classes\ExtensionFunctions\TreeNodeCollectionExts.cs" />
+    <Compile Include="Classes\ExtensionFunctions\TreeNodeExts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -271,6 +271,7 @@
     <Compile Include="Classes\Adaptive\AddVariableRequest.cs" />
     <Compile Include="Classes\Adaptive\GetVariableResponse.cs" />
     <Compile Include="Classes\Adaptive\Variable.cs" />
+    <None Include="docs\Eksempeldata for programtillegg.xlsx" />
     <None Include="Resources\1465320688_Bricks1.png" />
     <None Include="Resources\1465320688_Bricks.png" />
     <None Include="Resources\1465320544_Open_folder.png" />
@@ -307,7 +308,6 @@
     <Content Include="docs\brukarrettleiing-nynorsk.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="avinet.pfx" />
     <None Include="docs\brukarrettleiing-nynorsk.docx" />
     <None Include="ExcelAddIn_TemporaryKey.pfx" />
     <None Include="packages.config" />
@@ -334,16 +334,10 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="Resources\eksempel.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\refresh-24px.png" />
     <None Include="Resources\onoff-24px.png" />
     <None Include="Resources\copy-16px.png" />
     <None Include="Resources\copy-24px.png" />
-    <None Include="SavedImportSettings.json.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -353,14 +347,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DefaultConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Classes\ColumnTypes\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -375,7 +366,7 @@
     <ManifestCertificateThumbprint>537B07AD32B0DE20723BBB344A75CF0CBD0AA228</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>

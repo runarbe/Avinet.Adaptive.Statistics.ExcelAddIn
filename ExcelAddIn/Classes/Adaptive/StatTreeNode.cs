@@ -1,12 +1,6 @@
-﻿using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Adaptive;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes
+namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class StatTreeNode : TreeNode
     {
@@ -28,7 +22,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Classes
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="s"></param>
+        /// <param title="s"></param>
         public StatTreeNode(string s = null)
             : base()
         {

@@ -1,11 +1,5 @@
-﻿using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
@@ -22,31 +16,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 
         private void NewVariable_Load(object sender, EventArgs e)
         {
-            cbKretstyper.DataSource = new BindingSource(AdaptiveClient.GetKretstyper().ToList(), null);
-            cbKretstyper.DisplayMember = "name";
-            cbKretstyper.ValueMember = "uuid";
-
-            cbTimeUnit.DataSource = new BindingSource(AdaptiveClient.GetTimeUnits(), null);
-            cbTimeUnit.DisplayMember = "key";
-            cbTimeUnit.ValueMember = "value";
-
-            cbUnit.DataSource = new BindingSource(AdaptiveClient.GetUnits(), null);
-            cbUnit.DisplayMember = "key";
-            cbUnit.ValueMember = "value";
-
         }
 
         /// <summary>
         /// Create a new variable and return it (or null on close/exit)
         /// </summary>
-        /// <param name="parentVariable"></param>
+        /// <param title="parentVariable"></param>
         /// <returns></returns>
-        public static Variable NewVariablePopup(Variable parentVariable)
+        public static Variable NewVariablePopup(Variable parentVariable, string variableName = "")
         {
             var frm = new NewVariable();
             frm.ParentVariable = parentVariable;
-            frm.tbParentVariable.Text = parentVariable.GetLeafName();
-            frm.tbVarLevel.Text = (parentVariable.GetLevel() + 1).ToString();
+            frm.tbParentVariable.Text = parentVariable.title;
+            frm.tbVarLevel.Text = (parentVariable.level + 1).ToString();
+            frm.tbVarName.Text = variableName;
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 return frm.Variable;
@@ -61,20 +44,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         {
             Variable varDef = new Variable();
 
-            varDef.CopyNamesFrom(ParentVariable, ParentVariable.GetLevel() + 1);
-            varDef.SetNameAtLevel(ParentVariable.GetLevel() + 1, tbVarName.Text);
-            varDef.fk_kretstyper = cbKretstyper.SelectedValue.ToString();
-            varDef.time_unit = cbTimeUnit.SelectedValue.ToString();
-            varDef.unit = cbUnit.SelectedValue.ToString();
+            varDef.CopyNamesFrom(ParentVariable, ParentVariable.level + 1);
+            varDef.level = tbVarLevel.Text.AsInt();
+            varDef.title = tbVarName.Text;
+            varDef.SetNameAtLevel(varDef.level, tbVarName.Text);
+
 
             var request = new AddVariableRequest();
             request.data = varDef;
+            request.data.parent_id = ParentVariable.id;
 
             var res = AdaptiveClient.AddVariable(request);
 
             if (res.d.success == true)
             {
-                //DebugToFile.Log("Reloading variable definitions");
                 ConfigProvider.ReloadVariables();
                 this.Variable = varDef;
                 this.DialogResult = DialogResult.OK;
@@ -84,7 +67,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
             {
                 this.Variable = null;
                 this.DialogResult = DialogResult.None;
-                MessageBox.Show("Kunne ikkje opprette variabel", "Feil");
+                DebugToFile.Json(varDef);
+                MessageBox.Show("Kunne ikkje opprette variabel: " + res.d.exception.msg, "Feil");
             }
         }
 

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using sd = System.Data;
-using Microsoft.Office.Interop.Excel;
-using System.Windows.Forms;
-using System.Diagnostics;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Data;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
+using System.Diagnostics;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -17,7 +10,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Get a valuesList table from an Excel range object
         /// </summary>
-        /// <param name="pSelection">Excel range object</param>
+        /// <param title="pSelection">Excel range object</param>
         /// <returns>A .NET DataTable</returns>
         public static System.Data.DataTable GetTableFromExcelRange(Range pSelection)
         {
@@ -46,7 +39,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Return a variable definition or null
         /// </summary>
-        /// <param name="pObj"></param>
+        /// <param title="pObj"></param>
         /// <returns></returns>
         public static Variable GetNullOrVariable(object pObj)
         {
@@ -63,7 +56,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// If the passed object can be converted into a string, return a stirng
         /// </summary>
-        /// <param name="pObj">Any object</param>
+        /// <param title="pObj">Any object</param>
         /// <returns>String if possible, otherwise null</returns>
         public static string GetNullOrString(object pObj)
         {
@@ -80,7 +73,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Get a string containing a double value or null
         /// </summary>
-        /// <param name="pVar">Any object likely to contain a double</param>
+        /// <param title="pVar">Any object likely to contain a double</param>
         /// <returns>A double as a stirng or the string "null"</returns>
         public static string GetNullOrDoubleString(object pVar)
         {
@@ -107,9 +100,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Get a row or a column from the selection
         /// </summary>
-        /// <param name="mSelection">An Excel range object</param>
-        /// <param name="pIndexNum">The 1-based index of the row or column to retrieve</param>
-        /// <param name="pDataOrientation">Whether to get a row or a column</param>
+        /// <param title="mSelection">An Excel range object</param>
+        /// <param title="pIndexNum">The 1-based index of the row or column to retrieve</param>
+        /// <param title="pDataOrientation">Whether to get a row or a column</param>
         /// <returns></returns>
         public static StatProps GetIndex(Object[,] mSelection, int pIndexNum, DataOrientation pDataOrientation)
         {

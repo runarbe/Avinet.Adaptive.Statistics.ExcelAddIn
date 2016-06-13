@@ -2,23 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Avinet.Adaptive.Statistics.ExcelAddIn.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="configJson" Type="System.String" Scope="User">
+    <Setting Name="adaptiveUser" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="adaptiveNodeUuid" Type="System.String" Scope="User">
-      <Value Profile="(Default)">na</Value>
-    </Setting>
-    <Setting Name="adaptiveUser" Type="System.String" Scope="User">
-      <Value Profile="(Default)">runarbe</Value>
-    </Setting>
     <Setting Name="adaptivePwd" Type="System.String" Scope="User">
-      <Value Profile="(Default)">runarbe</Value>
-    </Setting>
-    <Setting Name="testMode" Type="System.String" Scope="User">
-      <Value Profile="(Default)">true</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="adaptiveUri" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://statisticsdemo.avinet.no</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

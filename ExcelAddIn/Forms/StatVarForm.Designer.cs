@@ -10,7 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param title="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -33,16 +33,9 @@
             this.tbVarName = new System.Windows.Forms.TextBox();
             this.tbVarLevel = new System.Windows.Forms.TextBox();
             this.tbParentVariable = new System.Windows.Forms.TextBox();
-            this.chkbShowUnit = new System.Windows.Forms.CheckBox();
-            this.cbKretstyper = new System.Windows.Forms.ComboBox();
-            this.lblKrinstype = new System.Windows.Forms.Label();
-            this.lblTimeUnit = new System.Windows.Forms.Label();
-            this.cbTimeUnit = new System.Windows.Forms.ComboBox();
             this.lblVarLevel = new System.Windows.Forms.Label();
-            this.lblUnit = new System.Windows.Forms.Label();
             this.lblParent = new System.Windows.Forms.Label();
             this.lblVarName = new System.Windows.Forms.Label();
-            this.cbUnit = new System.Windows.Forms.ComboBox();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.btnRefreshTree = new System.Windows.Forms.Button();
@@ -56,7 +49,7 @@
             // 
             this.svTree.Location = new System.Drawing.Point(8, 11);
             this.svTree.Name = "svTree";
-            this.svTree.Size = new System.Drawing.Size(383, 292);
+            this.svTree.Size = new System.Drawing.Size(383, 403);
             this.svTree.TabIndex = 0;
             this.svTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.svTree_AfterSelect);
             // 
@@ -65,20 +58,13 @@
             this.formPanel.Controls.Add(this.tbVarName);
             this.formPanel.Controls.Add(this.tbVarLevel);
             this.formPanel.Controls.Add(this.tbParentVariable);
-            this.formPanel.Controls.Add(this.chkbShowUnit);
-            this.formPanel.Controls.Add(this.cbKretstyper);
-            this.formPanel.Controls.Add(this.lblKrinstype);
-            this.formPanel.Controls.Add(this.lblTimeUnit);
-            this.formPanel.Controls.Add(this.cbTimeUnit);
             this.formPanel.Controls.Add(this.lblVarLevel);
-            this.formPanel.Controls.Add(this.lblUnit);
             this.formPanel.Controls.Add(this.lblParent);
             this.formPanel.Controls.Add(this.lblVarName);
-            this.formPanel.Controls.Add(this.cbUnit);
             this.formPanel.Controls.Add(this.btnCreateNew);
             this.formPanel.Location = new System.Drawing.Point(421, 13);
             this.formPanel.Name = "formPanel";
-            this.formPanel.Size = new System.Drawing.Size(296, 359);
+            this.formPanel.Size = new System.Drawing.Size(296, 174);
             this.formPanel.TabIndex = 1;
             // 
             // tbVarName
@@ -106,51 +92,6 @@
             this.tbParentVariable.TabIndex = 0;
             this.tbParentVariable.TabStop = false;
             // 
-            // chkbShowUnit
-            // 
-            this.chkbShowUnit.AutoSize = true;
-            this.chkbShowUnit.Location = new System.Drawing.Point(231, 155);
-            this.chkbShowUnit.Name = "chkbShowUnit";
-            this.chkbShowUnit.Size = new System.Drawing.Size(49, 21);
-            this.chkbShowUnit.TabIndex = 3;
-            this.chkbShowUnit.Text = "Vis";
-            this.chkbShowUnit.UseVisualStyleBackColor = true;
-            this.chkbShowUnit.CheckedChanged += new System.EventHandler(this.chkbShowUnit_CheckedChanged);
-            // 
-            // cbKretstyper
-            // 
-            this.cbKretstyper.FormattingEnabled = true;
-            this.cbKretstyper.Location = new System.Drawing.Point(114, 118);
-            this.cbKretstyper.Name = "cbKretstyper";
-            this.cbKretstyper.Size = new System.Drawing.Size(166, 24);
-            this.cbKretstyper.TabIndex = 1;
-            // 
-            // lblKrinstype
-            // 
-            this.lblKrinstype.AutoSize = true;
-            this.lblKrinstype.Location = new System.Drawing.Point(8, 122);
-            this.lblKrinstype.Name = "lblKrinstype";
-            this.lblKrinstype.Size = new System.Drawing.Size(67, 17);
-            this.lblKrinstype.TabIndex = 20;
-            this.lblKrinstype.Text = "Krinstype";
-            // 
-            // lblTimeUnit
-            // 
-            this.lblTimeUnit.AutoSize = true;
-            this.lblTimeUnit.Location = new System.Drawing.Point(8, 192);
-            this.lblTimeUnit.Name = "lblTimeUnit";
-            this.lblTimeUnit.Size = new System.Drawing.Size(103, 17);
-            this.lblTimeUnit.TabIndex = 17;
-            this.lblTimeUnit.Text = "Tidsoppløysing";
-            // 
-            // cbTimeUnit
-            // 
-            this.cbTimeUnit.FormattingEnabled = true;
-            this.cbTimeUnit.Location = new System.Drawing.Point(114, 188);
-            this.cbTimeUnit.Name = "cbTimeUnit";
-            this.cbTimeUnit.Size = new System.Drawing.Size(166, 24);
-            this.cbTimeUnit.TabIndex = 4;
-            // 
             // lblVarLevel
             // 
             this.lblVarLevel.AutoSize = true;
@@ -159,15 +100,6 @@
             this.lblVarLevel.Size = new System.Drawing.Size(71, 17);
             this.lblVarLevel.TabIndex = 17;
             this.lblVarLevel.Text = "Nivå (1-5)";
-            // 
-            // lblUnit
-            // 
-            this.lblUnit.AutoSize = true;
-            this.lblUnit.Location = new System.Drawing.Point(8, 157);
-            this.lblUnit.Name = "lblUnit";
-            this.lblUnit.Size = new System.Drawing.Size(76, 17);
-            this.lblUnit.TabIndex = 17;
-            this.lblUnit.Text = "Måleeining";
             // 
             // lblParent
             // 
@@ -188,19 +120,11 @@
             this.lblVarName.Text = "Namn";
             this.lblVarName.Click += new System.EventHandler(this.lblVarName_Click);
             // 
-            // cbUnit
-            // 
-            this.cbUnit.FormattingEnabled = true;
-            this.cbUnit.Location = new System.Drawing.Point(114, 153);
-            this.cbUnit.Name = "cbUnit";
-            this.cbUnit.Size = new System.Drawing.Size(111, 24);
-            this.cbUnit.TabIndex = 2;
-            // 
             // btnCreateNew
             // 
-            this.btnCreateNew.Location = new System.Drawing.Point(11, 314);
+            this.btnCreateNew.Location = new System.Drawing.Point(11, 125);
             this.btnCreateNew.Name = "btnCreateNew";
-            this.btnCreateNew.Size = new System.Drawing.Size(267, 33);
+            this.btnCreateNew.Size = new System.Drawing.Size(269, 33);
             this.btnCreateNew.TabIndex = 5;
             this.btnCreateNew.Text = "Opprett ny variabel";
             this.btnCreateNew.UseVisualStyleBackColor = true;
@@ -208,16 +132,16 @@
             // 
             // tbLog
             // 
-            this.tbLog.Location = new System.Drawing.Point(12, 395);
+            this.tbLog.Location = new System.Drawing.Point(421, 234);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(705, 82);
+            this.tbLog.Size = new System.Drawing.Size(296, 244);
             this.tbLog.TabIndex = 5;
             // 
             // btnRefreshTree
             // 
-            this.btnRefreshTree.Location = new System.Drawing.Point(8, 314);
+            this.btnRefreshTree.Location = new System.Drawing.Point(8, 420);
             this.btnRefreshTree.Name = "btnRefreshTree";
             this.btnRefreshTree.Size = new System.Drawing.Size(383, 33);
             this.btnRefreshTree.TabIndex = 24;
@@ -231,13 +155,13 @@
             this.panelTree.Controls.Add(this.btnRefreshTree);
             this.panelTree.Location = new System.Drawing.Point(12, 13);
             this.panelTree.Name = "panelTree";
-            this.panelTree.Size = new System.Drawing.Size(403, 359);
+            this.panelTree.Size = new System.Drawing.Size(403, 465);
             this.panelTree.TabIndex = 24;
             // 
             // lblLog
             // 
             this.lblLog.AutoSize = true;
-            this.lblLog.Location = new System.Drawing.Point(17, 375);
+            this.lblLog.Location = new System.Drawing.Point(423, 199);
             this.lblLog.Name = "lblLog";
             this.lblLog.Size = new System.Drawing.Size(70, 17);
             this.lblLog.TabIndex = 17;
@@ -269,15 +193,8 @@
         private System.Windows.Forms.TreeView svTree;
         private System.Windows.Forms.Panel formPanel;
         private System.Windows.Forms.TextBox tbLog;
-        private System.Windows.Forms.ComboBox cbUnit;
         private System.Windows.Forms.Button btnCreateNew;
-        private System.Windows.Forms.Label lblUnit;
         private System.Windows.Forms.Label lblParent;
-        private System.Windows.Forms.CheckBox chkbShowUnit;
-        private System.Windows.Forms.Label lblKrinstype;
-        private System.Windows.Forms.ComboBox cbKretstyper;
-        private System.Windows.Forms.ComboBox cbTimeUnit;
-        private System.Windows.Forms.Label lblTimeUnit;
         private System.Windows.Forms.TextBox tbParentVariable;
         private System.Windows.Forms.TextBox tbVarLevel;
         private System.Windows.Forms.Label lblVarLevel;

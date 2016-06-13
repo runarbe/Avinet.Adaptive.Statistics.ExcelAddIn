@@ -1,10 +1,4 @@
-﻿using Avinet.Adaptive.Statistics.ExcelAddIn.Classes.Portal;
-using Avinet.Adaptive.Statistics.ExcelAddIn.Functions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {

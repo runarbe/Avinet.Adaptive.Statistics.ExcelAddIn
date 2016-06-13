@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
+using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -13,12 +14,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            ConfigProvider.Load();
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-
         }
         #region VSTO generated code
 
