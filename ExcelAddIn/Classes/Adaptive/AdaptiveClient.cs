@@ -32,7 +32,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     String uri = Properties.Settings.Default.adaptiveUri.UrlCombine("/WebServices/geostat/ExcelAddin.asmx/AddData");
                     byte[] respBytes = client.UploadData(uri, "POST", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(req)));
                     var jsonString = Encoding.UTF8.GetString(respBytes);
-                    DebugToFile.Log(jsonString);
                     return JsonConvert.DeserializeObject<ServiceOutput>(jsonString);
                 }
                 catch (WebException ex)
@@ -58,12 +57,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 {
 
                     client.Headers.Add("Content-Type", "application/json; charset=utf-8");
-                    String uri = Properties.Settings.Default.adaptiveUri.UrlCombine("/WebServices/geostat/Portal.asmx/GetVariable");
-                    byte[] responsebytes = client.UploadData(uri, "POST", Encoding.UTF8.GetBytes("{}"));
-                    string responsebody = Encoding.UTF8.GetString(responsebytes);
-
-                    var response = JsonConvert.DeserializeObject<GetVariableResponse>(responsebody);
-                    DebugToFile.Log(responsebody);
+                    String wsUri = Properties.Settings.Default.adaptiveUri.UrlCombine("/WebServices/geostat/Portal.asmx/GetVariable");
+                    byte[] resBytes = client.UploadData(wsUri, "POST", Encoding.UTF8.GetBytes("{}"));
+                    string resBody = Encoding.UTF8.GetString(resBytes);
+                    Dbg.WriteLine(resBody);
+                    var response = JsonConvert.DeserializeObject<GetVariableResponse>(resBody);
 
                     var mr = response.d.records;
 
@@ -95,8 +93,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         .Concat(lvl5)
                         .ToList<Variable>();
 
-                    DebugToFile.Json(mr);
-
                     tree = (from m1 in mr
                             where !m1.parent_id.HasValue
                             select m1.AsStatTreeNode(
@@ -119,7 +115,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 }
                 catch (Exception ex )
                 {
-                    DebugToFile.Json(ex);
+                    Dbg.WriteJson(ex);
                 }
 
                 return tree;
@@ -139,7 +135,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 String uri = Properties.Settings.Default.adaptiveUri.UrlCombine("/WebServices/geostat/Portal.asmx/AddVariable");
                 byte[] responsebytes = client.UploadData(uri, "POST", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(req)));
                 var json = Encoding.UTF8.GetString(responsebytes);
-                DebugToFile.Log(json);
                 return JsonConvert.DeserializeObject<ServiceOutput>(json);
             }
         }

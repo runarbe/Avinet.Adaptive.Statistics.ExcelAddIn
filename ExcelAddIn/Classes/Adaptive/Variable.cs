@@ -66,10 +66,48 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         }
 
         /// <summary>
+        /// Return the hierarchical name of the variable
+        /// </summary>
+        /// <returns></returns>
+        public string GetHierarhicalName()
+        {
+
+            var nameComponents = new List<string>();
+
+            if (level >= 1)
+            {
+                nameComponents.Add(var1);
+            }
+            
+            if (level >= 2)
+            {
+                nameComponents.Add(var2);
+            }
+            
+            if (level >= 3)
+            {
+                nameComponents.Add(var3);
+            }
+            
+            if (level >= 4)
+            {
+                nameComponents.Add(var4);
+            }
+
+            if (level >= 5)
+            {
+                nameComponents.Add(var5);
+            }
+
+            return String.Join(" > ", nameComponents);
+
+        }
+
+        /// <summary>
         /// Check if a the current variable  belongs at a sepecific varLevel
         /// (1-5) in the variable hierarchy
         /// </summary>
-        /// <param title="i">An integer between 1 and 5</param>
+        /// <param title="rowIndex">An integer between 1 and 5</param>
         /// <returns>True if is specified varLevel, false otherwise</returns>
         public bool IsLevel(int i)
         {
@@ -216,8 +254,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <returns></returns>        
         public string GetLeafName()
         {
-            return this.title;
+            return GetNameAtLevel(GetLevel());
         }
     }
-
 }

@@ -23,12 +23,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         /// </summary>
         /// <param title="parentVariable"></param>
         /// <returns></returns>
-        public static Variable NewVariablePopup(Variable parentVariable, string variableName = "")
+        public static Variable NewVariablePopup(Variable parentVariable = null, string variableName = "")
         {
             var frm = new NewVariable();
-            frm.ParentVariable = parentVariable;
-            frm.tbParentVariable.Text = parentVariable.title;
-            frm.tbVarLevel.Text = (parentVariable.level + 1).ToString();
+            if (parentVariable != null)
+            {
+                frm.ParentVariable = parentVariable;
+                frm.tbParentVariable.Text = parentVariable.title;
+                frm.tbVarLevel.Text = (parentVariable.level + 1).ToString();
+            }
             frm.tbVarName.Text = variableName;
             if (frm.ShowDialog() == DialogResult.OK)
             {
@@ -44,11 +47,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         {
             Variable varDef = new Variable();
 
-            varDef.CopyNamesFrom(ParentVariable, ParentVariable.level + 1);
+            if (ParentVariable != null)
+            {
+                varDef.CopyNamesFrom(ParentVariable, ParentVariable.level + 1);
+            }
             varDef.level = tbVarLevel.Text.AsInt();
             varDef.title = tbVarName.Text;
             varDef.SetNameAtLevel(varDef.level, tbVarName.Text);
-
 
             var request = new AddVariableRequest();
             request.data = varDef;
@@ -67,7 +72,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
             {
                 this.Variable = null;
                 this.DialogResult = DialogResult.None;
-                DebugToFile.Json(varDef);
                 MessageBox.Show("Kunne ikkje opprette variabel: " + res.d.exception.msg, "Feil");
             }
         }

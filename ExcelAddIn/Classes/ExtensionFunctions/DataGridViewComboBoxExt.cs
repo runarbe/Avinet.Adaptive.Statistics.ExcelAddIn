@@ -48,7 +48,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Add items to a DataGridViewComboBox (permits editing of valuesList once datasource is not bound)
         /// </summary>
-        /// <param title="pNameOfColumn">Name of the column in the DataGridView</param>
+        /// <param title="pNameOfColumn">Name of the columnIndex in the DataGridView</param>
         /// <param title="pComboBoxItems">A List<> of ComboBoxItem objects</param>
         /// <param title="pDisplayMember">The property of the ComboBoxItem to use for display</param>
         /// <param title="pValueMember">The property of the ComboBoxItem to use as value</param>

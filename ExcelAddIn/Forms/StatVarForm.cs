@@ -43,7 +43,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         }
 
         /// <summary>
-        /// Log message to log text area
+        /// WriteLine message to log text area
         /// </summary>
         /// <param title="pObj"></param>
         public void Log(Object pObj)
@@ -78,7 +78,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         /// <param title="e"></param>
         private void StatVarTreeForm_Load(object sender, EventArgs e)
         {
-            if (!ConfigProvider.IsConfigured())
+            if (!ConfigProvider.IsLoaded)
             {
                 ConfigProvider.Load();
             }
@@ -178,7 +178,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 
             if (selectedParentVariable == null)
             {
-                Log("Ikkje i stand til å lese 'foreldrevariabel'");
+                Log("Ikkje rowIndex stand til å lese 'foreldrevariabel'");
                 valid = false;
             }
 

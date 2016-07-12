@@ -200,7 +200,11 @@
     <Compile Include="Classes\Adaptive\AdaptiveException.cs" />
     <Compile Include="Classes\Adaptive\TreeNodeType.cs" />
     <Compile Include="Classes\ExtensionFunctions\DataGridViewCellExt.cs" />
-    <Compile Include="Classes\Utilities\DebugToFile.cs" />
+    <Compile Include="Classes\Types\NamedUploadFormState.cs" />
+    <Compile Include="Classes\Types\UploadFormState.cs" />
+    <Compile Include="Classes\Types\NamedVariable.cs" />
+    <Compile Include="Classes\Types\StatVarPropertiesState.cs" />
+    <Compile Include="Classes\Utilities\Dbg.cs" />
     <Compile Include="Classes\Adaptive\AddDataRequest.cs" />
     <Compile Include="Classes\Adaptive\GetKretstyperResponse.cs" />
     <Compile Include="Classes\Adaptive\ServiceOutput.cs" />
@@ -245,6 +249,12 @@
     <Compile Include="Forms\ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SaveUploadFormStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaveUploadFormStateForm.Designer.cs">
+      <DependentUpon>SaveUploadFormStateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UploadForm.StatVarGrid.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,6 +269,12 @@
     </Compile>
     <Compile Include="Classes\ExtensionFunctions\TreeNodeCollectionExts.cs" />
     <Compile Include="Classes\ExtensionFunctions\TreeNodeExts.cs" />
+    <Compile Include="Forms\VariableListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VariableListForm.Designer.cs">
+      <DependentUpon>VariableListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -271,6 +287,8 @@
     <Compile Include="Classes\Adaptive\AddVariableRequest.cs" />
     <Compile Include="Classes\Adaptive\GetVariableResponse.cs" />
     <Compile Include="Classes\Adaptive\Variable.cs" />
+    <None Include="app.config" />
+    <None Include="avinet.pfx" />
     <None Include="docs\Eksempeldata for programtillegg.xlsx" />
     <None Include="Resources\1465320688_Bricks1.png" />
     <None Include="Resources\1465320688_Bricks.png" />
@@ -290,8 +308,14 @@
     <EmbeddedResource Include="Forms\NewVariable.resx">
       <DependentUpon>NewVariable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaveUploadFormStateForm.resx">
+      <DependentUpon>SaveUploadFormStateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\StatVarForm.resx">
       <DependentUpon>StatVarForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VariableListForm.resx">
+      <DependentUpon>VariableListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -304,12 +328,10 @@
     <EmbeddedResource Include="Forms\UploadForm.resx">
       <DependentUpon>UploadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
     <Content Include="docs\brukarrettleiing-nynorsk.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="docs\brukarrettleiing-nynorsk.docx" />
-    <None Include="ExcelAddIn_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -349,9 +371,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\ColumnTypes\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -360,13 +380,13 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>ExcelAddIn_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>avinet.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>537B07AD32B0DE20723BBB344A75CF0CBD0AA228</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>D59F6ADFB59948B4239E0DC472A64C35E8BC9092</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
@@ -374,6 +394,17 @@
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ExcelAddIn Debug|AnyCPU'">
+    <OutputPath>bin\ExcelAddIn Debug\</OutputPath>
+    <DefineConstants>DEBUG;VSTO40;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debugte|AnyCPU'">
+    <OutputPath>bin\Debugte\</OutputPath>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

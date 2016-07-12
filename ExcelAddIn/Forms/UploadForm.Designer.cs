@@ -71,14 +71,18 @@
             this.cbColCType1 = new System.Windows.Forms.ComboBox();
             this.topToolBar = new System.Windows.Forms.ToolStrip();
             this.tss2 = new System.Windows.Forms.ToolStripSeparator();
-            this.cbSavedUploadSettings = new System.Windows.Forms.ToolStripComboBox();
-            this.btnSaveUploadSettings = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnValidate = new System.Windows.Forms.ToolStripButton();
+            this.cbSelectSavedFormState = new System.Windows.Forms.ToolStripComboBox();
+            this.btnSaveFormState = new System.Windows.Forms.ToolStripButton();
+            this.btnRetrieveOriginalData = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnUpload = new System.Windows.Forms.ToolStripButton();
             this.panelTopTopMenu = new System.Windows.Forms.MenuStrip();
             this.tsmiFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCloseWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.opplastingsoppsettToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eksporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuItemShowDocumentation = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,11 +94,7 @@
             this.dgvStatVarProperties = new System.Windows.Forms.DataGridView();
             this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatVarCol1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.StatVarCol2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.StatVarCol3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.StatVarCol4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.StatVarCol5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.SelectedStatVar = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.TimeUnit = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quarter = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -104,8 +104,10 @@
             this.tsStatVarPropertiesDGV = new System.Windows.Forms.ToolStrip();
             this.btnCopyStatVarAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCopyFirstTimeResolutionToAll = new System.Windows.Forms.ToolStripButton();
             this.btnCopyMeasurementUnitToAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCopyFirstKretstypeToAll = new System.Windows.Forms.ToolStripButton();
             this.btnAddEditVariables = new System.Windows.Forms.ToolStripButton();
             this.tabPageLogOutput = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
@@ -206,6 +208,7 @@
             this.cbStatDatumQuarter.Name = "cbStatDatumQuarter";
             this.cbStatDatumQuarter.Size = new System.Drawing.Size(259, 24);
             this.cbStatDatumQuarter.TabIndex = 1;
+            this.cbStatDatumQuarter.SelectedIndexChanged += new System.EventHandler(this.cbStatDatumQuarter_SelectedIndexChanged);
             // 
             // grpStatDatumSettings
             // 
@@ -298,10 +301,10 @@
             this.panelTopFill.Controls.Add(this.grpAutoDateSettings);
             this.panelTopFill.Controls.Add(this.grpCellContentTypeSettings);
             this.panelTopFill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTopFill.Location = new System.Drawing.Point(0, 67);
+            this.panelTopFill.Location = new System.Drawing.Point(0, 68);
             this.panelTopFill.Margin = new System.Windows.Forms.Padding(4);
             this.panelTopFill.Name = "panelTopFill";
-            this.panelTopFill.Size = new System.Drawing.Size(1181, 318);
+            this.panelTopFill.Size = new System.Drawing.Size(1181, 317);
             this.panelTopFill.TabIndex = 23;
             // 
             // grpStatAreaSettings
@@ -579,59 +582,69 @@
             // 
             this.topToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tss2,
-            this.cbSavedUploadSettings,
-            this.btnSaveUploadSettings,
-            this.toolStripSeparator1,
             this.btnValidate,
+            this.cbSelectSavedFormState,
+            this.btnSaveFormState,
+            this.btnRetrieveOriginalData,
+            this.toolStripSeparator1,
             this.btnUpload});
             this.topToolBar.Location = new System.Drawing.Point(0, 28);
             this.topToolBar.Name = "topToolBar";
             this.topToolBar.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.topToolBar.Size = new System.Drawing.Size(1181, 39);
+            this.topToolBar.Size = new System.Drawing.Size(1181, 40);
             this.topToolBar.TabIndex = 0;
             this.topToolBar.Text = "toolStripTop";
             // 
             // tss2
             // 
             this.tss2.Name = "tss2";
-            this.tss2.Size = new System.Drawing.Size(6, 27);
-            // 
-            // cbSavedUploadSettings
-            // 
-            this.cbSavedUploadSettings.Name = "cbSavedUploadSettings";
-            this.cbSavedUploadSettings.Size = new System.Drawing.Size(121, 28);
-            this.cbSavedUploadSettings.Visible = false;
-            // 
-            // btnSaveUploadSettings
-            // 
-            this.btnSaveUploadSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveUploadSettings.Image")));
-            this.btnSaveUploadSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSaveUploadSettings.Name = "btnSaveUploadSettings";
-            this.btnSaveUploadSettings.Size = new System.Drawing.Size(121, 24);
-            this.btnSaveUploadSettings.Text = "Lagre oppsett";
-            this.btnSaveUploadSettings.ToolTipText = "Lagre/oppdater oppsett";
-            this.btnSaveUploadSettings.Visible = false;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.tss2.Size = new System.Drawing.Size(6, 28);
             // 
             // btnValidate
             // 
             this.btnValidate.Image = ((System.Drawing.Image)(resources.GetObject("btnValidate.Image")));
             this.btnValidate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnValidate.Name = "btnValidate";
-            this.btnValidate.Size = new System.Drawing.Size(139, 24);
+            this.btnValidate.Size = new System.Drawing.Size(139, 25);
             this.btnValidate.Text = "Prøv innstillingar";
             this.btnValidate.Click += new System.EventHandler(this.btnTestParsing_Click);
+            // 
+            // cbSelectSavedFormState
+            // 
+            this.cbSelectSavedFormState.Name = "cbSelectSavedFormState";
+            this.cbSelectSavedFormState.Size = new System.Drawing.Size(121, 28);
+            // 
+            // btnSaveFormState
+            // 
+            this.btnSaveFormState.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveFormState.Image")));
+            this.btnSaveFormState.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSaveFormState.Name = "btnSaveFormState";
+            this.btnSaveFormState.Size = new System.Drawing.Size(121, 25);
+            this.btnSaveFormState.Text = "Lagre oppsett";
+            this.btnSaveFormState.ToolTipText = "Lagre/oppdater oppsett";
+            this.btnSaveFormState.Click += new System.EventHandler(this.btnSaveFormState_Click);
+            // 
+            // btnRetrieveOriginalData
+            // 
+            this.btnRetrieveOriginalData.Image = ((System.Drawing.Image)(resources.GetObject("btnRetrieveOriginalData.Image")));
+            this.btnRetrieveOriginalData.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRetrieveOriginalData.Name = "btnRetrieveOriginalData";
+            this.btnRetrieveOriginalData.Size = new System.Drawing.Size(146, 25);
+            this.btnRetrieveOriginalData.Text = "Hent originaldata";
+            this.btnRetrieveOriginalData.ToolTipText = "Lagre/oppdater oppsett";
+            this.btnRetrieveOriginalData.Click += new System.EventHandler(this.btnRetrieveOriginalData_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
             // 
             // btnUpload
             // 
             this.btnUpload.Image = ((System.Drawing.Image)(resources.GetObject("btnUpload.Image")));
             this.btnUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(201, 24);
+            this.btnUpload.Size = new System.Drawing.Size(201, 25);
             this.btnUpload.Text = "Last opp data til Adaptive";
             this.btnUpload.Click += new System.EventHandler(this.btnUploadToAdaptive_Click);
             // 
@@ -639,6 +652,7 @@
             // 
             this.panelTopTopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFileMenu,
+            this.opplastingsoppsettToolStripMenuItem,
             this.tsmiHelp});
             this.panelTopTopMenu.Location = new System.Drawing.Point(0, 0);
             this.panelTopTopMenu.Name = "panelTopTopMenu";
@@ -662,6 +676,29 @@
             this.tsmiCloseWindow.Size = new System.Drawing.Size(258, 24);
             this.tsmiCloseWindow.Text = "Steng opplastingsvindauge";
             this.tsmiCloseWindow.Click += new System.EventHandler(this.tsmiCloseWindow_Click);
+            // 
+            // opplastingsoppsettToolStripMenuItem
+            // 
+            this.opplastingsoppsettToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importerToolStripMenuItem,
+            this.eksporterToolStripMenuItem});
+            this.opplastingsoppsettToolStripMenuItem.Name = "opplastingsoppsettToolStripMenuItem";
+            this.opplastingsoppsettToolStripMenuItem.Size = new System.Drawing.Size(151, 24);
+            this.opplastingsoppsettToolStripMenuItem.Text = "Opplastingsoppsett";
+            // 
+            // importerToolStripMenuItem
+            // 
+            this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
+            this.importerToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.importerToolStripMenuItem.Text = "Importer...";
+            this.importerToolStripMenuItem.Click += new System.EventHandler(this.importerToolStripMenuItem_Click);
+            // 
+            // eksporterToolStripMenuItem
+            // 
+            this.eksporterToolStripMenuItem.Name = "eksporterToolStripMenuItem";
+            this.eksporterToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.eksporterToolStripMenuItem.Text = "Eksporter...";
+            this.eksporterToolStripMenuItem.Click += new System.EventHandler(this.eksporterToolStripMenuItem_Click);
             // 
             // tsmiHelp
             // 
@@ -759,11 +796,7 @@
             this.dgvStatVarProperties.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index,
             this.Title,
-            this.StatVarCol1,
-            this.StatVarCol2,
-            this.StatVarCol3,
-            this.StatVarCol4,
-            this.StatVarCol5,
+            this.SelectedStatVar,
             this.TimeUnit,
             this.Year,
             this.Quarter,
@@ -777,21 +810,22 @@
             this.dgvStatVarProperties.Name = "dgvStatVarProperties";
             this.dgvStatVarProperties.Size = new System.Drawing.Size(1165, 228);
             this.dgvStatVarProperties.TabIndex = 0;
+            this.dgvStatVarProperties.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnClickOnSelectedStatVarCell);
             this.dgvStatVarProperties.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvStatVarProperties_CurrentCellDirtyStateChanged);
-            this.dgvStatVarProperties.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvStatVarProperties_DataError);
+            this.dgvStatVarProperties.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.OnDataErrorInStatVarPropertiesGrid);
             // 
             // Index
             // 
-            this.Index.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Index.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Index.DataPropertyName = "Index";
             this.Index.FillWeight = 25F;
             this.Index.Frozen = true;
-            this.Index.HeaderText = "Index";
-            this.Index.MinimumWidth = 40;
+            this.Index.HeaderText = "#";
+            this.Index.MinimumWidth = 10;
             this.Index.Name = "Index";
             this.Index.ReadOnly = true;
             this.Index.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Index.Width = 47;
+            this.Index.Width = 22;
             // 
             // Title
             // 
@@ -804,63 +838,16 @@
             this.Title.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Title.Width = 45;
             // 
-            // StatVarCol1
+            // SelectedStatVar
             // 
-            this.StatVarCol1.AutoComplete = false;
-            this.StatVarCol1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.StatVarCol1.DataPropertyName = "StatVarCol1";
-            this.StatVarCol1.DropDownWidth = 350;
-            this.StatVarCol1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol1.HeaderText = "Stat.sv. nivå 1";
-            this.StatVarCol1.Items.AddRange(new object[] {
-            "",
-            "Folketal",
-            "Miljø",
-            "Trafikk",
-            "Næring"});
-            this.StatVarCol1.MinimumWidth = 100;
-            this.StatVarCol1.Name = "StatVarCol1";
-            this.StatVarCol1.Width = 103;
-            // 
-            // StatVarCol2
-            // 
-            this.StatVarCol2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.StatVarCol2.DataPropertyName = "StatVarCol2";
-            this.StatVarCol2.DropDownWidth = 350;
-            this.StatVarCol2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol2.HeaderText = "Nivå 2";
-            this.StatVarCol2.MinimumWidth = 100;
-            this.StatVarCol2.Name = "StatVarCol2";
-            // 
-            // StatVarCol3
-            // 
-            this.StatVarCol3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.StatVarCol3.DataPropertyName = "StatVarCol3";
-            this.StatVarCol3.DropDownWidth = 350;
-            this.StatVarCol3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol3.HeaderText = "Nivå 3";
-            this.StatVarCol3.MinimumWidth = 100;
-            this.StatVarCol3.Name = "StatVarCol3";
-            // 
-            // StatVarCol4
-            // 
-            this.StatVarCol4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.StatVarCol4.DataPropertyName = "StatVarCol4";
-            this.StatVarCol4.DropDownWidth = 350;
-            this.StatVarCol4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol4.HeaderText = "Nivå 4";
-            this.StatVarCol4.MinimumWidth = 100;
-            this.StatVarCol4.Name = "StatVarCol4";
-            // 
-            // StatVarCol5
-            // 
-            this.StatVarCol5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.StatVarCol5.DataPropertyName = "StatVarCol5";
-            this.StatVarCol5.DropDownWidth = 350;
-            this.StatVarCol5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatVarCol5.HeaderText = "Nivå 5";
-            this.StatVarCol5.MinimumWidth = 100;
-            this.StatVarCol5.Name = "StatVarCol5";
+            this.SelectedStatVar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.SelectedStatVar.DataPropertyName = "SelectedStatVar";
+            this.SelectedStatVar.DropDownWidth = 350;
+            this.SelectedStatVar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectedStatVar.HeaderText = "Statistikkvariabel";
+            this.SelectedStatVar.MinimumWidth = 100;
+            this.SelectedStatVar.Name = "SelectedStatVar";
+            this.SelectedStatVar.Width = 120;
             // 
             // TimeUnit
             // 
@@ -877,6 +864,7 @@
             // Year
             // 
             this.Year.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Year.DataPropertyName = "Year";
             this.Year.HeaderText = "År";
             this.Year.MinimumWidth = 50;
             this.Year.Name = "Year";
@@ -886,6 +874,7 @@
             // Quarter
             // 
             this.Quarter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Quarter.DataPropertyName = "Quarter";
             this.Quarter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Quarter.HeaderText = "Kvartal";
             this.Quarter.Items.AddRange(new object[] {
@@ -904,6 +893,7 @@
             // Month
             // 
             this.Month.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Month.DataPropertyName = "Month";
             this.Month.HeaderText = "Månad";
             this.Month.MinimumWidth = 50;
             this.Month.Name = "Month";
@@ -937,8 +927,10 @@
             this.tsStatVarPropertiesDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCopyStatVarAll,
             this.toolStripSeparator3,
+            this.btnCopyFirstTimeResolutionToAll,
             this.btnCopyMeasurementUnitToAll,
             this.toolStripSeparator2,
+            this.btnCopyFirstKretstypeToAll,
             this.btnAddEditVariables});
             this.tsStatVarPropertiesDGV.Location = new System.Drawing.Point(4, 4);
             this.tsStatVarPropertiesDGV.Name = "tsStatVarPropertiesDGV";
@@ -951,8 +943,8 @@
             this.btnCopyStatVarAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
             this.btnCopyStatVarAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyStatVarAll.Name = "btnCopyStatVarAll";
-            this.btnCopyStatVarAll.Size = new System.Drawing.Size(244, 24);
-            this.btnCopyStatVarAll.Text = "Kopier fyrste variabeltype til alle";
+            this.btnCopyStatVarAll.Size = new System.Drawing.Size(207, 24);
+            this.btnCopyStatVarAll.Text = "Fyrste variabeltype til alle...";
             this.btnCopyStatVarAll.Click += new System.EventHandler(this.btnCopyStatVarAll_Click);
             // 
             // toolStripSeparator3
@@ -960,20 +952,37 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
+            // btnCopyFirstTimeResolutionToAll
+            // 
+            this.btnCopyFirstTimeResolutionToAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
+            this.btnCopyFirstTimeResolutionToAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopyFirstTimeResolutionToAll.Name = "btnCopyFirstTimeResolutionToAll";
+            this.btnCopyFirstTimeResolutionToAll.Size = new System.Drawing.Size(223, 24);
+            this.btnCopyFirstTimeResolutionToAll.Text = "Fyrste tidsoppløysing til alle...";
+            this.btnCopyFirstTimeResolutionToAll.Click += new System.EventHandler(this.btnCopyFirstTimeResolutionToAll_Click);
+            // 
             // btnCopyMeasurementUnitToAll
             // 
             this.btnCopyMeasurementUnitToAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
             this.btnCopyMeasurementUnitToAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopyMeasurementUnitToAll.Name = "btnCopyMeasurementUnitToAll";
-            this.btnCopyMeasurementUnitToAll.Size = new System.Drawing.Size(236, 24);
-            this.btnCopyMeasurementUnitToAll.Text = "Kopier fyrste måleeining til alle";
-            this.btnCopyMeasurementUnitToAll.Visible = false;
+            this.btnCopyMeasurementUnitToAll.Size = new System.Drawing.Size(199, 24);
+            this.btnCopyMeasurementUnitToAll.Text = "Fyrste måleeining til alle...";
             this.btnCopyMeasurementUnitToAll.Click += new System.EventHandler(this.btnCopyFirstMeasurementUnitToAll_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // btnCopyFirstKretstypeToAll
+            // 
+            this.btnCopyFirstKretstypeToAll.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.copy16;
+            this.btnCopyFirstKretstypeToAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCopyFirstKretstypeToAll.Name = "btnCopyFirstKretstypeToAll";
+            this.btnCopyFirstKretstypeToAll.Size = new System.Drawing.Size(184, 24);
+            this.btnCopyFirstKretstypeToAll.Text = "Fyrste krinstype til alle...";
+            this.btnCopyFirstKretstypeToAll.Click += new System.EventHandler(this.btnCopyFirstKretstypeToAll_Click);
             // 
             // btnAddEditVariables
             // 
@@ -1169,7 +1178,7 @@
         private System.Windows.Forms.ToolStripButton btnCopyMeasurementUnitToAll;
         private System.Windows.Forms.Button btnSetStatAreaInfo;
         private System.Windows.Forms.ToolStripButton btnCopyStatVarAll;
-        private System.Windows.Forms.ToolStripButton btnSaveUploadSettings;
+        private System.Windows.Forms.ToolStripButton btnRetrieveOriginalData;
         private System.Windows.Forms.SaveFileDialog dlgSaveFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuItemShowDocumentation;
@@ -1178,20 +1187,22 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnAddEditVariables;
-        private System.Windows.Forms.ToolStripComboBox cbSavedUploadSettings;
+        private System.Windows.Forms.ToolStripComboBox cbSelectSavedFormState;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Index;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
-        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol2;
-        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol3;
-        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol4;
-        private System.Windows.Forms.DataGridViewComboBoxColumn StatVarCol5;
+        private System.Windows.Forms.DataGridViewComboBoxColumn SelectedStatVar;
         private System.Windows.Forms.DataGridViewComboBoxColumn TimeUnit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
         private System.Windows.Forms.DataGridViewComboBoxColumn Quarter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Month;
         private System.Windows.Forms.DataGridViewComboBoxColumn Unit;
         private System.Windows.Forms.DataGridViewComboBoxColumn Kretstype;
+        private System.Windows.Forms.ToolStripButton btnCopyFirstKretstypeToAll;
+        private System.Windows.Forms.ToolStripButton btnCopyFirstTimeResolutionToAll;
+        private System.Windows.Forms.ToolStripButton btnSaveFormState;
+        private System.Windows.Forms.ToolStripMenuItem opplastingsoppsettToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eksporterToolStripMenuItem;
     }
 }

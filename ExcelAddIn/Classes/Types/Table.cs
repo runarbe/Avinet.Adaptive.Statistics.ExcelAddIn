@@ -98,11 +98,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         }
 
         /// <summary>
-        /// Get a row or a column from the selection
+        /// Get a rowIndex or a columnIndex from the selection
         /// </summary>
         /// <param title="mSelection">An Excel range object</param>
-        /// <param title="pIndexNum">The 1-based index of the row or column to retrieve</param>
-        /// <param title="pDataOrientation">Whether to get a row or a column</param>
+        /// <param title="pIndexNum">The 1-based statVarIndex of the rowIndex or columnIndex to retrieve</param>
+        /// <param title="pDataOrientation">Whether to get a rowIndex or a columnIndex</param>
         /// <returns></returns>
         public static StatProps GetIndex(Object[,] mSelection, int pIndexNum, DataOrientation pDataOrientation)
         {
@@ -167,10 +167,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Create valuesList object to hold valuesList
             var mData = new Values3D();
 
-            // For each row
+            // For each rowIndex
             for (int mR = mFirstDataRow; mR <= pSelection.Rows.Count; mR++)
             {
-                // For each column
+                // For each columnIndex
                 for (int mC = mFirstDataCol; mC <= pSelection.Columns.Count; mC++)
                 {
                     AdaptiveValue adaptiveValue;
@@ -193,35 +193,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         var statVarProps = StatVarProperties.Get(pFrm.dgvStatVarProperties, mR, mC, pFrm.StatVarProperties.DataOrientation);
 
                         // Get/set the corresponding statvar
-                        if (statVarProps.StatVar1 != null)
+                        if (statVarProps.Variable != null)
                         {
-                            adaptiveValue.variable1 = statVarProps.StatVar1.var1;
+                            adaptiveValue.variable1 = statVarProps.Variable.var1;
+                            adaptiveValue.variable2 = statVarProps.Variable.var2;
+                            adaptiveValue.variable3 = statVarProps.Variable.var3;
+                            adaptiveValue.variable4 = statVarProps.Variable.var4;
+                            adaptiveValue.variable5 = statVarProps.Variable.var5;
 
-                            if (String.IsNullOrWhiteSpace(statVarProps.StatVar1.var1))
-                            {
-                                mMessages.AddMessage(MessagesNotices.StatVarParseUsingDefaultNotice);
-                            }
-
-                        }
-
-                        if (statVarProps.StatVar2 != null)
-                        {
-                            adaptiveValue.variable2 = statVarProps.StatVar2.var2;
-                        }
-
-                        if (statVarProps.StatVar3 != null)
-                        {
-                            adaptiveValue.variable3 = statVarProps.StatVar3.var3;
-                        }
-
-                        if (statVarProps.StatVar4 != null)
-                        {
-                            adaptiveValue.variable4 = statVarProps.StatVar4.var4;
-                        }
-
-                        if (statVarProps.StatVar5 != null)
-                        {
-                            adaptiveValue.variable5 = statVarProps.StatVar5.var5;
                         }
 
                         adaptiveValue.variable_id = statVarProps.fk_variable.AsNullableInt(-1);
@@ -230,7 +209,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
                         adaptiveValue.time_unit = statVarProps.time_unit;
 
-                        adaptiveValue.kretstype_id = statVarProps.fk_kretstype;
+                        adaptiveValue.kretstype_id = statVarProps.fk_kretstype.AsIntOrDefault(-1);
 
                         // Get/set the measurement unit
                         adaptiveValue.unit = statVarProps.Unit;

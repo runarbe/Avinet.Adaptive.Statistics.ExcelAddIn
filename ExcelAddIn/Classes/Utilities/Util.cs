@@ -77,7 +77,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Get the assembly information
             System.Reflection.Assembly assemblyInfo = System.Reflection.Assembly.GetExecutingAssembly();
 
-            // Location is where the assembly is run from 
+            // InstallDirectory is where the assembly is run from 
             string assemblyLocation = assemblyInfo.Location;
 
             // CodeBase is the location of the ClickOnce deployment files
@@ -156,13 +156,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         public static void SetComboBoxDS(ComboBox pComboBox, IEnumerable pDataSource, string pDisplayMember = "key", string pValueMember = "value")
         {
-            var tmp = pComboBox.SelectedValue;
-            pComboBox.DataSource = new BindingSource(pDataSource, null);
-            pComboBox.ValueMember = pValueMember;
-            pComboBox.DisplayMember = pDisplayMember;
-            if (tmp != null)
+            try
             {
-                pComboBox.SelectedValue = tmp;
+                var tmp = pComboBox.SelectedValue;
+                pComboBox.DataSource = new BindingSource(pDataSource, null);
+                pComboBox.ValueMember = pValueMember;
+                pComboBox.DisplayMember = pDisplayMember;
+                if (tmp != null)
+                {
+                    pComboBox.SelectedValue = tmp;
+                }
+            }
+            catch (Exception ex)
+            {
+                Dbg.WriteLine(ex.Message);
             }
         }
 

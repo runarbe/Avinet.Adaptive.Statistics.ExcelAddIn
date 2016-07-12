@@ -14,6 +14,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             return (int)s.AsNullableInt(defaultValue);
         }
 
+        public static int AsIntOrDefault(this String s, int defaultValue = -1)
+        {
+            int i;
+            if (int.TryParse(s, out i)) {
+                return i;
+            } else {
+                return defaultValue;
+            }
+        }
 
         public static int? AsNullableInt(this String s, int? defaultValue = null)
         {

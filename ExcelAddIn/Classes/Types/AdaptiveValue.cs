@@ -87,9 +87,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public int? variable_id;
 
         /// <summary>
-        /// Id of kretstype, e.g. uuid of "kommune", uuid of "fylke" etc.
+        /// Id of kretstype, e.g. id of "kommune", id of "fylke" etc. -1 = ingen krets
         /// </summary>
-        public string kretstype_id = null;
+        public int kretstype_id = -1;
 
         /// <summary>
         /// Keyword to define the time-resolution of the dataset, one of Year, Quarter or Month
@@ -111,12 +111,27 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             if (variable1.IsNullOrEmpty() || variable2.IsNullOrEmpty() || variable3.IsNullOrEmpty())
             {
-                msg.Add("Minst tre variabelnivå må spesifiserast");
+                msg.Add("Det må veljast ein variabel på nivå 3-5 i hierarkiet");
             }
 
-            if (kretstype_id.IsNullOrEmpty())
+            if (kretstype_id > -1 && !krets_id.HasValue)
             {
-                msg.Add("Kretstype ID er ikkje spesifisert");
+                msg.Add("Krets ID ikkje spesifisert");
+            }
+
+            if (time_unit == "Year" && !year.HasValue)
+            {
+                msg.Add("Valt tidsoppløysing er år men år er ikkje spesifisert");
+            }
+
+            if (time_unit == "Quarter" && (!year.HasValue || !quarter.HasValue))
+            {
+                msg.Add("Valt tidsoppløysing er kvartal men anten år eller kvartal er ikkje spesifisert");
+            }
+
+            if (time_unit == "Month" && (!year.HasValue || !month.HasValue))
+            {
+                msg.Add("Valt tidsoppløysing er månad men anten år eller månad er ikkje spesifisert");
             }
 
             var validationResult = new ValidationResult();
@@ -128,7 +143,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             else
             {
                 validationResult.IsValid = false;
-                validationResult.Message = String.Join(", ", msg);
+                validationResult.Message = String.Join("; ", msg);
             }
 
             return validationResult;
@@ -137,30 +152,37 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         public string LogValidate()
         {
-            var mStringFormat = "Status: {16} -- kretstype_id: {17}, krets_id:{0}, krets_name:{1}, region:{2}, year:{3}, quarter:{4}, month:{5}, var1:{6}, var2:{7}, var3:{8}, var4:{9}, var5:{10}, value:{11}, unit:{12}, variable_id{13}, fk_variable:{14}, time_unit:{15}";
+            var mStringFormat = "Status: {16}: {18}\n\tkretstype_id: {17}\n\tkrets_id: {0}\n\tkrets_name: {1}\n\tregion: {2}\n\tyear: {3}\n\tquarter: {4}\n\tmonth: {5}\n\tvar1: {6}\n\tvar2: {7}\n\tvar3: {8}\n\tvar4: {9}\n\tvar5: {10}\n\tvalue: {11}\n\tunit: {12}\n\tvariable_id: {13}\n\tfk_variable: {14}\n\ttime_unit:{15}\n---";
 
             var checkValid = this.Validate();
-
-            return String.Format(mStringFormat,
-                this.krets_id,
-                this.krets_name,
-                this.region,
-                this.year,
-                this.quarter,
-                this.month,
-                this.variable1,
-                this.variable2,
-                this.variable3,
-                this.variable4,
-                this.variable5,
-                this.value,
-                this.unit,
-                this.variable_id,
-                this.fk_variable,
-                this.time_unit,
-                checkValid.IsValid == true ? "OK" : "Error:" + checkValid.Message,
-                this.kretstype_id
-                );
+            if (checkValid.IsValid)
+            {
+                return "Status: OK - " + ToCSV();
+            }
+            else
+            {
+                return String.Format(mStringFormat,
+                    this.krets_id,
+                    this.krets_name,
+                    this.region,
+                    this.year,
+                    this.quarter,
+                    this.month,
+                    this.variable1,
+                    this.variable2,
+                    this.variable3,
+                    this.variable4,
+                    this.variable5,
+                    this.value,
+                    this.unit,
+                    this.variable_id,
+                    this.fk_variable,
+                    this.time_unit,
+                    checkValid.IsValid == true ? "OK" : "Feil",
+                    this.kretstype_id,
+                    checkValid.Message
+                    );
+            }
         }
         public static string GetCSVHeader()
         {
@@ -169,9 +191,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         public string ToCSV()
         {
-            var mStringFormat = "\"{13}\";\"{0}\";\"{1}\";\"{2}\";\"{3}\";\"{4}\";\"{5}\";\"{6}\";\"{7}\";\"{8}\";\"{9}\";\"{10}\";{11};\"{12}\"";
+            var mStringFormat = "{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14}";
 
             return String.Format(mStringFormat,
+                this.fk_variable,
+                this.kretstype_id,
                 this.krets_id,
                 this.krets_name,
                 this.region,
@@ -184,8 +208,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 this.variable4,
                 this.variable5,
                 this.value,
-                this.unit,
-                this.fk_variable);
+                this.unit
+            );
         }
 
     }

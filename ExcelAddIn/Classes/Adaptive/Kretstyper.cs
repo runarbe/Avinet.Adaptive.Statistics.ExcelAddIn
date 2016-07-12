@@ -7,7 +7,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class Kretstyper
     {
-        public string uuid { get; set; }
+        public string id { get; set; }
 
         public string name { get; set; }
 

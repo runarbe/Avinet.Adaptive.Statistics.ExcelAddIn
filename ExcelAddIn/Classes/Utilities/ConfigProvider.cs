@@ -8,13 +8,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     /// <summary>
     /// Static class that holds configuration data including variable definitions and code lists
     /// </summary>
-    public class ConfigProvider
+    public static class ConfigProvider
     {
         public static IEnumerable<Kretstyper> kretstyper { get; set; }
         public static Dictionary<string, string> units { get; set; }
         public static Dictionary<string, string> timeUnits { get; set; }
         public static IEnumerable<Variable> variables { get; set; }
         public static IEnumerable<StatTreeNode> variableTree { get; set; }
+        public static IEnumerable<NamedUploadFormState> savedUploadFormStates { get; set; }
+        public static bool IsLoaded { get; set; }
+
+        static ConfigProvider()
+        {
+            IsLoaded = false;
+        }
 
         public static bool IsConfigured()
         {
@@ -25,7 +32,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 && Properties.Settings.Default.adaptivePwd.IsNotNullOrEmpty())
             {
                 return true;
-            } else {
+            }
+            else
+            {
                 MessageBox.Show("Kunne ikkje kontakte tenaren. Sjekk at du er tilkopla internett og at du har oppgjeve rett addresse til Adaptive.", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -72,30 +81,32 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             return unitValue;
         }
-        
+
         /// <summary>
         /// GetKretstypeByValue
         /// </summary>
-        /// <param title="uuid"></param>
+        /// <param title="id"></param>
         /// <returns></returns>
-        public static string GetKretstypeByValue(string uuid) {
+        public static string GetKretstypeByValue(string id)
+        {
             if (ConfigProvider.kretstyper != null)
             {
                 foreach (var kvp in ConfigProvider.kretstyper)
                 {
-                    if (kvp.uuid == uuid)
+                    if (kvp.id == id)
                     {
                         return kvp.name;
                     }
                 }
             }
-            return uuid;
+            return id;
         }
-        
+
         /// <summary>
         /// Reload configuration from server
         /// </summary>
-        public static void Reload() {
+        public static void Reload()
+        {
             Load();
         }
 
@@ -105,42 +116,31 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             LoadVariables();
         }
 
-        public static TreeNodeCollection GetChildNodes(Variable parentVariable)
-        {
-            var root = new TreeNode("root");
-
-            if (parentVariable == null || variables == null)
-            {
-                //DebugToFile.Log("No parent variable");
-                return root.Nodes;
-            }
-
-            var children = from ch in variables where
-                           ch.parent_id== parentVariable.id
-                           select ch.AsStatTreeNode();
-            root.Nodes.AddRange(children.ToArray());
-            return root.Nodes;
-        }
-
         public static void LoadVariables()
         {
-            AdaptiveClient.GetVariable();
+            if (AdaptiveClient.GetVariable() != null)
+            {
+                IsLoaded = true;
+            };
         }
 
         /// <summary>
         /// Load configuration from server
         /// </summary>
-        public static void Load() {
+        public static void Load()
+        {
             try
             {
                 kretstyper = AdaptiveClient.GetKretstyper();
                 units = AdaptiveClient.GetUnits();
                 timeUnits = AdaptiveClient.GetTimeUnits();
+                UploadFormState.LoadSavedStates();
                 ConfigProvider.LoadVariables();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Kunne ikkje laste kodelister og variablar frå Adaptive. Sjekk tilkoplingsinnstillingar", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Kunne ikkje laste kodelister, variablar eller laste lagra oppsett frå Adaptive. Sjekk tilkoplingsinnstillingar", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Dbg.WriteLine(ex.Message, ex);
             }
         }
 

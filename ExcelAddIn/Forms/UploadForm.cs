@@ -61,12 +61,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public List<ComboBox> CellContentTypeComboBoxes = new List<ComboBox>();
 
         /// <summary>
-        /// The application configuration, read from Adaptive, cached locally
-        /// TODO: Add remote storage
-        /// </summary>
-        public ConfigProvider AdaptiveConf = null;
-
-        /// <summary>
         /// Constructor
         /// </summary>
         public UploadForm()
@@ -81,12 +75,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <param title="e"></param>
         private void UploadForm_Load(object sender, EventArgs e)
         {
-            if (!ConfigProvider.IsConfigured())
+            if (!ConfigProvider.IsLoaded)
             {
                 ConfigProvider.Load();
             }
 
-            this.Log("Detailed log messages may be found here: " + DebugToFile.LogFileName);
+            this.Log("Detailed log messages may be found here: " + ThisAddIn.LogFile);
 
             // Set StatVar DataGridView to *NOT* auto-generate columns from datasource
             dgvStatVarProperties.AutoGenerateColumns = false;
@@ -95,7 +89,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             dgvStatVarProperties.EditMode = DataGridViewEditMode.EditOnEnter;
 
             // Attach event handlers to StatVar DataGridView to permit editing of currentCell valuesList
-            dgvStatVarProperties.EditingControlShowing += dgvManualStatVarProps_EditingControlShowing;
+            dgvStatVarProperties.EditingControlShowing += OnShowEditingControlsInStatVarPropertiesGrid;
 
             // Create an object to hold the CellContentTypes combos (in a specific order)
             CellContentTypeComboBoxes.AddRange(new[] {
@@ -145,20 +139,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         }
 
         /// <summary>
-        /// Determine how many rows and cols to offset the selection to get *only* the valuesList cells, omitting any column
-        /// or row headers
+        /// Determine how many rows and cols to offset the selection to get *only* the valuesList cells, omitting any columnIndex
+        /// or rowIndex headers
         /// </summary>
         /// <param title="pFirstDataRow"></param>
         /// <param title="pFirstDataCol"></param>
         public void GetRowColOffset(ref int pFirstDataRow, ref int pFirstDataCol)
         {
-            // Increment if row types are set
+            // Increment if rowIndex types are set
             if (Util.GetComboBoxSelectedValueString(this.cbRowCType1) != CellContentTypes.Values) pFirstDataRow = 2;
             if (Util.GetComboBoxSelectedValueString(this.cbRowCType2) != CellContentTypes.Values) pFirstDataRow = 3;
             if (Util.GetComboBoxSelectedValueString(this.cbRowCType3) != CellContentTypes.Values) pFirstDataRow = 4;
             if (Util.GetComboBoxSelectedValueString(this.cbRowCType4) != CellContentTypes.Values) pFirstDataRow = 5;
 
-            // Increment if column types are set
+            // Increment if columnIndex types are set
             if (Util.GetComboBoxSelectedValueString(this.cbColCType1) != CellContentTypes.Values) pFirstDataCol = 2;
             if (Util.GetComboBoxSelectedValueString(this.cbColCType2) != CellContentTypes.Values) pFirstDataCol = 3;
             if (Util.GetComboBoxSelectedValueString(this.cbColCType3) != CellContentTypes.Values) pFirstDataCol = 4;
@@ -335,7 +329,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // For each of the comboboxes that may contain values
             foreach (ComboBox mComboBox in this.CellContentTypeComboBoxes)
             {
-                // Get the current contents of col/row
+                // Get the current contents of col/rowIndex
                 var mCellContentType = Util.GetComboBoxSelectedValueString(mComboBox);
 
                 // For all but the current control
@@ -360,8 +354,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             // Based on the new value of the changed CB, do something
             SetStatVarProperties(mNewCellContentType, pIndex, pDataOrientation);
-
-            DebugToFile.Json(mAssignedCellContentTypes);
 
             // Set conditional visibility of manual statdatum settings
             if (mAssignedCellContentTypes.Contains(CellContentTypes.StatDatum) && mAssignedCellContentTypes.Contains(CellContentTypes.StatVars))
@@ -624,18 +616,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         private void btnCopyFirstMeasurementUnitToAll_Click(object sender, EventArgs e)
         {
             int i = 1;
-            DataGridViewComboBoxCell firstMeasurementUnitCell = null;
+            DataGridViewComboBoxCell firstCell = null;
             foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
             {
-                var currentMeasurementUnitCell = currentRow.Cells["unit"] as DataGridViewComboBoxCell;
+                var currentMeasurementUnitCell = currentRow.Cells["Unit"] as DataGridViewComboBoxCell;
 
                 if (i == 1)
                 {
-                    firstMeasurementUnitCell = currentRow.Cells["unit"] as DataGridViewComboBoxCell;
+                    firstCell = currentRow.Cells["Unit"] as DataGridViewComboBoxCell;
                 }
                 else
                 {
-                    currentMeasurementUnitCell.CopyValueFrom(firstMeasurementUnitCell);
+                    currentMeasurementUnitCell.CopyValueFrom(firstCell);
                 }
                 i++;
             }
@@ -646,6 +638,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnSetStatAreaInfo_Click(object sender, EventArgs e)
         {
+            string selectedKretstype;
+
+            if (cbStatUnitType.SelectedValue != null)
+            {
+                selectedKretstype = cbStatUnitType.SelectedValue.ToString();
+            }
+
             this.ParseSelectionWithCurrentSettings();
         }
 
@@ -653,32 +652,20 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
             int i = 1;
 
-            DataGridViewComboBoxCell firstVar1 = null;
-            DataGridViewComboBoxCell firstVar2 = null;
-            DataGridViewComboBoxCell firstVar3 = null;
-            DataGridViewComboBoxCell firstVar4 = null;
-            DataGridViewComboBoxCell firstVar5 = null;
+            DataGridViewComboBoxCell firstVariable = null;
             DataGridViewComboBoxCell firstUnit = null;
             DataGridViewComboBoxCell firstTimeUnit = null;
             DataGridViewComboBoxCell firstKretstype = null;
 
             foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
             {
-                var currentVar1 = currentRow.Cells["StatVarCol1"] as DataGridViewComboBoxCell;
-                var currentVar2 = currentRow.Cells["StatVarCol2"] as DataGridViewComboBoxCell;
-                var currentVar3 = currentRow.Cells["StatVarCol3"] as DataGridViewComboBoxCell;
-                var currentVar4 = currentRow.Cells["StatVarCol4"] as DataGridViewComboBoxCell;
-                var currentVar5 = currentRow.Cells["StatVarCol5"] as DataGridViewComboBoxCell;
+                var currentVar3 = currentRow.Cells["SelectedStatVar"] as DataGridViewComboBoxCell;
                 var currentUnit = currentRow.Cells["Unit"] as DataGridViewComboBoxCell;
                 var currentTimeUnit = currentRow.Cells["TimeUnit"] as DataGridViewComboBoxCell;
                 var currentKretstype = currentRow.Cells["Kretstype"] as DataGridViewComboBoxCell;
                 if (i == 1)
                 {
-                    firstVar1 = currentVar1;
-                    firstVar2 = currentVar2;
-                    firstVar3 = currentVar3;
-                    firstVar4 = currentVar4;
-                    firstVar5 = currentVar5;
+                    firstVariable = currentVar3;
                     firstUnit = currentUnit;
                     firstTimeUnit = currentTimeUnit;
                     firstKretstype = currentKretstype;
@@ -686,11 +673,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 }
                 else
                 {
-                    currentVar1.CopyValueFrom(firstVar1);
-                    currentVar2.CopyValueFrom(firstVar2);
-                    currentVar3.CopyValueFrom(firstVar3);
-                    currentVar4.CopyValueFrom(firstVar4);
-                    currentVar5.CopyValueFrom(firstVar5);
+                    currentVar3.CopyValueFrom(firstVariable);
                     currentUnit.CopyValueFrom(firstUnit);
                     currentTimeUnit.CopyValueFrom(firstTimeUnit);
                     currentKretstype.CopyValueFrom(firstKretstype);
@@ -734,7 +717,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
             else
             {
-                this.Log("Det er feil i dei gjeldande innstillingane. Trykk 'Prøv innstillingar' for å finne ut kva som kan vere gale.");
+                this.Log("Det er feil rowIndex dei gjeldande innstillingane. Trykk 'Prøv innstillingar' for å finne ut kva som kan vere gale.");
             }
             this.Log("Ferdig");
 
@@ -746,6 +729,95 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             frm.ShowDialog();
         }
 
+        private void btnCopyFirstKretstypeToAll_Click(object sender, EventArgs e)
+        {
+            int i = 1;
+            DataGridViewComboBoxCell firstMeasurementUnitCell = null;
+            foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
+            {
+                var currentMeasurementUnitCell = currentRow.Cells["Kretstype"] as DataGridViewComboBoxCell;
+
+                if (i == 1)
+                {
+                    firstMeasurementUnitCell = currentRow.Cells["Kretstype"] as DataGridViewComboBoxCell;
+                }
+                else
+                {
+                    currentMeasurementUnitCell.CopyValueFrom(firstMeasurementUnitCell);
+                }
+                i++;
+            }
+
+            this.ParseSelectionWithCurrentSettings();
+        }
+
+        private void btnCopyFirstTimeResolutionToAll_Click(object sender, EventArgs e)
+        {
+            int i = 1;
+            DataGridViewComboBoxCell firstMeasurementUnitCell = null;
+            foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
+            {
+                var currentMeasurementUnitCell = currentRow.Cells["TimeUnit"] as DataGridViewComboBoxCell;
+
+                if (i == 1)
+                {
+                    firstMeasurementUnitCell = currentRow.Cells["TimeUnit"] as DataGridViewComboBoxCell;
+                }
+                else
+                {
+                    currentMeasurementUnitCell.CopyValueFrom(firstMeasurementUnitCell);
+                }
+                i++;
+            }
+
+            this.ParseSelectionWithCurrentSettings();
+        }
+
+        private void cbStatDatumQuarter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRetrieveOriginalData_Click(object sender, EventArgs e)
+        {
+            var formState = cbSelectSavedFormState.SelectedItem as UploadFormState;
+            if (formState == null) return;
+            formState.RestoreSourceData();
+        }
+
+        private void btnSaveFormState_Click(object sender, EventArgs e)
+        {
+            var state = UploadFormState.GetCurrentState(this);
+            state = SaveUploadFormStateForm.GetNameAndCategory(state, cbSelectSavedFormState.Text);
+            if (state != null)
+            {
+                UploadFormState.SaveState(state);
+                ReloadStateComboBoxDataSource(true);
+            }
+        }
+
+        private void ReloadStateComboBoxDataSource(bool refresh = false)
+        {
+            if (refresh)
+            {
+                UploadFormState.LoadSavedStates();
+            }
+
+            // Populate selected form state combobox
+            cbSelectSavedFormState.ComboBox.DataSource = ConfigProvider.savedUploadFormStates.ToList();
+            cbSelectSavedFormState.ComboBox.DisplayMember = "Name";
+            cbSelectSavedFormState.ComboBox.ValueMember = "State";
+        }
+
+        private void importerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadFormState.ImportFromFile();
+        }
+
+        private void eksporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadFormState.ExportToFile();
+        }
 
     }
 }

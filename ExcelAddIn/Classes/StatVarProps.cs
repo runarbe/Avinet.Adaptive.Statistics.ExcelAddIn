@@ -4,38 +4,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
     public class StatVarProperties
     {
-        public Variable StatVar1;
-        public Variable StatVar2;
-        public Variable StatVar3;
-        public Variable StatVar4;
-        public Variable StatVar5;
+        public Variable Variable;
         public string Unit;
         public string Year;
         public string Quarter;
         public string Month;
-        public string Day;
         public string fk_variable;
         public string time_unit;
         public string fk_kretstype;
-
-        public static Variable GetVariable(DataGridViewCell cell)
-        {
-            if (cell.Value == null)
-            {
-                return null;
-            }
-
-            if (cell.Value.GetType() == typeof(Variable))
-            {
-                var v = (Variable)cell.Value;
-                if (cell.ColumnIndex.Between(2, 7))
-                {
-                    return v;
-                }
-            }
-
-            return null;
-        }
 
         public static StatVarProperties Get(DataGridView dgvStatVarProperties, int pRow, int pCol, DataOrientation pDataOrientation)
         {
@@ -52,68 +28,43 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             var mStatVarProperties = new StatVarProperties();
 
-            for (int i = 0, j = dgvStatVarProperties.RowCount; i < j; i++)
+            for (int rowIndex = 0, maxRows = dgvStatVarProperties.RowCount; rowIndex < maxRows; rowIndex++)
             {
-                int mIndex = (int)dgvStatVarProperties["Index", i].Value;
+                int statVarIndex = (int)dgvStatVarProperties["Index", rowIndex].Value;
 
-                if (mIndex == mStatVarIndex)
+                if (statVarIndex == mStatVarIndex)
                 {
-                    for (int f = 0; f < dgvStatVarProperties.ColumnCount; f++)
+                    for (int columnIndex = 0; columnIndex < dgvStatVarProperties.ColumnCount; columnIndex++)
                     {
-                        DataGridViewColumn mDGVC = dgvStatVarProperties.Columns[f];
+                        DataGridViewColumn mDGVC = dgvStatVarProperties.Columns[columnIndex];
 
                         switch (mDGVC.DataPropertyName)
                         {
-                            case "StatVarCol1":
-                                mStatVarProperties.StatVar1 = GetVariable(dgvStatVarProperties[f, i]);
-                                if (mStatVarProperties.StatVar1 != null)
+                            case "SelectedStatVar":
+                                Variable mVariable = dgvStatVarProperties[columnIndex, rowIndex].AsComboBox().Value as Variable;
+                                if (mVariable != null)
                                 {
-                                    mStatVarProperties.fk_variable = mStatVarProperties.StatVar1.id.ToString();
-                                }
-                                break;
-                            case "StatVarCol2":
-                                mStatVarProperties.StatVar2 = GetVariable(dgvStatVarProperties[f, i]);
-                                if (mStatVarProperties.StatVar2 != null)
-                                {
-                                    mStatVarProperties.fk_variable = mStatVarProperties.StatVar2.id.ToString();
-                                } break;
-                            case "StatVarCol3":
-                                mStatVarProperties.StatVar3 = GetVariable(dgvStatVarProperties[f, i]);
-                                if (mStatVarProperties.StatVar3 != null)
-                                {
-                                    mStatVarProperties.fk_variable = mStatVarProperties.StatVar3.id.ToString();
-                                } break;
-                            case "StatVarCol4":
-                                mStatVarProperties.StatVar4 = GetVariable(dgvStatVarProperties[f, i]);
-                                if (mStatVarProperties.StatVar4 != null)
-                                {
-                                    mStatVarProperties.fk_variable = mStatVarProperties.StatVar4.id.ToString();
-                                }
-                                break;
-                            case "StatVarCol5":
-                                mStatVarProperties.StatVar5 = GetVariable(dgvStatVarProperties[f, i]);
-                                if (mStatVarProperties.StatVar5 != null)
-                                {
-                                    mStatVarProperties.fk_variable = mStatVarProperties.StatVar5.id.ToString();
+                                    mStatVarProperties.fk_variable = mVariable.id.ToString();
+                                    mStatVarProperties.Variable = mVariable;
                                 }
                                 break;
                             case "Kretstype":
-                                mStatVarProperties.fk_kretstype = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
+                                mStatVarProperties.fk_kretstype = Util.CheckNullOrEmpty(dgvStatVarProperties[columnIndex, rowIndex].Value);
                                 break;
                             case "Year":
-                                mStatVarProperties.Year = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
+                                mStatVarProperties.Year = Table.GetNullOrDoubleString(dgvStatVarProperties[columnIndex, rowIndex].Value);
                                 break;
                             case "Quarter":
-                                mStatVarProperties.Quarter = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
+                                mStatVarProperties.Quarter = Table.GetNullOrDoubleString(dgvStatVarProperties[columnIndex, rowIndex].Value);
                                 break;
                             case "Month":
-                                mStatVarProperties.Month = Table.GetNullOrDoubleString(dgvStatVarProperties[f, i].Value);
+                                mStatVarProperties.Month = Table.GetNullOrDoubleString(dgvStatVarProperties[columnIndex, rowIndex].Value);
                                 break;
                             case "Unit":
-                                mStatVarProperties.Unit = dgvStatVarProperties[f, i].Value.GetNullEmptyOrString();
+                                mStatVarProperties.Unit = dgvStatVarProperties[columnIndex, rowIndex].Value.GetNullEmptyOrString();
                                 break;
                             case "TimeUnit":
-                                mStatVarProperties.time_unit = Util.CheckNullOrEmpty(dgvStatVarProperties[f, i].Value);
+                                mStatVarProperties.time_unit = Util.CheckNullOrEmpty(dgvStatVarProperties[columnIndex, rowIndex].Value);
                                 break;
                         }
 

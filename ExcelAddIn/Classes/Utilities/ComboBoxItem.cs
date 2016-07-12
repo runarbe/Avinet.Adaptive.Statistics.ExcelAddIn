@@ -8,7 +8,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     public class ComboBoxItem : IComparable
     {
         public string key { get; set; }
-        public string value { get; set; }
+        public object value { get; set; }
+
+        public ComboBoxItem()
+        {
+        }
 
         public ComboBoxItem(string pKey, string pValue = null)
         {
