@@ -131,9 +131,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         [Obsolete]
         /*public static void CheckAllDataGridView(DataGridView mDgv, string mColName)
         {
-            foreach (DataGridViewRow mRow in mDgv.Rows)
+            foreach (DataGridViewRow currentRow in mDgv.Rows)
             {
-                var mCell = mRow.Cells[mColName] as DataGridViewCheckBoxCell;
+                sv mCell = currentRow.Cells[mColName] as DataGridViewCheckBoxCell;
                 Export.CheckDgvCell(mCell);
             }
         }*/
@@ -171,8 +171,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <param name="pForm"></param>
         public static CsvFile Do(DataGridView pDataGridView, Values3D pValues3D, UploadForm pForm)
         {
-            // Create a new CSV file
-            var mCsv = new CsvFile();
+            // Create a new CSV f
+            sv mCsv = new CsvFile();
 
             // For each field in the data grid view
             foreach (DataGridViewRow mFieldProperties in pDataGridView.Rows)
@@ -191,10 +191,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 string mStatUnitType = Export.GetSelVal(pForm.cbStatUnitType);
 
                 string mTitle = Export.GetDGVVal(mFieldProperties, "Title");
-                string mMeasurementUnit = Export.GetDGVVal(mFieldProperties, "MeasurementUnit");
-                string mYear = Export.GetDGVVal(mFieldProperties, "Year");
-                string mQuarter = Export.GetDGVVal(mFieldProperties, "Quarter");
-                string mMonth = Export.GetDGVVal(mFieldProperties, "Month");
+                string firstMeasurementUnitCell = Export.GetDGVVal(mFieldProperties, "enhet");
+                string mYear = Export.GetDGVVal(mFieldProperties, "ar");
+                string mQuarter = Export.GetDGVVal(mFieldProperties, "kvartal");
+                string mMonth = Export.GetDGVVal(mFieldProperties, "mnd");
                 string mDay = Export.GetDGVVal(mFieldProperties, "Day");
                 string mStatVar1 = Export.GetDGVVal(mFieldProperties, "StatVarCol1");
                 string mStatVar2 = Export.GetDGVVal(mFieldProperties, "StatVarCol2");
@@ -207,10 +207,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 {
                     // If the 
                     double mUserEnteredValue;
-                    if (double.TryParse(mRow2.Value[mFieldPropertyIndex].Value, out mUserEnteredValue))
+                    if (double.TryParse(mRow2.verdi[mFieldPropertyIndex].verdi, out mUserEnteredValue))
                     {
-                        // Create a new line for the CSV file
-                        var mLine = new CsvLine();
+                        // Create a new line for the CSV f
+                        sv mLine = new CsvLine();
 
                         mLine.krets_name = "";
 
@@ -223,7 +223,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         mLine.krets_id = "1";
 
                         // Set the measurement unit used
-                        mLine.unit = mMeasurementUnit;
+                        mLine.unit = firstMeasurementUnitCell;
 
                         // Set time metadata
                         mLine.year = mYear;
@@ -239,7 +239,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         mLine.variable3 = mStatVar3;
                         mLine.variable2 = mStatVar2;
                         mLine.variable1 = mStatVar1;
-                        // Add the line to the CSV file
+                        // Add the line to the CSV f
                         mCsv.Add(mLine);
                     }
 

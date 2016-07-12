@@ -29,7 +29,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
             Properties.Settings.Default.Save();
 
-            ConfigList mConfig;
+            ConfigProvider mConfig;
             if (null != (mConfig = WsDataSources.DownloadAdaptiveConfig(true)))
             {
                 this.Close();

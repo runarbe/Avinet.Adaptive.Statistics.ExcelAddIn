@@ -8,6 +8,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.Web.Script.Serialization;
 using System.IO;
+using Avinet.Adaptive.Statistics.ExcelAddIn.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
@@ -85,7 +86,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             var mOutput = json.Serialize(settings1);
 
             var mSave = new SaveFileDialog();
-            mSave.Title = "Please select an output file";
+            mSave.Title = "Please select an output f";
             mSave.FileName = "SavedImportSettings.json";
             mSave.Filter = "SavedImportSettings|*.json";
 
@@ -94,6 +95,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 return;
             }
             File.WriteAllText(mSave.FileName, mOutput);
+
+        }
+
+        private void btnEditStatVar_Click(object sender, RibbonControlEventArgs e)
+        {
+            var frm = new StatVarForm();
+            frm.ShowDialog();
 
         }
 

@@ -40,8 +40,9 @@
             this.grpTools = this.Factory.CreateRibbonGroup();
             this.btnConfig = this.Factory.CreateRibbonButton();
             this.btnUpload = this.Factory.CreateRibbonButton();
-            this.btnSaveImportSettings = this.Factory.CreateRibbonButton();
             this.btnMergeSavedImportSettings = this.Factory.CreateRibbonButton();
+            this.btnSaveImportSettings = this.Factory.CreateRibbonButton();
+            this.btnEditStatVar = this.Factory.CreateRibbonButton();
             this.grpInfo = this.Factory.CreateRibbonGroup();
             this.btnHelp = this.Factory.CreateRibbonButton();
             this.btnAbout = this.Factory.CreateRibbonButton();
@@ -67,8 +68,9 @@
             // 
             this.grpTools.Items.Add(this.btnConfig);
             this.grpTools.Items.Add(this.btnUpload);
-            this.grpTools.Items.Add(this.btnSaveImportSettings);
             this.grpTools.Items.Add(this.btnMergeSavedImportSettings);
+            this.grpTools.Items.Add(this.btnSaveImportSettings);
+            this.grpTools.Items.Add(this.btnEditStatVar);
             this.grpTools.Label = "Verkty";
             this.grpTools.Name = "grpTools";
             // 
@@ -90,15 +92,6 @@
             this.btnUpload.ShowImage = true;
             this.btnUpload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnUpload_Click);
             // 
-            // btnSaveImportSettings
-            // 
-            this.btnSaveImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnSaveImportSettings.Enabled = false;
-            this.btnSaveImportSettings.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.upload;
-            this.btnSaveImportSettings.Label = "Eksporter oppsett for opplasting";
-            this.btnSaveImportSettings.Name = "btnSaveImportSettings";
-            this.btnSaveImportSettings.ShowImage = true;
-            // 
             // btnMergeSavedImportSettings
             // 
             this.btnMergeSavedImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -107,7 +100,27 @@
             this.btnMergeSavedImportSettings.Label = "Slå saman importinnstillingar";
             this.btnMergeSavedImportSettings.Name = "btnMergeSavedImportSettings";
             this.btnMergeSavedImportSettings.ShowImage = true;
+            this.btnMergeSavedImportSettings.Visible = false;
             this.btnMergeSavedImportSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnMergeSavedImportSettings_Click);
+            // 
+            // btnSaveImportSettings
+            // 
+            this.btnSaveImportSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnSaveImportSettings.Enabled = false;
+            this.btnSaveImportSettings.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.upload;
+            this.btnSaveImportSettings.Label = "Eksporter oppsett for opplasting";
+            this.btnSaveImportSettings.Name = "btnSaveImportSettings";
+            this.btnSaveImportSettings.ShowImage = true;
+            this.btnSaveImportSettings.Visible = false;
+            // 
+            // btnEditStatVar
+            // 
+            this.btnEditStatVar.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnEditStatVar.Image = global::Avinet.Adaptive.Statistics.ExcelAddIn.Properties.Resources.hierarchy;
+            this.btnEditStatVar.Label = "Legg til variablar";
+            this.btnEditStatVar.Name = "btnEditStatVar";
+            this.btnEditStatVar.ShowImage = true;
+            this.btnEditStatVar.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnEditStatVar_Click);
             // 
             // grpInfo
             // 
@@ -163,6 +176,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAbout;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnMergeSavedImportSettings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSaveImportSettings;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnEditStatVar;
     }
 
     partial class ThisRibbonCollection

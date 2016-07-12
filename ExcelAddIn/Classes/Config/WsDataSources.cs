@@ -11,9 +11,10 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     /// </summary>
     public static class WsDataSources
     {
-        public static ConfigList DownloadAdaptiveConfig(bool pRefresh = false)
+        [Obsolete("No longer downloading config from Adaptive")]
+        public static ConfigProvider DownloadAdaptiveConfig(bool pRefresh = false)
         {
-            ConfigList mRetVal;
+            ConfigProvider mRetVal;
 
             if (Util.CheckNullOrEmpty(Properties.Settings.Default.configJson) != null && Util.IsJsonString(Properties.Settings.Default.configJson) && pRefresh == false)
             {
