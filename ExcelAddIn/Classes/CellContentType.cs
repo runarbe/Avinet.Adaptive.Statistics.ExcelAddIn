@@ -29,7 +29,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             mList.Add(new ComboBoxItem("Krinsid", CellContentTypes.StatAreaIDs));
             mList.Add(new ComboBoxItem("Krinsnamn", CellContentTypes.StatAreaNames));
             mList.Add(new ComboBoxItem("Krinsid Krinsnamn", CellContentTypes.StatAreaIDsAndNames));
-            mList.Add(new ComboBoxItem("Region", CellContentTypes.StatAreaGroups));
+            mList.Add(new ComboBoxItem("Region/anna gruppering", CellContentTypes.StatAreaGroups));
             mList.Add(new ComboBoxItem("Datering", CellContentTypes.StatDatum));
             mList.Add(new ComboBoxItem("Ignorer", CellContentTypes.Ignore));
             mList.Sort();

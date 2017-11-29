@@ -29,7 +29,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 && e.RowIndex > -1
                 && dgvStatVarProperties.Columns[e.ColumnIndex].Name == "SelectedStatVar")
             {
-                var frm = new VariableListForm();
+                var frm = new StatVarSelectForm();
                 var tb = dgvStatVarProperties["Title", e.RowIndex] as DataGridViewTextBoxCell;
                 if (tb == null) return;
                 var cb = dgvStatVarProperties[e.ColumnIndex, e.RowIndex].AsComboBox();
@@ -98,8 +98,6 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Populate date format combobox for parsing of date-valuesList
 
             Util.SetComboBoxDS(cbStatDatumFormat, DateFormats.List);
-
-            ReloadStateComboBoxDataSource();
             
             // Populate and set default selection for CellContentTypes combos
             foreach (var mComboBox in CellContentTypeComboBoxes)

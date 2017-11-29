@@ -75,7 +75,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         }
 
         /// <summary>
-        /// Return a property value for a rowIndex,col pair
+        /// Return a property value for a rowIndex,srcCol pair
         /// </summary>
         /// <param title="pRow">Row statVarIndex</param>
         /// <param title="pCol">Column statVarIndex</param>

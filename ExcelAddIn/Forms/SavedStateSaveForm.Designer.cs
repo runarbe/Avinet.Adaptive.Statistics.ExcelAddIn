@@ -1,6 +1,6 @@
 ﻿namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 {
-    partial class SaveUploadFormStateForm
+    partial class SavedStateSaveForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,31 +36,32 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.lbExistingStates = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbSubCategory
             // 
+            this.cbSubCategory.Enabled = false;
             this.cbSubCategory.FormattingEnabled = true;
             this.cbSubCategory.Location = new System.Drawing.Point(134, 83);
             this.cbSubCategory.Name = "cbSubCategory";
-            this.cbSubCategory.Size = new System.Drawing.Size(162, 24);
+            this.cbSubCategory.Size = new System.Drawing.Size(333, 24);
             this.cbSubCategory.TabIndex = 2;
-            this.cbSubCategory.SelectedIndexChanged += new System.EventHandler(this.cbSubCategory_SelectedIndexChanged);
             // 
             // cbCategory
             // 
             this.cbCategory.FormattingEnabled = true;
             this.cbCategory.Location = new System.Drawing.Point(134, 53);
             this.cbCategory.Name = "cbCategory";
-            this.cbCategory.Size = new System.Drawing.Size(162, 24);
+            this.cbCategory.Size = new System.Drawing.Size(333, 24);
             this.cbCategory.TabIndex = 1;
-            this.cbCategory.SelectedIndexChanged += new System.EventHandler(this.cbCategory_SelectedIndexChanged);
             // 
             // tbTitle
             // 
             this.tbTitle.Location = new System.Drawing.Point(134, 25);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(162, 22);
+            this.tbTitle.Size = new System.Drawing.Size(333, 22);
             this.tbTitle.TabIndex = 0;
             this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
@@ -93,9 +94,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(140, 113);
+            this.btnCancel.Location = new System.Drawing.Point(305, 315);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 32);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Avbryt";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -104,28 +105,48 @@
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(221, 113);
+            this.btnSave.Location = new System.Drawing.Point(392, 315);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(75, 32);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Lagre";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // SaveUploadFormStateForm
+            // lbExistingStates
+            // 
+            this.lbExistingStates.FormattingEnabled = true;
+            this.lbExistingStates.ItemHeight = 16;
+            this.lbExistingStates.Location = new System.Drawing.Point(19, 146);
+            this.lbExistingStates.Name = "lbExistingStates";
+            this.lbExistingStates.Size = new System.Drawing.Size(448, 164);
+            this.lbExistingStates.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 126);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(141, 17);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Eksisterande oppsett";
+            // 
+            // SavedStateSaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(323, 154);
+            this.ClientSize = new System.Drawing.Size(479, 359);
+            this.Controls.Add(this.lbExistingStates);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblCategory);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblSubCategory);
             this.Controls.Add(this.tbTitle);
             this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.cbSubCategory);
-            this.Name = "SaveUploadFormStateForm";
+            this.Name = "SavedStateSaveForm";
             this.Text = "Lagre oppsett";
             this.Load += new System.EventHandler(this.SaveUploadFormStateForm_Load);
             this.ResumeLayout(false);
@@ -143,5 +164,7 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ListBox lbExistingStates;
+        private System.Windows.Forms.Label label1;
     }
 }

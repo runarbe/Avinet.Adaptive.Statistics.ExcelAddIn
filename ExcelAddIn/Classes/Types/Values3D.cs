@@ -25,7 +25,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this[pRowIndex][pFieldIndex] = pValue;
         }
 
-        public int? GetValueByFieldRow(int pFieldIndex, int pRowIndex)
+        public double? GetValueByFieldRow(int pFieldIndex, int pRowIndex)
         {
             if (!this.ContainsKey(pRowIndex))
             {

@@ -21,9 +21,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <param name="s"></param>
         public static void Write(string s)
         {
-            using (var f = File.AppendText(ThisAddIn.LogFile))
+            if (File.Exists(ThisAddIn.LogFile))
             {
-                f.WriteLine(s);
+                using (var f = File.AppendText(ThisAddIn.LogFile))
+                {
+                    f.WriteLine(s);
+                }
             }
         }
 

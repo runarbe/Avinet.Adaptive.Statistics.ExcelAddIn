@@ -73,6 +73,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap cloud_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("cloud_icon&24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap copy16 {
             get {
                 object obj = ResourceManager.GetObject("copy16", resourceCulture);
@@ -93,6 +103,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap export_bw {
+            get {
+                object obj = ResourceManager.GetObject("export_bw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap hierarchy {
             get {
                 object obj = ResourceManager.GetObject("hierarchy", resourceCulture);
@@ -106,6 +126,46 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         public static System.Drawing.Bitmap hierarchy1 {
             get {
                 object obj = ResourceManager.GetObject("hierarchy1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap import_bw {
+            get {
+                object obj = ResourceManager.GetObject("import_bw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap link {
+            get {
+                object obj = ResourceManager.GetObject("link", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap link2 {
+            get {
+                object obj = ResourceManager.GetObject("link2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap link3 {
+            get {
+                object obj = ResourceManager.GetObject("link3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,6 +236,26 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Properties {
         public static System.Drawing.Bitmap variable {
             get {
                 object obj = ResourceManager.GetObject("variable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap win_explorer {
+            get {
+                object obj = ResourceManager.GetObject("win-explorer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap win_explorer2 {
+            get {
+                object obj = ResourceManager.GetObject("win-explorer2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

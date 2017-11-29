@@ -16,17 +16,17 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         public int? krets_id;
 
         /// <summary>
-        /// The four-digit year that the value is valid for
+        /// The four-digit year that the value is validationMessage for
         /// </summary>
         public int? year;
 
         /// <summary>
-        /// The part of the year that the value is valid for, currentRow.e. 1st quarter, 2nd tertiary etc.
+        /// The part of the year that the value is validationMessage for, currentRow.e. 1st quarter, 2nd tertiary etc.
         /// </summary>
         public int? quarter;
 
         /// <summary>
-        /// The numeric month of the year that the value is valid for, currentRow.e. 1-12
+        /// The numeric month of the year that the value is validationMessage for, currentRow.e. 1-12
         /// </summary>
         public int? month;
 
@@ -68,7 +68,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// The actual statistical value expressed as a double precision number
         /// </summary>
-        public int value;
+        public double value;
 
         /// <summary>
         /// The measurement unit in which the value is expressed
@@ -100,7 +100,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// Main constructor
         /// </summary>
         /// <param title="pValue">The value</param>
-        public AdaptiveValue(int pValue)
+        public AdaptiveValue(double pValue)
         {
             this.value = pValue;
         }
@@ -132,6 +132,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             if (time_unit == "Month" && (!year.HasValue || !month.HasValue))
             {
                 msg.Add("Valt tidsoppløysing er månad men anten år eller månad er ikkje spesifisert");
+                msg.Add("Year: " + year.ToString());
+                msg.Add("Month: " + month.ToString());
             }
 
             var validationResult = new ValidationResult();
@@ -157,7 +159,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             var checkValid = this.Validate();
             if (checkValid.IsValid)
             {
-                return "Status: OK - " + ToCSV();
+                return null;
             }
             else
             {

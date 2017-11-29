@@ -5,13 +5,24 @@ using System.Text;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
 {
-    public class ComboBoxItem : IComparable
+    public class ComboBoxItem : IComparable, IEquatable<ComboBoxItem>
     {
         public string key { get; set; }
         public object value { get; set; }
 
         public ComboBoxItem()
         {
+        }
+
+        public override bool Equals(object obj)
+        {
+            ComboBoxItem otherCb = obj as ComboBoxItem;
+            return otherCb != null && key != otherCb.key;
+        }
+
+        public override int GetHashCode()
+        {
+            return key.GetHashCode();
         }
 
         public ComboBoxItem(string pKey, string pValue = null)
@@ -37,6 +48,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             return String.Compare(this.key, mComboBoxItem.key);
         }
 
+
+        bool IEquatable<ComboBoxItem>.Equals(ComboBoxItem other)
+        {
+            if (key == other.key)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            } 
+        }
     }
 
     public class ComboBoxItemComparer : IEqualityComparer<ComboBoxItem>

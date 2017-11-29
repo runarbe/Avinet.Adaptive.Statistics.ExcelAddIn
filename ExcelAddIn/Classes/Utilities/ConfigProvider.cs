@@ -10,7 +10,25 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     /// </summary>
     public static class ConfigProvider
     {
+
+        /// <summary>
+        /// The name of the http header that will contain the session id
+        /// </summary>
+        public static string httpHeaderSessionValue;
+
+        /// <summary>
+        /// The value of the http header that will contain the session id
+        /// </summary>
+        public static string httpHeaderSessionKey;
+
+        /// <summary>
+        /// An enumerable collection of kretstyper
+        /// </summary>
         public static IEnumerable<Kretstyper> kretstyper { get; set; }
+
+        /// <summary>
+        /// A dictionary of units
+        /// </summary>
         public static Dictionary<string, string> units { get; set; }
         public static Dictionary<string, string> timeUnits { get; set; }
         public static IEnumerable<Variable> variables { get; set; }
@@ -31,7 +49,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 && Properties.Settings.Default.adaptiveUser.IsNotNullOrEmpty()
                 && Properties.Settings.Default.adaptivePwd.IsNotNullOrEmpty())
             {
-                return true;
+                if (AdaptiveClient.DoAuth())
+                {
+                    MessageBox.Show("Konfigurasjonen var vellukka", "Suksess", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Kunne ikkje logge inn - sjekk at du har rett brukarnamn og passord samt at du er kopla til Internett", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
             }
             else
             {
@@ -142,6 +169,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 MessageBox.Show("Kunne ikkje laste kodelister, variablar eller laste lagra oppsett frå Adaptive. Sjekk tilkoplingsinnstillingar", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Dbg.WriteLine(ex.Message, ex);
             }
+
         }
 
 

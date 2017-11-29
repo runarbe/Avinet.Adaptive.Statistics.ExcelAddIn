@@ -21,7 +21,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             foreach (var mKey in this.Keys)
             {
-                mMessages.AppendFormat("{0} ({1} tilfelle)\n", mKey, this[mKey]); 
+                mMessages.AppendFormat("{0} ({1} tilfelle){2}", mKey, this[mKey], Environment.NewLine); 
             }
             return mMessages.ToString();
         }

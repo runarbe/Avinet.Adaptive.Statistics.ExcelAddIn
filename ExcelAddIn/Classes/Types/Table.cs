@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
@@ -22,15 +23,40 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 mDataTable.Columns.Add(new DataColumn("Kolonne " + i, typeof(string)));
             }
 
+            mDataTable.BeginLoadData();
             for (int mRowNum = 1, mNumRows = pSelection.Rows.Count; mRowNum <= mNumRows; mRowNum++)
             {
                 var mRow = mDataTable.NewRow();
-
                 for (int mColNum = 1, mNumCols = pSelection.Columns.Count; mColNum <= mNumCols; mColNum++)
                 {
-                    mRow[mColNum - 1] = Table.GetNullOrString(mSelection[mRowNum, mColNum]);
+                    mRow[mColNum - 1] = Table.GetStringOrEmptyStringIfNull(mSelection[mRowNum, mColNum]);
                 }
                 mDataTable.Rows.Add(mRow);
+            }
+            mDataTable.EndLoadData();
+
+            return mDataTable;
+        }
+
+        /// <summary>
+        /// Get a data table from an Excel range object
+        /// </summary>
+        /// <param title="pSelection">Excel range object</param>
+        /// <returns>A .NET DataTable</returns>
+        public static List<List<String>> GetDictionaryFromExcelRange(Range pSelection)
+        {
+            Object[,] mSelection = pSelection.Cells.Value;
+
+            var mDataTable = new List<List<string>>();
+
+            for (int mRowNum = 1, mNumRows = pSelection.Rows.Count; mRowNum <= mNumRows; mRowNum++)
+            {
+                var mRow = new List<string>();
+                for (int mColNum = 1, mNumCols = pSelection.Columns.Count; mColNum <= mNumCols; mColNum++)
+                {
+                    mRow.Add(Table.GetStringOrEmptyStringIfNull(mSelection[mRowNum, mColNum]));
+                }
+                mDataTable.Add(mRow);
             }
 
             return mDataTable;
@@ -58,16 +84,9 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// </summary>
         /// <param title="pObj">Any object</param>
         /// <returns>String if possible, otherwise null</returns>
-        public static string GetNullOrString(object pObj)
+        public static string GetStringOrEmptyStringIfNull(object pObj)
         {
-            if (pObj != null)
-            {
-                return pObj.ToString();
-            }
-            else
-            {
-                return "";
-            }
+            return pObj != null ? pObj.ToString() : "";
         }
 
         /// <summary>
@@ -77,6 +96,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <returns>A double as a stirng or the string "null"</returns>
         public static string GetNullOrDoubleString(object pVar)
         {
+
             double mDouble;
 
             if (pVar != null)
@@ -123,7 +143,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 var mStatProps = new StatProps(pDataOrientation);
                 for (int mRowNum = 1, mNumRows = mSelection.GetLength(0); mRowNum <= mNumRows; mRowNum++)
                 {
-                    mStatProps.AddValue(mRowNum, Table.GetNullOrString(mSelection[mRowNum, pColNum]));
+                    mStatProps.AddValue(mRowNum, Table.GetStringOrEmptyStringIfNull(mSelection[mRowNum, pColNum]));
                 }
                 return mStatProps;
             }
@@ -141,7 +161,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 var mStatProps = new StatProps(pDataOrientation);
                 for (int mColNum = 1, mNumCols = mSelection.GetLength(1); mColNum <= mNumCols; mColNum++)
                 {
-                    mStatProps.Add(mColNum, Table.GetNullOrString(mSelection[pRowNum, mColNum]));
+                    mStatProps.Add(mColNum, Table.GetStringOrEmptyStringIfNull(mSelection[pRowNum, mColNum]));
                 }
                 return mStatProps;
             }
@@ -165,29 +185,32 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             var mSelection = pSelection.Cells.Value;
 
             // Create valuesList object to hold valuesList
+            int mNumValues = 0;
+            int mNumNullValues = 0;
             var mData = new Values3D();
-
+            
             // For each rowIndex
-            for (int mR = mFirstDataRow; mR <= pSelection.Rows.Count; mR++)
+            for (int mR = mFirstDataRow, mNumRows = pSelection.Rows.Count; mR <= mNumRows; mR++)
             {
                 // For each columnIndex
-                for (int mC = mFirstDataCol; mC <= pSelection.Columns.Count; mC++)
+                for (int mC = mFirstDataCol, mNumColumns = pSelection.Columns.Count; mC <= mNumColumns; mC++)
                 {
                     AdaptiveValue adaptiveValue;
 
                     // Get the value (as a double)
                     string mValueString = Table.GetNullOrDoubleString(mSelection[mR, mC]);
-                    int? mValue = mValueString.AsNullableInt();
+                    double? mValue = mValueString.AsNullableDouble();
 
-                    //Exclude null values from being stored
+                    //Exclude null rows from being stored
                     if (mValue == null)
                     {
                         mData.AddByKey(null, mR, mC);
+                        mNumNullValues++;
                         continue;
                     }
                     else
                     {
-                        adaptiveValue = new AdaptiveValue((int)mValue);
+                        adaptiveValue = new AdaptiveValue((double)mValue);
 
                         // Get manual settings for statistical variable
                         var statVarProps = StatVarProperties.Get(pFrm.dgvStatVarProperties, mR, mC, pFrm.StatVarProperties.DataOrientation);
@@ -221,6 +244,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         // Add date, if available
                         if (pFrm.StatDatumProperties != null)
                         {
+                            Debug.WriteLine((string)pFrm.cbStatDatumFormat.SelectedValue);
+
                             // Add logic to parse the date value into its individual parts here
                             var mStatDatum = new StatDateParser((string)pFrm.StatDatumProperties.GetValue(mR, mC), (string)pFrm.cbStatDatumFormat.SelectedValue);
 
@@ -287,12 +312,26 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         }
 
                         mData.AddByKey(adaptiveValue, mR, mC);
+                        mNumValues++;
                     }
+                }
+                if (mR % 100 == 0 || mR == mNumRows)
+                {
+                    pFrm.Log(String.Format("Handsama {0} rader på {1} ms", mR, mTimer.ElapsedMilliseconds), false, true);
                 }
             }
             mTimer.Stop();
-            pFrm.Log(mMessages.GetMessages());
-            pFrm.Log(String.Format("Ferdig på {0} ms", mTimer.ElapsedMilliseconds));
+
+            pFrm.Log(String.Format("Det er {0} null-verdiar i datasettet", mNumNullValues), false, true);
+            pFrm.Log(String.Format("Det er {0} verdiar i datasettet", mNumValues), false, true);
+
+            var processingMessages = mMessages.GetMessages();
+            if (!String.IsNullOrEmpty(processingMessages))
+            {
+                pFrm.Log(mMessages.GetMessages());
+            }
+
+            pFrm.Log(String.Format("Operasjonen ferdig på {0} ms", mTimer.ElapsedMilliseconds));
 
             return mData;
         }

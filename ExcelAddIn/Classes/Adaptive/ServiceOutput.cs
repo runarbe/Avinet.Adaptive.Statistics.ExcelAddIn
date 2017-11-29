@@ -16,6 +16,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             public bool success { get; set; }
             public AdaptiveException exception { get; set; }
             public AdaptiveException[] exceptions { get; set; }
+            public List<object> data { get; set; }
 
             public string GetMessage()
             {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
@@ -21,15 +23,39 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 && Uri.IsWellFormedUriString(this.tbAdaptiveURI.Text, UriKind.Absolute)
                 && tbAdaptiveURI.Text.CheckIfUrlExists())
             {
+
                 Properties.Settings.Default.adaptiveUri = this.tbAdaptiveURI.Text;
                 Properties.Settings.Default.adaptiveUser = this.tbAdaptiveUser.Text;
                 Properties.Settings.Default.adaptivePwd = this.tbAdaptivePwd.Text;
                 Properties.Settings.Default.Save();
+
+                if (!ConfigProvider.IsConfigured())
+                {
+                    DialogBoxes.Error("Gjeldande verdiar gjer det ikkje mogleg å kople til ein Adaptive server, sjekk at verdiane og prøv på nytt");
+                    this.Close();
+                }
+
+                try
+                {
+                    var serverConfig = new ServerConfig();
+                    serverConfig.url = this.tbAdaptiveURI.Text;
+                    serverConfig.username = this.tbAdaptiveUser.Text;
+                    serverConfig.password = this.tbAdaptivePwd.Text;
+                    var serverConfigFileContent = JsonConvert.SerializeObject(serverConfig);
+                    if (File.Exists(ThisAddIn.ServerConfigFilename)) {
+                        File.Delete(ThisAddIn.ServerConfigFilename);
+                    }
+                    File.WriteAllText(ThisAddIn.ServerConfigFilename, serverConfigFileContent);
+                }
+                catch (Exception ex)
+                {
+                    DialogBoxes.Error("Det oppstod ein feil ved lagring av serverkonfigurasjonen: " + ex.Message);
+                }
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Kunne ikkje kople til spesifisert URL", "Feil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogBoxes.Error("Kunne ikkje kople til spesifisert URL");
             }
         }
 

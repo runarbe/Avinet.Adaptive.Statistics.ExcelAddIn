@@ -1,6 +1,6 @@
 ﻿namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 {
-    partial class NewVariable
+    partial class StatVarNewForm
     {
         /// <summary>
         /// Required designer variable.

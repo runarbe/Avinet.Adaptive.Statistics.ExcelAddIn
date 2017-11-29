@@ -8,10 +8,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
     public class StatVarPropertiesState
     {
         public string TitleText;
-        public NamedVariable SelectedStatVar;
+        public Variable SelectedStatVar;
         public string TimeUnitText;
+        public string YearText;
         public string QuarterText;
-        public string MonthTexts;
+        public string MonthText;
         public string UnitText;
         public string KretstypeText;
     }

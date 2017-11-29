@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 {
-    public partial class NewVariable : Form
+    public partial class StatVarNewForm : Form
     {
         public Variable ParentVariable;
         public Variable Variable;
 
-        public NewVariable()
+        public StatVarNewForm()
         {
             InitializeComponent();
         }
@@ -25,7 +25,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         /// <returns></returns>
         public static Variable NewVariablePopup(Variable parentVariable = null, string variableName = "")
         {
-            var frm = new NewVariable();
+            var frm = new StatVarNewForm();
             if (parentVariable != null)
             {
                 frm.ParentVariable = parentVariable;
@@ -56,10 +56,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
             varDef.SetNameAtLevel(varDef.level, tbVarName.Text);
 
             var request = new AddVariableRequest();
-            request.data = varDef;
-            request.data.parent_id = ParentVariable.id;
+            request.variable = varDef;
+            request.variable.parent_id = ParentVariable.id;
 
             var res = AdaptiveClient.AddVariable(request);
+
+            if (res == null)
+            {
+                return;
+            }
 
             if (res.d.success == true)
             {

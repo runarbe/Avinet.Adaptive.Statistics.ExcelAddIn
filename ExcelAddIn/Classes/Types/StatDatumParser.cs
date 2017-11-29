@@ -19,6 +19,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
 
             CultureInfo provider = CultureInfo.InvariantCulture;
+            
             var mDateTime = new DateTime();
             
             if (!pStringFormat.Contains("k") && DateTime.TryParseExact(pString, pStringFormat, provider, DateTimeStyles.None, out mDateTime))
@@ -52,6 +53,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
             else
             {
+                Debug.WriteLine("Unable to parse " + pString + " with the format " + pStringFormat);
+                try
+                {
+                    DateTime.ParseExact(pString, pStringFormat, provider);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+
                 // Handle exceptions in date format
             }
         }

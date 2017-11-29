@@ -37,6 +37,19 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
         }
 
+        public static double? AsNullableDouble(this String s, double? defaultValue = null)
+        {
+            double d;
+            if (double.TryParse(s, out d))
+            {
+                return d;
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+
         /// <summary>
         /// Return null if string is '' or null
         /// </summary>
@@ -102,16 +115,18 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             if (!url.IsWellFormedAbsoluteUrl()) {
                 return false;
             }
+            HttpWebRequest request;
 
             try
             {
-                HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
-                request.Timeout = 5000; //set the timeout to 5 seconds to keep the user from waiting too long for the page to load
+                request = HttpWebRequest.Create(url) as HttpWebRequest;
+                request.Timeout = 5000; //set the timeout to 5 seconds to keep the emailAddress from waiting too long for the page to load
                 request.Method = "HEAD"; //Get only the header information -- no need to download any content
 
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
                 int statusCode = (int)response.StatusCode;
+                response.Close();
                 if (statusCode >= 100 && statusCode < 400) //Good requests
                 {
                     return true;

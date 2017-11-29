@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 {
-    public partial class VariableListForm : Form
+    public partial class StatVarSelectForm : Form
     {
         public DataGridViewComboBoxCell ParentStatVarCell = null;
 
@@ -21,7 +21,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
 
         public Variable SelectedVariable = null;
 
-        public VariableListForm()
+        public StatVarSelectForm()
         {
             InitializeComponent();
         }
@@ -228,7 +228,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn.Forms
         {
             var selectedText = lbVariables.Text;
             this.TopMost = false;
-            var newVariable = NewVariable.NewVariablePopup(this.SelectedVariable, Query);
+            var newVariable = StatVarNewForm.NewVariablePopup(this.SelectedVariable, Query);
+            if (newVariable != null)
+            {
+                ConfigProvider.ReloadVariables();
+            }
             this.TopMost = true;
             this.SetQuery(Query);
             SetSelectedStatVarText(selectedText);

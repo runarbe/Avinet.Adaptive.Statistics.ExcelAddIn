@@ -169,6 +169,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             }
             catch (Exception ex)
             {
+                Dbg.WriteLine("Unable to set ComboBox data source");
                 Dbg.WriteLine(ex.Message);
             }
         }

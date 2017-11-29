@@ -2,7 +2,10 @@
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Avinet.Adaptive.Statistics.ExcelAddIn
@@ -60,6 +63,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// </summary>
         public List<ComboBox> CellContentTypeComboBoxes = new List<ComboBox>();
 
+        private String currentSavedStateName = "Nytt opplastingsoppsett";
+
+        private String currentSavedStateCategory = "";
+
+        private String currentSavedStateSubCategory = "";
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -102,8 +111,21 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Set default state of CellContentTypes combos
             SetCellContentTypeComboBoxEnabledState();
 
+            var mTime = DateTime.Now;
+
+            Debug.WriteLine(mTime);
+
+            dgvPreviewSelection.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgvPreviewSelection.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
             // Set valuesList source of Preview DataGridView
             dgvPreviewSelection.DataSource = Table.GetTableFromExcelRange(this.SelectedRange);
+
+            dgvPreviewSelection.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dgvPreviewSelection.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            Debug.WriteLine("Time elapsed");
+            Debug.WriteLine(DateTime.Now - mTime);
             dgvPreviewSelection.Refresh();
 
         }
@@ -169,25 +191,16 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         {
             if (pMsg == null) return;
 
-            var mList = tbLog.Lines.ToList<string>();
             if (pClear)
             {
-                mList.Clear();
-            }
-
-            mList.Add(pMsg.ToString());
-            if (tbLog.Lines.Length > this.NumberOfLinesInLog)
-            {
-                mList.RemoveRange(0, (mList.Count - this.NumberOfLinesInLog));
+                tbLog.Clear();
             }
 
             // Assign lines to textbox
-            tbLog.Lines = mList.ToArray<string>();
+            tbLog.AppendText(pMsg.ToString() + Environment.NewLine);
 
-            // Scroll to bottom
-            this.tbLog.SelectionStart = tbLog.Text.Length;
-            this.tbLog.ScrollToCaret();
             if (pDoEvents) System.Windows.Forms.Application.DoEvents();
+
         }
 
         /// <summary>
@@ -291,10 +304,11 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnTestParsing_Click(object sender, EventArgs e)
         {
-            this.ParseSelectionWithCurrentSettings();
-
             // Syn loggfliken
-            this.tabControl.SelectedTab = tabPageLogOutput;
+            this.tabControl.SelectedTab = tpLogOutput;
+            System.Windows.Forms.Application.DoEvents();
+
+            this.ParseSelectionWithCurrentSettings();
 
             // Test om det er fyllt in eigenskapar for statistikkvariablar
             if (this.StatVarProperties == null)
@@ -302,7 +316,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 this.Log("Du må fyrst velje ei rad eller kolonne som inneheld statistikkvariablar");
                 return;
             }
-            this.Log("Startar test", true);
+
+            this.Log("Testar verdiar", false);
+
+            int numIterations = 0;
+            int numErrors = 0;
+
             foreach (var i in this.ParsedData.Keys)
             {
                 foreach (var j in this.ParsedData[i].Keys)
@@ -310,11 +329,29 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                     var adaptiveValue = this.ParsedData[i][j];
                     if (adaptiveValue != null)
                     {
-                        this.Log(adaptiveValue.LogValidate());
+                        var validationMessage = adaptiveValue.LogValidate();
+                        if (validationMessage != null)
+                        {
+                            this.Log(validationMessage);
+                            numErrors++;
+                        }
                     }
+                    else
+                    {
+                        this.Log("Merk: kolonne " + i.ToString() + " rad " + j.ToString() + " inneheld ingen verdi");
+                    }
+
+                    numIterations++;
+
+                    if (numErrors > 100)
+                    {
+                        this.Log("Fann 100 eller fleire feil, avbryt test.");
+                        break;
+                    }
+
                 }
             }
-            this.Log("Ferdig med test");
+            this.Log("Ferdig med test: handsama " + numIterations.ToString() + " verdiar");
         }
 
         public void OnCellContenTypeComboBoxChangeCommit(ComboBox pChangedComboBox, DataOrientation pDataOrientation, int pIndex)
@@ -323,13 +360,13 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             // Get the new value of the changed CB
             var mNewCellContentType = Util.GetComboBoxSelectedValueString(pChangedComboBox);
 
-            // Create a list to store all currently selected CB values
+            // Create a list to store all currently selected CB rows
             var mAssignedCellContentTypes = new List<string>();
 
-            // For each of the comboboxes that may contain values
+            // For each of the comboboxes that may contain rows
             foreach (ComboBox mComboBox in this.CellContentTypeComboBoxes)
             {
-                // Get the current contents of col/rowIndex
+                // Get the current contents of srcCol/rowIndex
                 var mCellContentType = Util.GetComboBoxSelectedValueString(mComboBox);
 
                 // For all but the current control
@@ -354,6 +391,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
             // Based on the new value of the changed CB, do something
             SetStatVarProperties(mNewCellContentType, pIndex, pDataOrientation);
+
+            if (mAssignedCellContentTypes.Contains(CellContentTypes.StatAreaGroups))
+            {
+                grpGroupingSettings.Enabled = false;
+            }
+            else
+            {
+                grpGroupingSettings.Enabled = true;
+            }
 
             // Set conditional visibility of manual statdatum settings
             if (mAssignedCellContentTypes.Contains(CellContentTypes.StatDatum) && mAssignedCellContentTypes.Contains(CellContentTypes.StatVars))
@@ -430,7 +476,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
                 // Parse with current settings
                 // TODO: Verify if this causes multiple reloads
-                this.ParseSelectionWithCurrentSettings();
+                //this.ParseSelectionWithCurrentSettings();
 
             }
 
@@ -531,10 +577,12 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         /// <summary>
         /// Parse the selection with the current settings
         /// </summary>
-        public void ParseSelectionWithCurrentSettings()
+        public bool ParseSelectionWithCurrentSettings()
         {
             if (this.StatVarProperties != null)
             {
+                disableAutoSize();
+
                 int mFirstDataCol = 1, mFirstDataRow = 1;
 
                 this.GetRowColOffset(
@@ -546,10 +594,15 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                         this,
                         mFirstDataRow,
                         mFirstDataCol);
+
+                enableAutoSize();
+
+                return true;
             }
             else
             {
                 this.Log("Du må fyrst velje ei rad eller kolonne som inneheld namn på statistikkvariablar");
+                return false;
             }
         }
 
@@ -615,6 +668,7 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnCopyFirstMeasurementUnitToAll_Click(object sender, EventArgs e)
         {
+            disableAutoSize();
             int i = 1;
             DataGridViewComboBoxCell firstCell = null;
             foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
@@ -632,7 +686,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 i++;
             }
 
-            this.ParseSelectionWithCurrentSettings();
+            //this.ParseSelectionWithCurrentSettings();
+            enableAutoSize();
 
         }
 
@@ -648,8 +703,22 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
             this.ParseSelectionWithCurrentSettings();
         }
 
+        private void disableAutoSize()
+        {
+            dgvStatVarProperties.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            dgvStatVarProperties.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+        }
+
+        private void enableAutoSize()
+        {
+            dgvStatVarProperties.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dgvStatVarProperties.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+        }
+
         private void btnCopyStatVarAll_Click(object sender, EventArgs e)
         {
+            disableAutoSize();
+
             int i = 1;
 
             DataGridViewComboBoxCell firstVariable = null;
@@ -681,56 +750,146 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 i++;
             }
 
-            this.ParseSelectionWithCurrentSettings();
+            //this.ParseSelectionWithCurrentSettings();
 
+            enableAutoSize();
         }
 
         private void btnUploadToAdaptive_Click(object sender, EventArgs e)
         {
-            var mConfirm = MessageBox.Show("Vil du laste opp tabellen til Adaptive med gjeldande innstillingar?", "Åtvaring", MessageBoxButtons.YesNo);
-            if (mConfirm == DialogResult.No) return;
-            this.ParseSelectionWithCurrentSettings();
-
             // Syn loggfliken
-            this.tabControl.SelectedTab = tabPageLogOutput;
+            this.tabControl.SelectedTab = tpLogOutput;
 
-            // Test om det er fyllt in eigenskapar for statistikkvariablar
-            if (this.StatVarProperties == null)
+            if (this.ParseSelectionWithCurrentSettings())
             {
-                this.Log("Du må fyrst velje ei rad eller kolonne som inneheld statistikkvariablar");
-                return;
-            }
-
-            var data = this.ParsedData.AsAdaptiveValuesList();
-
-            if (data != null)
-            {
-                var output = AdaptiveClient.AddData(data);
-                if (output.d.success == true)
+                var data = this.ParsedData.AsAdaptiveValuesList();
+                var timer = new Stopwatch();
+                if (data != null)
                 {
-                    this.Log("Opplasting vellukka");
+                    this.Log("Datasettet inneheld " + data.Count + " gyldige verdiar som vil bli lasta opp...");
+
+                    var mConfirm = MessageBox.Show("Vil du laste opp " + data.Count + " verdiar til Adaptive?", "Åtvaring", MessageBoxButtons.YesNo);
+
+                    if (mConfirm == DialogResult.No)
+                    {
+                        this.Log("Operasjonen avbroten");
+                        return;
+                    }
+                    try
+                    {
+                        var frmProgress = new WorkingForm();
+
+                        var bw = new BackgroundWorker();
+
+                        bw.WorkerReportsProgress = true;
+
+                        int numVariablesToUpload = data.Count;
+                        int chunkSize = 50;
+
+                        bw.DoWork += new DoWorkEventHandler(delegate(object o, DoWorkEventArgs args)
+                        {
+                            BackgroundWorker b = o as BackgroundWorker;
+
+                            b.ReportProgress(0);
+
+                            var numChunks = numVariablesToUpload / chunkSize;
+
+                            for (int c = 0; c <= numChunks; c++)
+                            {
+                                var start = c * chunkSize;
+                                var end = (numVariablesToUpload - start) >= chunkSize ? chunkSize : numVariablesToUpload - start;
+
+                                var dataChunk = data.GetRange(start, end);
+
+                                Dbg.WriteLine("Number of items in chunk: ", dataChunk.Count);
+                                Dbg.WriteLine("First item, kretsid: ", dataChunk[0].krets_id);
+                                Dbg.WriteLine("First item, value: ", dataChunk[0].value);
+                                Dbg.WriteLine("Last item, kretsid: ", dataChunk[dataChunk.Count - 1].krets_id);
+                                Dbg.WriteLine("Last item, value: ", dataChunk[dataChunk.Count - 1].value);
+
+                                var output = AdaptiveClient.AddData(dataChunk);
+
+                                if (output.d.success != true)
+                                {
+                                    Dbg.WriteLine("Could not upload data");
+                                    Dbg.WriteLine("- The following is a serialization of the response data");
+                                    Dbg.WriteJson(output);
+                                    Dbg.WriteLine("- The following is a serialization of the request data");
+                                    Dbg.WriteJson(data);
+                                    b.ReportProgress(0);
+                                    break;
+                                }
+
+
+                                int progressPercentage = (int)(((double)(start + end) / (double)numVariablesToUpload) * 100);
+                                b.ReportProgress(progressPercentage);
+                            }
+
+                        });
+                        int previousProgress = 0;
+
+                        bw.ProgressChanged += new ProgressChangedEventHandler(delegate(object o, ProgressChangedEventArgs args)
+                        {
+                            var numVariablesUploaded = (int)(((double)args.ProgressPercentage / 100) * numVariablesToUpload);
+                            TimeSpan remainingTime = new TimeSpan();
+
+                            if (numVariablesUploaded > 0)
+                            {
+                                var timePerVariable = timer.ElapsedMilliseconds / numVariablesUploaded;
+                                var remainingVariables = numVariablesToUpload - numVariablesUploaded;
+                                remainingTime = new TimeSpan(0, 0, 0, 0, (int)(timePerVariable * remainingVariables));
+                            }
+
+                            if (previousProgress != args.ProgressPercentage)
+                            {
+                                this.Log("Opplasting pågår... " + args.ProgressPercentage + "% (~" + numVariablesUploaded + " variablar) på " + timer.Elapsed.ToString(@"hh\:mm\:ss") + ", ~" + remainingTime.ToString(@"hh\:mm\:ss") + " gjenstår");
+                            }
+                            this.lblStatus.Text = String.Format("Lastar opp data... {0,6}/{1}", numVariablesUploaded, numVariablesToUpload);
+
+                            previousProgress = args.ProgressPercentage;
+
+                        });
+
+                        bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
+                        {
+                            this.btnUpload.Enabled = true;
+                            timer.Stop();
+                            this.Log("Opplastingsoperasjonen ferdig på " + timer.Elapsed.ToString(@"hh\:mm\:ss"));
+                            this.lblStatus.Text = "Klar...";
+                        });
+
+                        this.lblStatus.Text = "Lastar opp data...";
+                        this.btnUpload.Enabled = false;
+                        timer.Start();
+                        bw.RunWorkerAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Dbg.WriteLine(ex.Message);
+                        this.Log("Opplasting misslukka: Feil under server prosessering, for detaljar sjå loggfila. (" + ThisAddIn.LogFile + ")");
+                    }
                 }
                 else
                 {
-                    this.Log("Feil ved opplasting");
+                    this.Log("Opplasting misslukka: Det er feil i dei gjeldande innstillingane. Trykk 'Prøv innstillingar' for å finne ut kva som kan vere gale.");
                 }
             }
             else
             {
-                this.Log("Det er feil rowIndex dei gjeldande innstillingane. Trykk 'Prøv innstillingar' for å finne ut kva som kan vere gale.");
+                this.Log("Opplasting misslukka");
             }
-            this.Log("Ferdig");
-
         }
 
         private void btnAddEditVariables_Click(object sender, EventArgs e)
         {
-            var frm = new StatVarForm();
+            var frm = new StatVarTreeForm();
             frm.ShowDialog();
         }
 
         private void btnCopyFirstKretstypeToAll_Click(object sender, EventArgs e)
         {
+            disableAutoSize();
+
             int i = 1;
             DataGridViewComboBoxCell firstMeasurementUnitCell = null;
             foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
@@ -748,11 +907,14 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 i++;
             }
 
-            this.ParseSelectionWithCurrentSettings();
+            //this.ParseSelectionWithCurrentSettings();
+            enableAutoSize();
         }
 
         private void btnCopyFirstTimeResolutionToAll_Click(object sender, EventArgs e)
         {
+            disableAutoSize();
+
             int i = 1;
             DataGridViewComboBoxCell firstMeasurementUnitCell = null;
             foreach (DataGridViewRow currentRow in dgvStatVarProperties.Rows)
@@ -770,7 +932,8 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
                 i++;
             }
 
-            this.ParseSelectionWithCurrentSettings();
+            //this.ParseSelectionWithCurrentSettings();
+            enableAutoSize();
         }
 
         private void cbStatDatumQuarter_SelectedIndexChanged(object sender, EventArgs e)
@@ -780,33 +943,44 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
 
         private void btnRetrieveOriginalData_Click(object sender, EventArgs e)
         {
-            var formState = cbSelectSavedFormState.SelectedItem as UploadFormState;
-            if (formState == null) return;
-            formState.RestoreSourceData();
+            var frm = new SavedStateSelectForm();
+            tabControl.SelectedTab = tpLogOutput;
+
+            if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var s = frm.SelectedState.RestoreSourceData();
+                if (s != null)
+                {
+                    if (MessageBox.Show(this,
+                        "Henta kjeldedata og la til nytt ark med namnet '" + s.Name + "' i arbeidsboka, trykk 'Yes' eller 'Ja' for å stengje opplastingsvindauget og sjå dataene",
+                        "Operasjonen lukkast",
+                        MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show(this, "Kunne ikkje gjenopprette kjeldedataene", "Operasjonen lukkast ikkje", MessageBoxButtons.OK);
+                }
+            }
+
         }
 
         private void btnSaveFormState_Click(object sender, EventArgs e)
         {
             var state = UploadFormState.GetCurrentState(this);
-            state = SaveUploadFormStateForm.GetNameAndCategory(state, cbSelectSavedFormState.Text);
+
+            state = SavedStateSaveForm.GetNameAndCategory(state, currentSavedStateName);
             if (state != null)
             {
                 UploadFormState.SaveState(state);
-                ReloadStateComboBoxDataSource(true);
-            }
-        }
-
-        private void ReloadStateComboBoxDataSource(bool refresh = false)
-        {
-            if (refresh)
-            {
-                UploadFormState.LoadSavedStates();
+                currentSavedStateName = state.StateName;
+                currentSavedStateCategory = state.Category;
+                currentSavedStateSubCategory = state.SubCategory;
             }
 
-            // Populate selected form state combobox
-            cbSelectSavedFormState.ComboBox.DataSource = ConfigProvider.savedUploadFormStates.ToList();
-            cbSelectSavedFormState.ComboBox.DisplayMember = "Name";
-            cbSelectSavedFormState.ComboBox.ValueMember = "State";
         }
 
         private void importerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -817,6 +991,150 @@ namespace Avinet.Adaptive.Statistics.ExcelAddIn
         private void eksporterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UploadFormState.ExportToFile();
+        }
+
+        private void cbSelectSavedFormState_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSelectRestoreFormState_Click(object sender, EventArgs e)
+        {
+            var frm = new SavedStateSelectForm();
+
+            tabControl.SelectedTab = tpStatisticsVariables;
+
+            if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var s = frm.SelectedState;
+
+                this.cbColCType1.Text = s.CbColCType1Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbColCType1, DataOrientation.InColumns, 1);
+
+                this.cbColCType2.Text = s.CbColCType2Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbColCType2, DataOrientation.InColumns, 2);
+
+                this.cbColCType3.Text = s.CbColCType3Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbColCType3, DataOrientation.InColumns, 3);
+
+                this.cbColCType4.Text = s.CbColCType4Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbColCType4, DataOrientation.InColumns, 4);
+
+                this.cbRowCType1.Text = s.CbRowCType1Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbRowCType1, DataOrientation.InRows, 1);
+
+                this.cbRowCType2.Text = s.CbRowCType2Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbRowCType2, DataOrientation.InRows, 2);
+
+                this.cbRowCType3.Text = s.CbRowCType3Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbRowCType3, DataOrientation.InRows, 3);
+
+                this.cbRowCType4.Text = s.CbRowCType4Text;
+                OnCellContenTypeComboBoxChangeCommit(this.cbRowCType4, DataOrientation.InRows, 4);
+
+                this.cbStatDatumFormat.Text = s.CbStatDatumFormatText;
+                this.tbStatDatumYear.Text = s.TbStatDatumYearText;
+                this.cbStatDatumQuarter.Text = s.CbStatDatumQuarterText;
+                this.tbStatDatumMonth.Text = s.TbStatDatumMonthText;
+
+                this.cbStatUnitType.Text = s.CbStatUnitTypeText;
+
+                this.tbStatUnitID.Text = s.TbStatUnitIdText;
+                this.tbStatUnitName.Text = s.TbStatUnitNameText;
+                this.tbStatUnitGroup.Text = s.TbStatUnitGroupText;
+
+
+                // Restore statistical variable properties
+                if (this.dgvStatVarProperties.Rows.Count < 1)
+                {
+                    Log("Dei gjeldande innstillingane definerar ikkje statistikkvariablar");
+                }
+                else
+                {
+
+                    for (var i = 0; i < this.dgvStatVarProperties.Rows.Count; i++)
+                    {
+                        if (s.DgvStatVarPropertiesState.Count >= (i + 1))
+                        {
+                            var savedRow = s.DgvStatVarPropertiesState[i];
+                            var dgvRow = this.dgvStatVarProperties.Rows[i];
+
+                            dgvRow.Cells["Title"].Value = savedRow.TitleText;
+
+
+                            if (savedRow.SelectedStatVar != null)
+                            {
+                                var ds = new List<NamedVariable>();
+                                ds.Add(new NamedVariable()
+                                {
+                                    Key = savedRow.SelectedStatVar.GetHierarhicalName(),
+                                    Value = savedRow.SelectedStatVar
+                                });
+                                var cbCell = dgvRow.Cells["SelectedStatVar"].AsComboBox();
+                                cbCell.DataSource = ds;
+                                cbCell.DisplayMember = "Key";
+                                cbCell.ValueMember = "Value";
+                                cbCell.Selected = true;
+                                cbCell.Value = savedRow.SelectedStatVar;
+                            }
+
+                            dgvRow.Cells["TimeUnit"].Value = savedRow.TimeUnitText;
+                            dgvRow.Cells["Year"].Value = savedRow.YearText;
+                            dgvRow.Cells["Quarter"].Value = savedRow.QuarterText;
+                            dgvRow.Cells["Month"].Value = savedRow.MonthText;
+                            dgvRow.Cells["Unit"].Value = savedRow.UnitText;
+                            dgvRow.Cells["Kretstype"].Value = savedRow.KretstypeText;
+                        }
+                        else
+                        {
+                            Log("Merknad: oppsettet inneheld ikkje like mange statistikkvariablar som gjeldande datasett");
+                        }
+                    }
+                }
+
+                currentSavedStateName = s.StateName;
+                currentSavedStateCategory = s.Category;
+                currentSavedStateSubCategory = s.SubCategory;
+
+            }
+            return;
+
+        }
+
+        private void btnAutoVariable_Click(object sender, EventArgs e)
+        {
+            for (var i = 0; i < dgvStatVarProperties.Rows.Count; i++)
+            {
+                var currentRow = dgvStatVarProperties.Rows[i];
+                var currentVarNameFromSheet = currentRow.Cells["Title"].Value.ToString();
+                List<Variable> matchVars = ConfigProvider.variables.Where(d => d.title == currentVarNameFromSheet).ToList<Variable>();
+                if (matchVars.Count > 0)
+                {
+                    var matchVar = matchVars[0];
+
+                    var ds = new List<NamedVariable>();
+                    ds.Add(new NamedVariable()
+                    {
+                        Key = matchVar.GetHierarhicalName(),
+                        Value = matchVar
+                    });
+                    var cbCell = currentRow.Cells["SelectedStatVar"].AsComboBox();
+                    cbCell.DataSource = ds;
+                    cbCell.DisplayMember = "Key";
+                    cbCell.ValueMember = "Value";
+                    cbCell.Selected = true;
+                    cbCell.Value = matchVar;
+
+                }
+
+
+            }
+
+        }
+
+        private void dgvStatVarProperties_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
     }
